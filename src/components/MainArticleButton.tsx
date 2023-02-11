@@ -1,14 +1,11 @@
 import styled from 'styled-components'
-import { ITopArticle } from '../models';
+import { IArticle } from '../models';
 
 
 const MainArticleButtonDiv = styled.div`
 box-sizing: border-box;
-margin-left: 15px;
 margin-bottom: 25px;
-padding-top: 14px;
-padding-left: 15px;
-padding-bottom: 22px;
+padding: 15px;
 padding-right: 40px;
 width: 385px;
 border-radius: 15px;

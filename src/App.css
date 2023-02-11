@@ -1,4 +1,4 @@
-.QASystemFrame {
+/* .QASystemFrame {
   width: 420px;
   height: 672px;
   box-shadow: 1px 1px 3px 3px lightgrey;
@@ -12,13 +12,14 @@
   justify-content: end;
   align-items: end;
   height: 97vh;
-}
+} */
 
 
 /* default classes */
 .App {
+  margin: 0;
   /* text-align: center; */
-  font-family: 'Montserrat';
+  /* font-family: 'Montserrat'; */
 }
 
 .App-logo {
