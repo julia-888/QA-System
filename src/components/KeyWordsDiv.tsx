@@ -9,19 +9,27 @@ background-color: rgba(118, 142, 183, 0.3);
 border-radius: 13px;
 padding: 15px;
 font-size: 19px;
-font-weight: 500;
+font-weight: Medium;
+`
 
+const SearchDivButton = styled.button`
+font-size: 19px;
+font-weight: Medium;
+background: rgba(0,0,0,0);
+font-family: 'Montserrat';
+padding:0;
+border: 0;
 `
 
 export default function KeyWordsDiv() {
     return (
         <SearchDiv>
-            <button onClick={
+            <SearchDivButton onClick={
                 () => {}
             }>
                 
                 Искать по словам
-            </button>
+            </SearchDivButton>
         </SearchDiv>
     );
 }

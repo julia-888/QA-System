@@ -17,13 +17,13 @@ color: white;
 white-space: pre-wrap;
 word-break: normal;
 font-size: 19px;
-font-weight: 700;
+font-weight: SemiBold;
 `
 
 const MainArticleButtonDivPar = styled.p`
 color: white;
 font-size: 17px;
-font-weight: 500;
+font-weight: Regular;
 hyphens: auto;
 
 display: -webkit-box;
