@@ -1,19 +1,23 @@
 import styled from "styled-components";
-
+import { adpt } from "../adaptive";
 
 const SearchDiv = styled.div`
 box-sizing: border-box;
+display: flex;
+justify-content: space-between;
+
 align-self: center;
-width: 369px;
+width: ${adpt(369)}px;
 background-color: rgba(118, 142, 183, 0.3);
-border-radius: 13px;
-padding: 15px;
-font-size: 19px;
+border-radius: ${adpt(13)}px;
+padding: ${adpt(15)}px;
+font-size: ${adpt(19)}px;
 font-weight: Medium;
+margin-top: ${adpt(20)}px;
 `
 
 const SearchDivButton = styled.button`
-font-size: 19px;
+font-size: ${adpt(19)}px;
 font-weight: Medium;
 background: rgba(0,0,0,0);
 font-family: 'Montserrat';
@@ -26,10 +30,8 @@ export default function KeyWordsDiv() {
         <SearchDiv>
             <SearchDivButton onClick={
                 () => {}
-            }>
-                
-                Искать по словам
-            </SearchDivButton>
+            }>Искать по словам</SearchDivButton>
+
         </SearchDiv>
     );
 }

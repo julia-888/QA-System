@@ -11,23 +11,24 @@ align-items: center;
 
 position: absolute;
 right: 0;
-bottom: 10px;
+bottom: ${adpt(10)}px;
 
 font-family: 'Montserrat';
 width: ${adpt(420)}px;
 height: ${adpt(672)}px;
-padding-left: 15px;
-box-shadow: 1px 1px 3px 3px lightgrey;
-border-radius: 20px;
+padding-left: ${adpt(15)}px;
+box-shadow: ${adpt(1)}px ${adpt(1)}px ${adpt(3)}px ${adpt(3)}px lightgrey;
+border-radius: ${adpt(20)}px;
 overflow-y: scroll;
 `
 
 const Header = styled.h1`
-font-size: 23px;
+font-size: ${adpt(23)}px;
 font-weight: SemiBold;
 text-align: left;
 align-self: start;
-padding-left: 40px;
+padding-left: ${adpt(40)}px;
+margin: ${adpt(27)}px 0 ${adpt(35)}px 0;
 `
 
 export default function QASystem() {
