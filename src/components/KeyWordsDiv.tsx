@@ -2,6 +2,10 @@ import styled from "styled-components";
 import { adpt } from "../adaptive";
 import { articles } from "../data";
 import { useState } from "react";
+import { ReactComponent as SearchIcon} from "../img/search.svg";
+import { ReactComponent as OpenIcon} from "../img/open.svg";
+import { ReactComponent as PlusIcon} from "../img/plus.svg";
+import { ReactComponent as SelectedIcon} from "../img/selected.svg";
 
 const SearchDiv = styled.div`
     box-sizing: border-box;
@@ -34,6 +38,10 @@ const SearchDivButton = styled.button`
 `
 
 const SearchDivButtonArticle = styled.button`
+    display: flex;
+    justify-content: space-between;
+    width: ${adpt(350)}px;
+
     font-size: ${adpt(18)}px;
     font-weight: normal;
     background: none;
@@ -41,6 +49,19 @@ const SearchDivButtonArticle = styled.button`
     text-align: start;
     border: none;
     margin: 0 ${adpt(28)}px ${adpt(25)}px ${adpt(25)}px;
+    padding: 0;
+`
+
+const SearchDivButtonLookAll = styled.button`
+    font-size: ${adpt(18)}px;
+    font-weight: normal;
+    background: none;
+    font-family: 'Montserrat';
+    color: rgba(60, 60, 60, 0.9);
+    text-align: start;
+    border: none;
+    margin: 0 ${adpt(28)}px ${adpt(25)}px ${adpt(25)}px;
+    padding: 0;
 `
 
 export default function KeyWordsDiv() {
@@ -50,14 +71,16 @@ export default function KeyWordsDiv() {
         <SearchDiv>
             <SearchDivButton onClick={(e) => setClicked(!clicked)}>
                 Искать по словам
+                <SearchIcon/>
             </SearchDivButton>
+            
             <div>
             {clicked && articles.map(article => (
-                <SearchDivButtonArticle>{article.title}</SearchDivButtonArticle>
+                <SearchDivButtonArticle><div>{article.title}</div><div><OpenIcon/></div></SearchDivButtonArticle>
                 ))}
             </div>
             {clicked && 
-                (<SearchDivButtonArticle>Показать все</SearchDivButtonArticle>)
+                (<SearchDivButtonLookAll>Показать все</SearchDivButtonLookAll>)
             }
             
         </SearchDiv>
