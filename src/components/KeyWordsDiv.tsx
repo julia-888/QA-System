@@ -1,37 +1,67 @@
 import styled from "styled-components";
 import { adpt } from "../adaptive";
+import { articles } from "../data";
+import { useState } from "react";
 
 const SearchDiv = styled.div`
-box-sizing: border-box;
-display: flex;
-justify-content: space-between;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-align-self: center;
-width: ${adpt(369)}px;
-background-color: rgba(118, 142, 183, 0.3);
-border-radius: ${adpt(13)}px;
-padding: ${adpt(15)}px;
-font-size: ${adpt(19)}px;
-font-weight: Medium;
-margin-top: ${adpt(20)}px;
+    width: ${adpt(385)}px;
+    padding-top: ${adpt(15)}px;
+    border-radius: ${adpt(13)}px;
+    box-shadow: ${adpt(0)}px ${adpt(3)}px ${adpt(6)}px lightgrey;
 `
 
 const SearchDivButton = styled.button`
-font-size: ${adpt(19)}px;
-font-weight: Medium;
-background: rgba(0,0,0,0);
-font-family: 'Montserrat';
-padding:0;
-border: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+
+    align-self: center;
+    width: ${adpt(369)}px;
+    background-color: rgba(118, 142, 183, 0.3);
+    border-radius: ${adpt(13)}px;
+    border: 0;
+    margin-bottom: ${adpt(34)}px;
+    padding: ${adpt(15)}px;
+    font-size: ${adpt(19)}px;
+    font-family: 'Montserrat';
+    font-weight: Medium;
+`
+
+const SearchDivButtonArticle = styled.button`
+    font-size: ${adpt(18)}px;
+    font-weight: normal;
+    background: none;
+    font-family: 'Montserrat';
+    text-align: start;
+    border: none;
+    margin: 0 ${adpt(28)}px ${adpt(25)}px ${adpt(25)}px;
 `
 
 export default function KeyWordsDiv() {
+    const [clicked, setClicked] = useState(false);
+
     return (
         <SearchDiv>
-            <SearchDivButton onClick={
-                () => {}
-            }>Искать по словам</SearchDivButton>
-
+            <SearchDivButton onClick={(e) => setClicked(!clicked)}>
+                Искать по словам
+            </SearchDivButton>
+            <div>
+            {clicked && articles.map(article => (
+                <SearchDivButtonArticle>{article.title}</SearchDivButtonArticle>
+                ))}
+            </div>
+            {clicked && 
+                (<SearchDivButtonArticle>Показать все</SearchDivButtonArticle>)
+            }
+            
         </SearchDiv>
     );
+
+    
 }

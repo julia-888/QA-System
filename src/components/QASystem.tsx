@@ -17,7 +17,7 @@ font-family: 'Montserrat';
 width: ${adpt(420)}px;
 height: ${adpt(672)}px;
 padding-left: ${adpt(15)}px;
-box-shadow: ${adpt(1)}px ${adpt(1)}px ${adpt(3)}px ${adpt(3)}px lightgrey;
+box-shadow: ${adpt(0)}px ${adpt(0)}px ${adpt(24)}px lightgrey;
 border-radius: ${adpt(20)}px;
 overflow-y: scroll;
 `
