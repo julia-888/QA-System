@@ -1,11 +1,12 @@
 import styled from "styled-components";
+import {HtmlHTMLAttributes, useRef} from 'react';
 import { adpt } from "../adaptive";
 import { articles } from "../data";
 import { useState } from "react";
 import { ReactComponent as SearchIcon} from "../img/search.svg";
 import { ReactComponent as OpenIcon} from "../img/open.svg";
 import { ReactComponent as PlusIcon} from "../img/plus.svg";
-import { ReactComponent as SelectedIcon} from "../img/selected.svg";
+import { ReactComponent as SelectedIcon} from "./../img/selected.svg";
 
 const SearchDiv = styled.div`
     box-sizing: border-box;
@@ -64,21 +65,38 @@ const SearchDivButtonLookAll = styled.button`
     padding: 0;
 `
 
+const Wrap = styled.div`
+    height: ${adpt(300)}px;
+`
+
+
 export default function KeyWordsDiv() {
     const [clicked, setClicked] = useState(false);
 
+
+    // Ссылка на элемент
+    const targetRef = useRef<any>(null)
+
+
     return (
         <SearchDiv>
-            <SearchDivButton onClick={(e) => setClicked(!clicked)}>
+            <SearchDivButton onClick={(e) => {
+                // Автоскролл до элемента
+                targetRef.current && targetRef.current.scrollIntoView({block: "center", behavior: "smooth"});
+                
+                setClicked(!clicked)
+                }
+            }>
                 Искать по словам
                 <SearchIcon/>
             </SearchDivButton>
             
-            <div>
+            {/* Добавляем ссылку */}
+            <Wrap ref={targetRef}> 
             {clicked && articles.map(article => (
                 <SearchDivButtonArticle><div>{article.title}</div><div><OpenIcon/></div></SearchDivButtonArticle>
                 ))}
-            </div>
+            </Wrap>
             {clicked && 
                 (<SearchDivButtonLookAll>Показать все</SearchDivButtonLookAll>)
             }
