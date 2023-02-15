@@ -1,3 +1,5 @@
+// Интерфейс содержимого статьи
+
 export interface IArticle { 
     title: string,
     subtitle: string,

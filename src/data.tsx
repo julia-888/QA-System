@@ -1,5 +1,6 @@
 import { IArticle } from "./models"
 
+// Данные для статей
 export const articles: IArticle[] = [
     {
         title: 'Что лучше: купить масло или заказать регенерацию?',
