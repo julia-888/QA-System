@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import MainArticleButton from './MainArticleButton';
 import { articles } from '../data';
-import KeyWordsDiv from './KeyWordsDiv';
+import KeyWordsDiv from './KeyWord';
 import { adpt } from '../adaptive';
 import Search from './Search';
 import { Div } from './Div';

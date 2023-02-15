@@ -5,10 +5,10 @@ import { articles } from "../data";
 import { useState } from "react";
 import { ReactComponent as SearchIcon} from "../img/search.svg";
 import { ReactComponent as OpenIcon} from "../img/open.svg";
-import { ReactComponent as PlusIcon} from "../img/plus.svg";
-import { ReactComponent as SelectedIcon} from "./../img/selected.svg";
-import KeyWordsDiv from "./KeyWordsDiv";
+import { ReactComponent as CloseIcon} from "../img/close.svg";
 import { Div } from "./Div";
+import { keyWordsList } from "../keyWordsList";
+import KeyWord from "./KeyWord";
 
 // Блок-родитель для поиска
 const SearchDiv = styled(Div)`
@@ -32,6 +32,30 @@ const SearchButton = styled.button`
     border-radius: ${adpt(13)}px;
     border: 0;
     margin-bottom: ${adpt(34)}px;
+    padding: ${adpt(15)}px;
+    font-size: ${adpt(19)}px;
+    font-family: 'Montserrat';
+    font-weight: Medium;
+`
+
+// Блок с ключевыми словами
+const KeyWordsDiv = styled(Div)`
+    background-color: #E9ECEE;
+    width: ${adpt(369)}px;
+    border-radius: ${adpt(13)}px;
+    flex-direction: column;
+`
+
+// Кнопка, закрывающая блок с ключевыми словами
+const KeyDivButton = styled.button`
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+
+    background-color: #E9ECEE;
+    border-radius: ${adpt(13)}px;
+    width: ${adpt(369)}px;
+    border: 0;
     padding: ${adpt(15)}px;
     font-size: ${adpt(19)}px;
     font-family: 'Montserrat';
@@ -76,12 +100,24 @@ export default function Search() {
         <SearchDiv>
             {/* если нажата, то отображается панель с ключевыми словами */}
             {clicked ? 
-                (<KeyWordsDiv/>) :
                 (
+                <KeyWordsDiv>
+                    <KeyDivButton onClick={(e) => setClicked(false)}>
+                        <div>Ключевые слова</div> 
+                        <div><CloseIcon/></div>
+                    </KeyDivButton>
+
+                    {/* Взятие и отображение ключевых слов из массива */}
+                    {
+                        keyWordsList.map((keyWord) => (
+                            <KeyWord word={keyWord.word}/>
+                        ))}
+                </KeyWordsDiv>
+                ) : (
                 <SearchButton onClick={(e) => {
                     // Автоскролл до элемента
                     targetRef.current && targetRef.current.scrollIntoView({block: "center", behavior: "smooth"});
-                    setClicked(!clicked);
+                    setClicked(true);
                     }
                 }>
                     Искать по словам
