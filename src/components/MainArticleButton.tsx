@@ -5,7 +5,8 @@ import { adpt } from '../adaptive';
 // Синий блок
 const MainArticleButtonDiv = styled.div`
 box-sizing: border-box;
-margin-bottom: ${adpt(25)}px;
+width: ${adpt(385)}px;
+margin-top: ${adpt(25)}px;
 padding: ${adpt(15)}px;
 padding-right: ${adpt(40)}px;
 border-radius: ${adpt(15)}px;

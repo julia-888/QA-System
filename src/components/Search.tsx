@@ -18,6 +18,7 @@ const SearchDiv = styled(Div)`
     align-items: center;
     width: ${adpt(385)}px;
     padding-top: ${adpt(15)}px;
+    margin: ${adpt(15)}px 0;
     border-radius: ${adpt(13)}px;
     box-shadow: ${adpt(0)}px ${adpt(3)}px ${adpt(6)}px lightgrey;
 `
@@ -41,10 +42,11 @@ const SearchButton = styled.button`
 // Блок-контейнер для кнопки и блока с ключевыми словами
 const KeyWordsDiv = styled(Div)`
     background-color: #E9ECEE;
-    width: ${adpt(369)}px;
+    width: ${adpt(363)}px;
     border-radius: ${adpt(13)}px;
     flex-direction: column;
     margin-bottom: ${adpt(30)}px;
+    padding-right: ${adpt(7)}px;
 `
 
 // Кнопка, закрывающая блок с ключевыми словами
@@ -52,7 +54,6 @@ const KeyDivButton = styled.button`
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
-
     background-color: #E9ECEE;
     border-radius: ${adpt(13)}px;
     width: ${adpt(369)}px;
@@ -68,6 +69,21 @@ const KeyWordsDivDiv = styled(Div)`
     flex-wrap: wrap;
     overflow-y: scroll;
     height: ${adpt(250)}px;
+    
+    &::-webkit-scrollbar {
+        width: ${adpt(5)}px;
+        border-radius: ${adpt(10)}px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: #8BA1C8;
+        border-radius: ${adpt(10)}px;
+        margin-block: ${adpt(22)}px;
+        margin-block-start: 0;
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: ${adpt(10)}px;
+        background-color: #5E7398;
+    }
 `
 
 // Кнопка-переход на статью
@@ -95,7 +111,6 @@ const ButtonLookAll = styled(ArticleButton)`
 const SearchDivArticles = styled(Div)`
     flex-direction: column;
 `
-
 
 export default function Search() {
     // Состояние кнопки-активатора поиска
