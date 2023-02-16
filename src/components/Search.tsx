@@ -38,12 +38,13 @@ const SearchButton = styled.button`
     font-weight: Medium;
 `
 
-// Блок с ключевыми словами
+// Блок-контейнер для кнопки и блока с ключевыми словами
 const KeyWordsDiv = styled(Div)`
     background-color: #E9ECEE;
     width: ${adpt(369)}px;
     border-radius: ${adpt(13)}px;
     flex-direction: column;
+    margin-bottom: ${adpt(30)}px;
 `
 
 // Кнопка, закрывающая блок с ключевыми словами
@@ -60,6 +61,13 @@ const KeyDivButton = styled.button`
     font-size: ${adpt(19)}px;
     font-family: 'Montserrat';
     font-weight: Medium;
+`
+
+// Блок с ключевыми словами
+const KeyWordsDivDiv = styled(Div)`
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    height: ${adpt(250)}px;
 `
 
 // Кнопка-переход на статью
@@ -108,10 +116,11 @@ export default function Search() {
                     </KeyDivButton>
 
                     {/* Взятие и отображение ключевых слов из массива */}
-                    {
-                        keyWordsList.map((keyWord) => (
+                    <KeyWordsDivDiv>
+                        { keyWordsList.map((keyWord) => (
                             <KeyWord word={keyWord.word}/>
-                        ))}
+                        ))}                    
+                    </KeyWordsDivDiv>
                 </KeyWordsDiv>
                 ) : (
                 <SearchButton onClick={(e) => {
