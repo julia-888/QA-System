@@ -4,7 +4,31 @@ import { articles } from '../data';
 import { adpt } from '../adaptive';
 import Search from './Search';
 import { Div } from './Div';
+import { ScrolledDiv } from './ScrolledDiv';
 import { ReactComponent as MoveIcon} from "../img/move.svg";
+
+export default function QASystem() {
+    return(
+        <QASystemFrame>
+            <HeaderDiv>
+                <div>Частые вопросы</div>
+                <div className="image"><MoveIcon/></div>
+            </HeaderDiv>
+            <ArticlesDiv>
+                {
+                    // Вывод трёх популярных статей
+                    articles.map(elem => elem.popular ? (
+                        <MainArticleButton header={elem.title} paragraph={elem.mainText1}/>
+                    ) : <></>) }
+
+                {/* Блок поиска */}
+                <Search />
+            </ArticlesDiv>
+        </QASystemFrame>
+        
+    );  
+};
+
 
 // Блок-родитель для всего приложения
 const QASystemFrame = styled(Div)`
@@ -31,51 +55,21 @@ const HeaderDiv = styled(Div)`
     text-align: left;
     padding-left: ${adpt(40)}px;
     margin-bottom: ${adpt(10)}px;
+    .image{
+        height: ${adpt(25)}px;
+        width: ${adpt(15)}px;
+        /* задать размеры */
+        svg {
+            width: 100%;
+            height: 100%;
+        }        
+    }
 `
 
 // Основной блок с контентом
-const ArticlesDiv = styled(Div)`
+const ArticlesDiv = styled(ScrolledDiv)`
     flex-direction: column;
     align-items: center;
     width: ${adpt(420)}px;
     height: ${adpt(610)}px;
-    overflow-y: scroll;
-
-    &::-webkit-scrollbar {
-        width: ${adpt(5)}px;
-        height: ${adpt(662)}px;
-        border-radius: ${adpt(10)}px;
-    }
-    &::-webkit-scrollbar-track {
-        background-color: #8BA1C8;
-        border-radius: ${adpt(10)}px;
-        margin-block: ${adpt(22)}px;
-        margin-block-end: ${adpt(35)}px;
-    }
-    &::-webkit-scrollbar-thumb {
-        border-radius: ${adpt(10)}px;
-        background-color: #5E7398;
-    }
 `
-
-export default function QASystem() {
-    return(
-        <QASystemFrame>
-            <HeaderDiv>
-                <div>Частые вопросы</div>
-                <MoveIcon/>
-            </HeaderDiv>
-            <ArticlesDiv>
-                {
-                    // Вывод трёх популярных статей
-                    articles.map(elem => elem.popular ? (
-                        <MainArticleButton header={elem.title} paragraph={elem.mainText1}/>
-                    ) : <></>) }
-
-                {/* Блок поиска */}
-                <Search />
-            </ArticlesDiv>
-        </QASystemFrame>
-        
-    );
-};

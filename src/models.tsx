@@ -17,3 +17,30 @@ export interface IArticle {
     },
     popular ?: boolean,
 }
+
+// interface I2 {
+//     {
+//         title: 'Заголовок статья';
+//         subtitle: 'Подзаголовок'
+//         content: [
+//             {
+//                 type: 'text'
+//                 content: 'fdljslfdjsljsdfj'
+//             },
+//             {
+//                 type: 'img'
+//                 url: ''
+//                 content: 'image.png'
+//             },
+//             {
+//                 type: 'text'
+//                 content: 'fdljslfdjsljsdfj'
+//             },
+//             {
+//                 type: 'tezis'
+//                 content: 'text tezis 1'
+//             }
+//         ]
+//     }
+    
+// }

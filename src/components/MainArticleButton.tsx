@@ -2,6 +2,16 @@ import styled from 'styled-components'
 import { IArticle } from '../models';
 import { adpt } from '../adaptive';
 
+const MainArticleButton = ({header, paragraph}: {header: string, paragraph: string}) => {
+    return(
+        <MainArticleButtonDiv>
+            <MainArticleButtonDivHeader>{header}</MainArticleButtonDivHeader>
+            <MainArticleButtonDivPar>{paragraph}</MainArticleButtonDivPar>
+        </MainArticleButtonDiv>
+    );
+};
+export default MainArticleButton;
+
 // Синий блок
 const MainArticleButtonDiv = styled.div`
 box-sizing: border-box;
@@ -33,14 +43,3 @@ display: -webkit-box;
   -webkit-box-orient: vertical;  
   overflow: hidden;
 `
-
-const MainArticleButton = ({header, paragraph}: {header: string, paragraph: string}) => {
-    return(
-        <MainArticleButtonDiv>
-            <MainArticleButtonDivHeader>{header}</MainArticleButtonDivHeader>
-            <MainArticleButtonDivPar>{paragraph}</MainArticleButtonDivPar>
-        </MainArticleButtonDiv>
-    );
-};
-
-export default MainArticleButton;
