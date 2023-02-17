@@ -13,7 +13,7 @@ export default function KeyWord({word}:{word: string}) {
     return (
         <KeyWordButton color={backgroundColor} onClick={(e) => {
             setKeyWordClicked(!keyWordClicked);
-            backgroundColor == '#768EB7' ? setBackgroundColor('#2D3F61') : setBackgroundColor('#768EB7')
+            backgroundColor == '#768EB7' ? setBackgroundColor('#2D3F61') : setBackgroundColor('#768EB7');
             }}>
             <WordDiv>{word}</WordDiv>
             <div className='image'>{keyWordClicked ? (<SelectedIcon/>) : (<PlusIcon/>)}</div>

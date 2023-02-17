@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {HtmlHTMLAttributes, useRef} from 'react';
+import { useRef } from 'react';
 import { adpt } from "../adaptive";
 import { articles } from "../data";
 import { useState } from "react";
@@ -26,7 +26,7 @@ export default function Search() {
                 <KeyWordsDiv>
                     <KeyDivButton onClick={(e) => setClicked(false)}>
                         <div>Ключевые слова</div> 
-                        <div className="image"><CloseIcon/></div>
+                        <div className="imgClose"><CloseIcon/></div>
                     </KeyDivButton>
 
                     {/* Взятие и отображение ключевых слов из массива */}
@@ -44,7 +44,7 @@ export default function Search() {
                     }
                 }>
                     Искать по словам
-                    <div className="image"><SearchIcon/></div>
+                    <div className="imgSearch"><SearchIcon/></div>
                 </SearchButton>
                 )
             }
@@ -53,7 +53,7 @@ export default function Search() {
             <SearchDivArticles ref={targetRef}> 
             {/* Отображение первых четырёх заголовков из списка статей */}
             {articles.slice(0, 4).map(article => (
-                <ArticleButton><div>{article.title}</div><div className="image"><OpenIcon/></div></ArticleButton>
+                <ArticleButton><div className="articleTitle">{article.title}</div><div className="imgOpen"><OpenIcon/></div></ArticleButton>
                 ))}
             <ButtonLookAll>Показать все</ButtonLookAll>
             </SearchDivArticles>          
@@ -88,7 +88,7 @@ const SearchButton = styled.button`
     font-size: ${adpt(19)}px;
     font-family: 'Montserrat';
     font-weight: Medium;
-    .image{
+    .imgSearch{
         height: ${adpt(18)}px;
         width: ${adpt(18)}px;
         /* задать размеры */
@@ -122,7 +122,7 @@ const KeyDivButton = styled.button`
     font-size: ${adpt(19)}px;
     font-family: 'Montserrat';
     font-weight: Medium;
-    .image{
+    .imgClose{
         height: ${adpt(13.5)}px;
         width: ${adpt(13.5)}px;
         /* задать размеры */
@@ -153,14 +153,19 @@ const ArticleButton = styled.button`
     border: none;
     margin: 0 ${adpt(28)}px ${adpt(25)}px ${adpt(25)}px;
     padding: 0;
-    .image{
+    .imgOpen{
         height: ${adpt(19)}px;
         width: ${adpt(11)}px;
+        margin-left: ${adpt(10)}px;
         /* задать размеры */
         svg {
             width: 100%;
             height: 100%;
         }        
+    };
+    
+    .articleTitle{
+        width: ${adpt(277)}px;
     }
 `
 

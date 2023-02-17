@@ -18,7 +18,7 @@ export default function QASystem() {
                 {
                     // Вывод трёх популярных статей
                     articles.map(elem => elem.popular ? (
-                        <MainArticleButton header={elem.title} paragraph={elem.mainText1}/>
+                        <MainArticleButton header={elem.title} paragraph={elem.popular}/>
                     ) : <></>) }
 
                 {/* Блок поиска */}
