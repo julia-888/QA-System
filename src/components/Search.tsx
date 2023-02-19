@@ -10,10 +10,14 @@ import { Div } from "./Div";
 import { keyWordsList } from "../keyWordsList";
 import KeyWord from "./KeyWord";
 import { ScrolledDiv } from "./ScrolledDiv";
+import { FilterArticles } from "../functions/FilterArticles";
+
+
 
 export default function Search() {
     // Состояние кнопки-активатора поиска
     const [clicked, setClicked] = useState(false);
+    const [clickedKeyWordList, setClickedKeyWordList] = useState([]);
 
     // Ссылка на элемент
     const targetRef = useRef<any>(null)
@@ -52,7 +56,7 @@ export default function Search() {
             {/* Добавляем ссылку */}
             <SearchDivArticles ref={targetRef}> 
             {/* Отображение первых четырёх заголовков из списка статей */}
-            {articles.slice(0, 4).map(article => (
+            {   FilterArticles(articles, clickedKeyWordList).slice(0, 4).map(article => (
                 <ArticleButton><div className="articleTitle">{article.title}</div><div className="imgOpen"><OpenIcon/></div></ArticleButton>
                 ))}
             <ButtonLookAll>Показать все</ButtonLookAll>
