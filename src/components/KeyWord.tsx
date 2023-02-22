@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import { adpt } from "../adaptive";
 import { ReactComponent as PlusIcon} from "../img/plus.svg";
@@ -20,11 +20,15 @@ export  function KeyWord({setList, word}: KeyWordsProps) {
     // Цвет кнопки-ключевого слова
     const [ backgroundColor, setBackgroundColor ] = useState('#768EB7')
 
+    useEffect(() => {
+        setList(word, keyWordClicked);
+    }, [keyWordClicked])
+    
+
     return (
         <KeyWordButton color={backgroundColor}
             onClick={(e) => {
-                setList(word, !keyWordClicked);
-                setKeyWordClicked(keyWordClicked => !keyWordClicked);
+                setKeyWordClicked(!keyWordClicked);
                 backgroundColor == '#768EB7' ? setBackgroundColor('#2D3F61') : setBackgroundColor('#768EB7');
             }}>
             <WordDiv>{word}</WordDiv>

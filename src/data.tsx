@@ -24,7 +24,7 @@ export const articles: IArticle[] = [
                 content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
             }
         ],
-        keys: ['Способы', 'Регенерация', 'Трансформация', 'Заказ'],
+        keys: ['Способы', 'Регенерация', 'Трансформаторы', 'Заказ'],
     },
     {
         title: 'Как заказать регенерацию, если я нахожусь в Сибири?',

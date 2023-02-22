@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { adpt } from "../adaptive";
 import { articles } from "../data";
 import { useState } from "react";
@@ -18,26 +18,32 @@ export default function Search() {
     // Нажатые ключевые слова
     const [clickedKeyWordList, setClickedKeyWordList] = useState<string[]>([]);
 
+    useEffect(() => {
+        // console.log(clickedKeyWordList);
+    }, [clickedKeyWordList])
+    
     // Функция, изменяющая список нажатых слов
     const modifyClickedKeyWordList = (keyWord: string, clicked: boolean) => {
         clicked ?
-        setClickedKeyWordList(clickedKeyWordList => [...clickedKeyWordList, keyWord])
+        setClickedKeyWordList([...clickedKeyWordList, keyWord])
         :
-        setClickedKeyWordList(clickedKeyWordList => [
+        setClickedKeyWordList([
             ...clickedKeyWordList.slice(0, clickedKeyWordList.indexOf(keyWord)),
             ...clickedKeyWordList.slice(clickedKeyWordList.indexOf(keyWord) + 1, clickedKeyWordList.length)
         ]);
         console.log(clickedKeyWordList, clicked);
+        // ['Способы']
     }
 
+    
 
     // Состояние кнопки-активатора поиска
     const [clicked, setClicked] = useState(false);
 
     // Функция, которая ловит нажатия на ключевые слова
-    const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    // const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         
-      };
+    //   };
 
     // Ссылка на элемент
     const targetRef = useRef<any>(null)
