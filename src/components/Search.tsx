@@ -8,16 +8,36 @@ import { ReactComponent as OpenIcon} from "../img/open.svg";
 import { ReactComponent as CloseIcon} from "../img/close.svg";
 import { Div } from "./Div";
 import { keyWordsList } from "../keyWordsList";
-import KeyWord from "./KeyWord";
 import { ScrolledDiv } from "./ScrolledDiv";
 import { FilterArticles } from "../functions/FilterArticles";
+import { KeyWord } from "./KeyWord"
 
 
 
 export default function Search() {
+    // Нажатые ключевые слова
+    const [clickedKeyWordList, setClickedKeyWordList] = useState<string[]>([]);
+
+    // Функция, изменяющая список нажатых слов
+    const modifyClickedKeyWordList = (keyWord: string, clicked: boolean) => {
+        clicked ?
+        setClickedKeyWordList(clickedKeyWordList => [...clickedKeyWordList, keyWord])
+        :
+        setClickedKeyWordList(clickedKeyWordList => [
+            ...clickedKeyWordList.slice(0, clickedKeyWordList.indexOf(keyWord)),
+            ...clickedKeyWordList.slice(clickedKeyWordList.indexOf(keyWord) + 1, clickedKeyWordList.length)
+        ]);
+        console.log(clickedKeyWordList, clicked);
+    }
+
+
     // Состояние кнопки-активатора поиска
     const [clicked, setClicked] = useState(false);
-    const [clickedKeyWordList, setClickedKeyWordList] = useState([]);
+
+    // Функция, которая ловит нажатия на ключевые слова
+    const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        
+      };
 
     // Ссылка на элемент
     const targetRef = useRef<any>(null)
@@ -34,11 +54,12 @@ export default function Search() {
                     </KeyDivButton>
 
                     {/* Взятие и отображение ключевых слов из массива */}
-                    <KeyWordsDivDiv>
-                        { keyWordsList.map((keyWord) => (
-                            <KeyWord word={keyWord.word}/>
-                        ))}                    
-                    </KeyWordsDivDiv>
+                    <KeyWordsWrapDiv>
+            { keyWordsList.map((keyWord) => (
+                <KeyWord word = {keyWord.word}
+                setList={modifyClickedKeyWordList} />
+            ))}
+        </KeyWordsWrapDiv>
                 </KeyWordsDiv>
                 ) : (
                 <SearchButton onClick={(e) => {
@@ -113,6 +134,12 @@ const KeyWordsDiv = styled(Div)`
     padding-right: ${adpt(7)}px;
 `
 
+// Блок с ключевыми словами
+const KeyWordsWrapDiv = styled(ScrolledDiv)`
+    flex-wrap: wrap;
+    max-height: ${adpt(250)}px;
+`
+
 // Кнопка, закрывающая блок с ключевыми словами
 const KeyDivButton = styled.button`
     box-sizing: border-box;
@@ -135,12 +162,6 @@ const KeyDivButton = styled.button`
             height: 100%;
         }        
     }
-`
-
-// Блок с ключевыми словами
-const KeyWordsDivDiv = styled(ScrolledDiv)`
-    flex-wrap: wrap;
-    max-height: ${adpt(250)}px;
 `
 
 // Кнопка-переход на статью

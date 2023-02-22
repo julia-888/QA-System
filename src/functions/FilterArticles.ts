@@ -14,5 +14,5 @@ export const FilterArticles = (articles: IArticle[], clickedKeyWordList: string[
         }
     }
 
-    return result;
+    return result.length == 0 ? articles : result;
 }

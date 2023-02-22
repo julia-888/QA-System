@@ -1,3 +1,5 @@
+// Не нужный компонент
+
 import {useState} from 'react'
 import styled from 'styled-components'
 import { adpt } from "../adaptive";
@@ -13,7 +15,7 @@ type KeyWordsProps = {
     word: string;
   };
 
-export  function KeyWord({setList, word}: KeyWordsProps) {
+function KeyWord({setList, word}: KeyWordsProps) {
     // Активировано ли ключевое слово
     const [ keyWordClicked, setKeyWordClicked ] = useState(false);
 
@@ -33,6 +35,30 @@ export  function KeyWord({setList, word}: KeyWordsProps) {
     );
 }
 
+
+export default function KeyWordsWrap() {
+    // Нажатые ключевые слова
+    const [clickedKeyWordList, setClickedKeyWordList] = useState<string[]>([]);
+
+    const modifyClickedKeyWordList = (keyWord: string, clicked: boolean) => {
+        clicked ?
+        setClickedKeyWordList(clickedKeyWordList => [...clickedKeyWordList, keyWord])
+        :
+        setClickedKeyWordList(clickedKeyWordList => [
+            ...clickedKeyWordList.slice(0, clickedKeyWordList.indexOf(keyWord)),
+            ...clickedKeyWordList.slice(clickedKeyWordList.indexOf(keyWord) + 1, clickedKeyWordList.length)
+        ]);
+    }
+
+    return(
+        <KeyWordsWrapDiv>
+            { keyWordsList.map((keyWord) => (
+                <KeyWord word = {keyWord.word}
+                setList={modifyClickedKeyWordList} />
+            ))}
+        </KeyWordsWrapDiv>
+    )
+}
 
 // Интерфейс со свойством цвета кнопки-ключевого слова
 interface Props {
@@ -66,4 +92,10 @@ const KeyWordButton = styled.button<Props>`
 // Обёртка текста ключевого слова (создана только ради пробела между словом и картинкой на кнопке)
 const WordDiv = styled.div`
     margin-right: ${adpt(11)}px;
+`
+
+// Блок с ключевыми словами
+const KeyWordsWrapDiv = styled(ScrolledDiv)`
+    flex-wrap: wrap;
+    max-height: ${adpt(250)}px;
 `
