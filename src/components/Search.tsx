@@ -11,17 +11,10 @@ import { keyWordsList } from "../keyWordsList";
 import { ScrolledDiv } from "./ScrolledDiv";
 import { FilterArticles } from "../functions/FilterArticles";
 import { KeyWord } from "./KeyWord"
-import { Set } from "typescript";
-
-
 
 export default function Search() {
     // Нажатые ключевые слова
     const [clickedKeyWordIDs, setClickedKeyWordIDs] = useState<number[]>([]);
-
-    // useEffect(() => {
-    //     console.log(clickedKeyWordIDs);
-    // }, [clickedKeyWordIDs])
     
     // Функция, изменяющая список нажатых слов
     const modifyClickedKeyWordIDs = (keyWordID: number, clicked: boolean) => {
@@ -34,18 +27,17 @@ export default function Search() {
         ]);
     }
 
-    
-
     // Состояние кнопки-активатора поиска
     const [clicked, setClicked] = useState(false);
 
-    // Функция, которая ловит нажатия на ключевые слова
-    // const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        
-    //   };
-
     // Ссылка на элемент
     const targetRef = useRef<any>(null)
+
+    useEffect(() => {
+        if (!clicked){
+            setClickedKeyWordIDs([]);
+        }
+    }, [clicked])
 
     return (
         <SearchDiv>
