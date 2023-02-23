@@ -8,6 +8,6 @@ export interface IArticle {
         content: string,
         url ?: string,
     }[]
-    keys: string[],
+    keyIDs: number[],
     popular ?:  string,
 }

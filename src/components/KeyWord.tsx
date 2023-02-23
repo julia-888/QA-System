@@ -9,11 +9,12 @@ import { isTemplateSpan } from 'typescript';
 
 // Тип для передачи в функцию
 type KeyWordsProps = {
-    setList: (keyWord: string, clicked: boolean) => void;
+    setList: (keyWordID: number, clicked: boolean) => void;
     word: string;
+    id: number;
   };
 
-export  function KeyWord({setList, word}: KeyWordsProps) {
+export  function KeyWord({setList, word, id}: KeyWordsProps) {
     // Активировано ли ключевое слово
     const [ keyWordClicked, setKeyWordClicked ] = useState(false);
 
@@ -21,7 +22,7 @@ export  function KeyWord({setList, word}: KeyWordsProps) {
     const [ backgroundColor, setBackgroundColor ] = useState('#768EB7')
 
     useEffect(() => {
-        setList(word, keyWordClicked);
+        setList(id, keyWordClicked);
     }, [keyWordClicked])
     
 

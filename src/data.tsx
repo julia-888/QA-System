@@ -24,7 +24,7 @@ export const articles: IArticle[] = [
                 content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
             }
         ],
-        keys: ['Способы', 'Регенерация', 'Трансформаторы', 'Заказ'],
+        keyIDs: [1, 2, 3, 4],
     },
     {
         title: 'Как заказать регенерацию, если я нахожусь в Сибири?',
@@ -48,7 +48,7 @@ export const articles: IArticle[] = [
                 content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
             }
         ],
-        keys: ['Трансформация', 'Заказ'],
+        keyIDs: [2, 3],
     },
     {
         title: 'Возможно ли купить много установок бесплатно?',
@@ -72,7 +72,7 @@ export const articles: IArticle[] = [
                 content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
             }
         ],
-        keys: ['Установки', 'Заказ', 'Издержки'],
+        keyIDs: [6, 7],
     },
     {
         title: 'Возможно ли забронировать регенерацию на год?',
@@ -96,7 +96,7 @@ export const articles: IArticle[] = [
                 content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
             }
         ],
-        keys: ['Заказ', 'Издержки'],
+        keyIDs: [4, 7],
     },
     {
         title: 'Lorem ipsum, dolor sit amet consectetur adipisicing.',
@@ -120,7 +120,7 @@ export const articles: IArticle[] = [
                 content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
             }
         ],
-        keys: ['Заказ', 'Способы'],
+        keyIDs: [1, 3, 4, 5, 6],
     },
     {
         title: 'Что такое адсорбент?',
@@ -144,7 +144,7 @@ export const articles: IArticle[] = [
                 content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
             }
         ],
-        keys: ['Преимущества'],
+        keyIDs: [1],
         popular: 'Масло, или невзаимозаменяемый токен, — это единица учета...'
     },
     {
@@ -169,7 +169,7 @@ export const articles: IArticle[] = [
                 content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
             }
         ],
-        keys: ['Преимущества', 'Результаты', 'Способы'],
+        keyIDs: [4, 5],
         popular: 'С помощью некоторых устройств, которые регенерируют и не только...'
     },
     {
@@ -194,7 +194,7 @@ export const articles: IArticle[] = [
                 content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
             }
         ],
-        keys: ['Трансформаторы'],
+        keyIDs: [3],
         popular: 'Он, или они невзаимозаменяемый элементы, — это единица учета...'
     },
 

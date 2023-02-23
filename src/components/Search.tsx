@@ -11,28 +11,27 @@ import { keyWordsList } from "../keyWordsList";
 import { ScrolledDiv } from "./ScrolledDiv";
 import { FilterArticles } from "../functions/FilterArticles";
 import { KeyWord } from "./KeyWord"
+import { Set } from "typescript";
 
 
 
 export default function Search() {
     // Нажатые ключевые слова
-    const [clickedKeyWordList, setClickedKeyWordList] = useState<string[]>([]);
+    const [clickedKeyWordIDs, setClickedKeyWordIDs] = useState<number[]>([]);
 
-    useEffect(() => {
-        // console.log(clickedKeyWordList);
-    }, [clickedKeyWordList])
+    // useEffect(() => {
+    //     console.log(clickedKeyWordIDs);
+    // }, [clickedKeyWordIDs])
     
     // Функция, изменяющая список нажатых слов
-    const modifyClickedKeyWordList = (keyWord: string, clicked: boolean) => {
+    const modifyClickedKeyWordIDs = (keyWordID: number, clicked: boolean) => {
         clicked ?
-        setClickedKeyWordList([...clickedKeyWordList, keyWord])
+        setClickedKeyWordIDs([...clickedKeyWordIDs, keyWordID])
         :
-        setClickedKeyWordList([
-            ...clickedKeyWordList.slice(0, clickedKeyWordList.indexOf(keyWord)),
-            ...clickedKeyWordList.slice(clickedKeyWordList.indexOf(keyWord) + 1, clickedKeyWordList.length)
+        setClickedKeyWordIDs([
+            ...clickedKeyWordIDs.slice(0, clickedKeyWordIDs.indexOf(keyWordID)),
+            ...clickedKeyWordIDs.slice(clickedKeyWordIDs.indexOf(keyWordID) + 1, clickedKeyWordIDs.length)
         ]);
-        console.log(clickedKeyWordList, clicked);
-        // ['Способы']
     }
 
     
@@ -61,11 +60,12 @@ export default function Search() {
 
                     {/* Взятие и отображение ключевых слов из массива */}
                     <KeyWordsWrapDiv>
-            { keyWordsList.map((keyWord) => (
-                <KeyWord word = {keyWord.word}
-                setList={modifyClickedKeyWordList} />
-            ))}
-        </KeyWordsWrapDiv>
+                        { keyWordsList.map((keyWord) => (
+                            <KeyWord word = {keyWord.word}
+                            setList={modifyClickedKeyWordIDs} 
+                            id={keyWord.id} />
+                        ))}
+                    </KeyWordsWrapDiv>
                 </KeyWordsDiv>
                 ) : (
                 <SearchButton onClick={(e) => {
@@ -83,7 +83,7 @@ export default function Search() {
             {/* Добавляем ссылку */}
             <SearchDivArticles ref={targetRef}> 
             {/* Отображение первых четырёх заголовков из списка статей */}
-            {   FilterArticles(articles, clickedKeyWordList).slice(0, 4).map(article => (
+            {   FilterArticles(articles, clickedKeyWordIDs).slice(0, 4).map(article => (
                 <ArticleButton><div className="articleTitle">{article.title}</div><div className="imgOpen"><OpenIcon/></div></ArticleButton>
                 ))}
             <ButtonLookAll>Показать все</ButtonLookAll>
