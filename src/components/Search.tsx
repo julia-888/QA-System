@@ -12,7 +12,11 @@ import { ScrolledDiv } from "./ScrolledDiv";
 import { FilterArticles } from "../functions/FilterArticles";
 import { KeyWord } from "./KeyWord"
 
-export default function Search() {
+type ScreenProps = {
+    extendScreen: (big: boolean) => void;
+  };
+
+export default function Search( {extendScreen}: ScreenProps) {
     // Нажатые ключевые слова
     const [clickedKeyWordIDs, setClickedKeyWordIDs] = useState<number[]>([]);
     
@@ -54,7 +58,7 @@ export default function Search() {
                     <KeyWordsWrapDiv>
                         { keyWordsList.map((keyWord) => (
                             <KeyWord word = {keyWord.word}
-                            setList={modifyClickedKeyWordIDs} 
+                            modifyClickedKeyWordIDs={modifyClickedKeyWordIDs} 
                             id={keyWord.id} />
                         ))}
                     </KeyWordsWrapDiv>
@@ -78,7 +82,10 @@ export default function Search() {
             {   FilterArticles(articles, clickedKeyWordIDs).slice(0, 4).map(article => (
                 <ArticleButton><div className="articleTitle">{article.title}</div><div className="imgOpen"><OpenIcon/></div></ArticleButton>
                 ))}
-            <ButtonLookAll>Показать все</ButtonLookAll>
+            <ButtonLookAll onClick={(e) => {
+                    extendScreen(true)
+                }}> Показать все
+            </ButtonLookAll>
             </SearchDivArticles>          
         </SearchDiv>
     );    
