@@ -16,7 +16,7 @@ type ScreenProps = {
     extendScreen: (big: boolean) => void;
   };
 
-export default function Search( {extendScreen}: ScreenProps ) {
+export default function MiniSearch( {extendScreen}: ScreenProps ) {
     // Нажатые ключевые слова
     const [clickedKeyWordIDs, setClickedKeyWordIDs] = useState<number[]>([]);
     
@@ -44,9 +44,9 @@ export default function Search( {extendScreen}: ScreenProps ) {
     }, [clicked])
 
     return (
-        <SearchDiv>
+        <MiniSearchDiv>
             {/* если нажата, то отображается панель с ключевыми словами */}
-            {/* {clicked ? 
+            {clicked ? 
                 (
                 <KeyWordsDiv>
                     <KeyDivButton onClick={(e) => setClicked(false)}>
@@ -54,6 +54,7 @@ export default function Search( {extendScreen}: ScreenProps ) {
                         <div className="imgClose"><CloseIcon/></div>
                     </KeyDivButton>
 
+                    {/* Взятие и отображение ключевых слов из массива */}
                     <KeyWordsWrapDiv>
                         { keyWordsList.map((keyWord) => (
                             <KeyWord word = {keyWord.word}
@@ -72,7 +73,8 @@ export default function Search( {extendScreen}: ScreenProps ) {
                     Искать по словам
                     <div className="imgMiniSearch"><SearchIcon/></div>
                 </MiniSearchButton>
-                ) */}
+                )
+            }
 
             {/* Добавляем ссылку */}
             <MiniSearchDivArticles ref={targetRef}> 
@@ -85,21 +87,21 @@ export default function Search( {extendScreen}: ScreenProps ) {
                 }}> Показать все
             </ButtonLookAll>
             </MiniSearchDivArticles>          
-        </SearchDiv>
+        </MiniSearchDiv>
     );    
 }
 
 // Блок-родитель для поиска
-const SearchDiv = styled(Div)`
+const MiniSearchDiv = styled(Div)`
     box-sizing: border-box;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     width: ${adpt(385)}px;
     padding-top: ${adpt(15)}px;
     margin: ${adpt(15)}px 0;
-    /* border-radius: ${adpt(13)}px; */
-    /* box-shadow: ${adpt(0)}px ${adpt(3)}px ${adpt(6)}px lightgrey; */
+    border-radius: ${adpt(13)}px;
+    box-shadow: ${adpt(0)}px ${adpt(3)}px ${adpt(6)}px lightgrey;
 `
 
 // Кнопка, открывающая блок с ключевыми словами

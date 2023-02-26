@@ -2,17 +2,20 @@ import styled from 'styled-components'
 import MainArticleButton from './MainArticleButton';
 import { articles } from '../data';
 import { adpt } from '../adaptive';
-import Search from './Search';
+import MiniSearch from './MiniSearch';
 import { Div } from './Div';
 import { ScrolledDiv } from './ScrolledDiv';
 import { ReactComponent as MoveIcon} from "../img/move.svg";
 import { useState, useEffect } from 'react';
+import Search from './Search';
+import { ReactComponent as BackIcon} from "../img/back.svg";
 
 export default function QASystem() {
-    // Переменные, отвечающая за изменение размеров окна
+    // Переменные, отвечающая за изменение размеров и параметров окна
     const [height, setHeight] = useState(672);
     const [width, setWidth] = useState(420);
     const [big, setBig] = useState(false);
+    const [header, setHeader] = useState('Частые вопросы')
 
     // Функция изменения размеров экрана
     const extendScreen = (big: boolean) => {
@@ -21,6 +24,7 @@ export default function QASystem() {
             setHeight(adpt(730));
             setWidth(adpt(850));
             setBig(true);
+            setHeader('Поиск по вопросам')
         } else {
             setHeight(adpt(672));
             setWidth(adpt(420));
@@ -30,8 +34,17 @@ export default function QASystem() {
 
     return(
         <QASystemFrame height={height} width={width}>
-            <HeaderDiv>
-                <div>Частые вопросы</div>
+            <HeaderDiv height={height} width={width}>
+                <Div>
+                {
+                        big &&
+                        <button className='backButton'><div className='image'><BackIcon/></div></button>
+                        
+                    }
+                <div className='headerText'>
+                    {header}
+                </div>
+                </Div>
                 <div className="image"><MoveIcon/></div>
             </HeaderDiv>
             <ArticlesDiv>
@@ -40,12 +53,16 @@ export default function QASystem() {
                         // Вывод трёх популярных статей
                         articles.map(elem => elem.popular ? (
                             <MainArticleButton header={elem.title} paragraph={elem.popular}/>
-                        ) : <></>) 
-                    
+                        ) : <></>)
                 }
-
                 {/* Блок поиска */}
-                <Search extendScreen={extendScreen} />
+                {
+                    !big ? (
+                        <MiniSearch extendScreen={extendScreen} />
+                    ) : (
+                        <Search extendScreen={extendScreen} />
+                    )
+                }
             </ArticlesDiv>
         </QASystemFrame>
         
@@ -74,22 +91,31 @@ const QASystemFrame = styled(Div)<QASystemFrameDims>`
 `
 
 // Заголовок страницы с элементом для перемещения окна
-const HeaderDiv = styled(Div)`
+const HeaderDiv = styled(Div)<QASystemFrameDims>`
+    /* flex-direction: row-reverse; */
     justify-content: space-between;
-    width: ${adpt(360)}px;
+    width: ${p => p.width - adpt(25)}px;
     font-weight: 600;
     font-size: ${adpt(23)}px;
     text-align: left;
-    padding-left: ${adpt(40)}px;
+    margin-left: ${adpt(35)}px;
+    margin-right: ${adpt(30)}px;
     margin-bottom: ${adpt(10)}px;
     .image{
-        height: ${adpt(25)}px;
-        width: ${adpt(15)}px;
+        height: ${adpt(18)}px;
+        width: ${adpt(18)}px;
         /* задать размеры */
         svg {
             width: 100%;
             height: 100%;
         }        
+    }
+    .headerText {
+        margin-left: ${adpt(30)}px;
+    }
+    .backButton {
+        background: none;
+        border: none;
     }
 `
 
