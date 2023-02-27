@@ -37,11 +37,11 @@ export default function MiniSearch( {extendScreen}: ScreenProps ) {
     // Ссылка на элемент
     const targetRef = useRef<any>(null)
 
-    useEffect(() => {
-        if (!clicked){
-            setClickedKeyWordIDs([]);
-        }
-    }, [clicked])
+    // useEffect(() => {
+    //     if (!clicked){
+    //         setClickedKeyWordIDs([]);
+    //     }
+    // }, [clicked])
 
     return (
         <MiniSearchDiv>

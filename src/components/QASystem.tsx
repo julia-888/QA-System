@@ -12,8 +12,8 @@ import { ReactComponent as BackIcon} from "../img/back.svg";
 
 export default function QASystem() {
     // Переменные, отвечающая за изменение размеров окна
-    const [height, setHeight] = useState(672);
-    const [width, setWidth] = useState(420);
+    const [height, setHeight] = useState(adpt(672));
+    const [width, setWidth] = useState(adpt(420));
 
     // Переменная отвечающая за отображение контента в зависимости от размеров окна. НЕ изменяется вне функции extendScreen!!!
     const [big, setBig] = useState(false);
@@ -26,11 +26,12 @@ export default function QASystem() {
             setHeight(adpt(730));
             setWidth(adpt(850));
             setBig(true);
-            setHeader('Поиск по вопросам')
+            setHeader('Поиск по вопросам');
         } else {
             setHeight(adpt(672));
             setWidth(adpt(420));
-            setBig(false);            
+            setBig(false);
+            setHeader('Частые вопросы');
         }
     }    
 
@@ -130,4 +131,5 @@ const ArticlesDiv = styled(ScrolledDiv)<QASystemFrameDims>`
     flex-direction: column;
     align-items: center;
     width: ${p => p.width}px;
+    height: ${p => p.height}px;
 `
