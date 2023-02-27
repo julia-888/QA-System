@@ -11,9 +11,11 @@ import Search from './Search';
 import { ReactComponent as BackIcon} from "../img/back.svg";
 
 export default function QASystem() {
-    // Переменные, отвечающая за изменение размеров и параметров окна
+    // Переменные, отвечающая за изменение размеров окна
     const [height, setHeight] = useState(672);
     const [width, setWidth] = useState(420);
+
+    // Переменная отвечающая за отображение контента в зависимости от размеров окна. НЕ изменяется вне функции extendScreen!!!
     const [big, setBig] = useState(false);
     const [header, setHeader] = useState('Частые вопросы')
 
@@ -37,17 +39,21 @@ export default function QASystem() {
             <HeaderDiv height={height} width={width}>
                 <Div>
                 {
-                        big &&
-                        <button className='backButton'><div className='image'><BackIcon/></div></button>
-                        
-                    }
+                    big &&
+                    <button className='backButton'
+                            onClick={() => {
+                                extendScreen(false);
+                    }} >
+                        <div className='image'><BackIcon/></div>
+                    </button>
+                }
                 <div className='headerText'>
                     {header}
                 </div>
                 </Div>
                 <div className="image"><MoveIcon/></div>
             </HeaderDiv>
-            <ArticlesDiv>
+            <ArticlesDiv height={height} width={width}>
                 {   
                     !big && 
                         // Вывод трёх популярных статей
@@ -120,9 +126,8 @@ const HeaderDiv = styled(Div)<QASystemFrameDims>`
 `
 
 // Основной блок с контентом
-const ArticlesDiv = styled(ScrolledDiv)`
+const ArticlesDiv = styled(ScrolledDiv)<QASystemFrameDims>`
     flex-direction: column;
     align-items: center;
-    width: ${adpt(420)}px;
-    height: ${adpt(610)}px;
+    width: ${p => p.width}px;
 `
