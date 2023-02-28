@@ -96,7 +96,7 @@ export const articles: IArticle[] = [
                 content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
             }
         ],
-        keyIDs: [4, 7],
+        keyIDs: [1, 4, 7],
     },
     {
         title: 'Lorem ipsum, dolor sit amet consectetur adipisicing.',
@@ -169,7 +169,7 @@ export const articles: IArticle[] = [
                 content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
             }
         ],
-        keyIDs: [4, 5],
+        keyIDs: [1, 4, 5],
         popular: 'С помощью некоторых устройств, которые регенерируют и не только...'
     },
     {
@@ -194,7 +194,7 @@ export const articles: IArticle[] = [
                 content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
             }
         ],
-        keyIDs: [3],
+        keyIDs: [1, 3],
         popular: 'Он, или они невзаимозаменяемый элементы, — это единица учета...'
     },
 

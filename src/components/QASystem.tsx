@@ -2,17 +2,16 @@ import styled from 'styled-components'
 import MainArticleButton from './MainArticleButton';
 import { articles } from '../data';
 import { adpt } from '../adaptive';
-import MiniSearch from './MiniSearch';
+import Search from './Search';
 import { Div } from './Div';
 import { ScrolledDiv } from './ScrolledDiv';
 import { ReactComponent as MoveIcon} from "../img/move.svg";
 import { useState, useEffect } from 'react';
-import Search from './Search';
 import { ReactComponent as BackIcon} from "../img/back.svg";
 
 
 export default function QASystem() {
-    // Переменные, отвечающая за изменение размеров окна
+    // Переменные, отвечающие за изменение размеров окна
     const [height, setHeight] = useState(adpt(672));
     const [width, setWidth] = useState(adpt(420));
 
@@ -46,9 +45,9 @@ export default function QASystem() {
                 {   /* Если экран расширен, то появляется кнопка-стрелочка назад */
                     big &&
                     <button className='backButton'
-                            onClick={() => {
-                                extendScreen(false);
-                    }} >
+                        onClick={() => {
+                            extendScreen(false);
+                        }} >
                         <div className='image'><BackIcon/></div>
                     </button>
                 }
@@ -68,11 +67,13 @@ export default function QASystem() {
                 }
                 
                 {   /* Блок поиска соответствующий для расширенного и нерасширенного экрана */
-                    !big ? (
-                        <MiniSearch extendScreen={extendScreen} />
-                    ) : (
-                        <Search extendScreen={extendScreen} />
-                    )
+                    // !big ? (
+                    //     <Search extendScreen={extendScreen} />
+                    // ) : (
+                    //     <Search extendScreen={extendScreen} />
+                    // )
+
+                    <Search extendScreen={extendScreen} big={big} />
                 }
             </ArticlesDiv>
         </QASystemFrame>
