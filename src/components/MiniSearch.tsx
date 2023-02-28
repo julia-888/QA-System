@@ -31,21 +31,14 @@ export default function MiniSearch( {extendScreen}: ScreenProps ) {
         ]);
     }
 
-    // Состояние кнопки-активатора поиска
+    // Состояние кнопки-открывателя списка ключевых слов
     const [clicked, setClicked] = useState(false);
 
     // Ссылка на элемент
     const targetRef = useRef<any>(null)
 
-    // useEffect(() => {
-    //     if (!clicked){
-    //         setClickedKeyWordIDs([]);
-    //     }
-    // }, [clicked])
-
     return (
         <MiniSearchDiv>
-            {/* если нажата, то отображается панель с ключевыми словами */}
             {clicked ? 
                 (
                 <KeyWordsDiv>
@@ -53,13 +46,14 @@ export default function MiniSearch( {extendScreen}: ScreenProps ) {
                         <div>Ключевые слова</div> 
                         <div className="imgClose"><CloseIcon/></div>
                     </KeyDivButton>
-
-                    {/* Взятие и отображение ключевых слов из массива */}
-                    <KeyWordsWrapDiv>
+                    
+                     {/* Взятие и отображение ключевых слов из массива с учётом их нажатости */}
+                     <KeyWordsWrapDiv>
                         { keyWordsList.map((keyWord) => (
                             <KeyWord word = {keyWord.word}
                             modifyClickedKeyWordIDs={modifyClickedKeyWordIDs} 
-                            id={keyWord.id} />
+                            id={keyWord.id}
+                            clicked={clickedKeyWordIDs.includes(keyWord.id)} />
                         ))}
                     </KeyWordsWrapDiv>
                 </KeyWordsDiv>
@@ -82,7 +76,7 @@ export default function MiniSearch( {extendScreen}: ScreenProps ) {
             {   FilterArticles(articles, clickedKeyWordIDs).slice(0, 4).map(article => (
                 <ArticleButton><div className="articleTitle">{article.title}</div><div className="imgOpen"><OpenIcon/></div></ArticleButton>
                 ))}
-            <ButtonLookAll onClick={(e) => {
+            <ButtonLookAll onClick={(e) => { /* При нажатии на "Показать все" экран расширяется */
                     extendScreen(true)
                 }}> Показать все
             </ButtonLookAll>

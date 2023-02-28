@@ -12,19 +12,24 @@ type KeyWordsProps = {
     modifyClickedKeyWordIDs: (keyWordID: number, clicked: boolean) => void;
     word: string;
     id: number;
-  };
+    clicked: boolean,
+};
 
-export  function KeyWord({modifyClickedKeyWordIDs, word, id}: KeyWordsProps) {
-    // Активировано ли ключевое слово
-    const [ keyWordClicked, setKeyWordClicked ] = useState(false);
+export  function KeyWord({modifyClickedKeyWordIDs, word, id, clicked}: KeyWordsProps) {
+  //Предотвращает срабатывание useEffect при первой отрисовке
+  const [ firstDrawing, setFirstDrawing ] = useState(true);
 
-    // Цвет кнопки-ключевого слова
-    const [ backgroundColor, setBackgroundColor ] = useState('#768EB7')
+  // Активировано ли ключевое слово
+  const [ keyWordClicked, setKeyWordClicked ] = useState(clicked);
 
-    useEffect(() => {
-        modifyClickedKeyWordIDs(id, keyWordClicked);
-    }, [keyWordClicked])
-    
+  // Цвет кнопки-ключевого слова
+  const [ backgroundColor, setBackgroundColor ] = useState(clicked ? '#2D3F61' : '#768EB7')
+
+  useEffect(() => {
+      firstDrawing ? setFirstDrawing(false) :
+      modifyClickedKeyWordIDs(id, keyWordClicked);
+  }, [keyWordClicked])
+  
 
     return (
         <KeyWordButton color={backgroundColor}
