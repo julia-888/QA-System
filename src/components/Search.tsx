@@ -42,7 +42,7 @@ export default function Search( {extendScreen, big}: ScreenProps ) {
         <SearchDiv  shadow={big?false:true} 
                     justify={big?'space-between':'center'}
                     width={big?false:true}
-                    >
+                    paddingTop={big?false:true}>
             {
                 // Эта часть кода относится только к маленькому экрану
                 !big && (clicked ? 
@@ -69,14 +69,15 @@ export default function Search( {extendScreen, big}: ScreenProps ) {
                     targetRef.current && targetRef.current.scrollIntoView({block: "center", behavior: "smooth"});
                     setClicked(true);
                     }
-                }>
-                    Искать по словам
+                }> Искать по словам
                     <div className="imgSearch"><SearchIcon/></div>
                 </SearchButton>
                 ))
             }
-            
 
+            {big && <LineSearch type='text' placeholder="Введите запрос">
+
+            </LineSearch> }
 
 
             {/* Добавляем ссылку */}
@@ -105,7 +106,7 @@ interface SearchDivProps {
     shadow: boolean,
     justify: string,
     width: boolean,
-
+    paddingTop: boolean,
 }
 
 interface ArticleButtonProps {
@@ -120,7 +121,7 @@ const SearchDiv = styled(Div)<SearchDivProps>`
     justify-content: ${props => props.justify};
     align-items: center;
     width: ${props => props.width && `${adpt(385)}px`};
-    padding-top: ${adpt(15)}px;
+    padding-top: ${props => props.paddingTop && adpt(15)}px;
     margin: ${adpt(15)}px 0;
     border-radius: ${adpt(13)}px;
     box-shadow: ${props => props.shadow && `${adpt(0)}px ${adpt(3)}px ${adpt(6)}px lightgrey`};
@@ -230,4 +231,19 @@ const ButtonLookAll = styled(ArticleButton)<ArticleButtonProps>`
 // Блок на котором отображаются статьи
 const SearchDivArticles = styled(Div)`
     flex-direction: column;
+`
+
+const LineSearch = styled.input`
+    width: ${adpt(709)}px;
+    border-radius: ${adpt(13)}px;
+    border: none;
+    outline: none;
+    background: linear-gradient(150deg, rgba(91, 112, 149, 0.29) 30%, rgba(139, 161, 200, 0.29) 97%, rgba(91, 112, 149, 0.29));
+    padding: ${adpt(15)}px;
+    font-family: Montserrat;
+    font-weight: 600;
+    font-size: ${adpt(19)}px;
+    color: '#000000';
+    margin-bottom: ${adpt(35)}px;
+    
 `

@@ -65,16 +65,7 @@ export default function QASystem() {
                             <MainArticleButton header={elem.title} paragraph={elem.popular}/>
                         ) : <></>)
                 }
-                
-                {   /* Блок поиска соответствующий для расширенного и нерасширенного экрана */
-                    // !big ? (
-                    //     <Search extendScreen={extendScreen} />
-                    // ) : (
-                    //     <Search extendScreen={extendScreen} />
-                    // )
-
-                    <Search extendScreen={extendScreen} big={big} />
-                }
+                <Search extendScreen={extendScreen} big={big} />
             </ArticlesDiv>
         </QASystemFrame>
     );  
