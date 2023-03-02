@@ -3,7 +3,7 @@ import { Div } from "./Div"
 import styled from "styled-components"
 
 export const ScrolledDiv = styled(Div)`
-    overflow-y: scroll;
+    overflow-y: auto;
     
     &::-webkit-scrollbar {
         width: ${adpt(5)}px;

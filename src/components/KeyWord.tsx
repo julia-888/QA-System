@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { adpt } from "../adaptive";
 import { ReactComponent as PlusIcon} from "../img/plus.svg";
 import { ReactComponent as SelectedIcon} from "../img/selected.svg";
+import { ReactComponent as CloseTagIcon} from "../img/closeTag.svg";
 import { ScrolledDiv } from "./ScrolledDiv"
 import { keyWordsList } from "../keyWordsList"
 import { isTemplateSpan } from 'typescript';
@@ -13,9 +14,10 @@ type KeyWordsProps = {
     word: string;
     id: number;
     clicked: boolean,
+    big: boolean
 };
 
-export  function KeyWord({modifyClickedKeyWordIDs, word, id, clicked}: KeyWordsProps) {
+export  function KeyWord({modifyClickedKeyWordIDs, word, id, clicked, big}: KeyWordsProps) {
   //Предотвращает срабатывание useEffect при первой отрисовке
   const [ firstDrawing, setFirstDrawing ] = useState(true);
 
@@ -32,13 +34,13 @@ export  function KeyWord({modifyClickedKeyWordIDs, word, id, clicked}: KeyWordsP
   
 
     return (
-        <KeyWordButton color={backgroundColor}
+        <KeyWordButton color={backgroundColor} margin={big? adpt(15) : adpt(10)} iconDims={big? adpt(10) : adpt(13)}
             onClick={(e) => {
                 setKeyWordClicked(!keyWordClicked);
                 backgroundColor == '#768EB7' ? setBackgroundColor('#2D3F61') : setBackgroundColor('#768EB7');
             }}>
             <WordDiv>{word}</WordDiv>
-            <div className='image'>{keyWordClicked ? (<SelectedIcon/>) : (<PlusIcon/>)}</div>
+            <div className='image'>{keyWordClicked ? (big? (<CloseTagIcon/>) :(<SelectedIcon/>)) : (<PlusIcon/>)}</div>
         </KeyWordButton>
     );
 }
@@ -47,6 +49,8 @@ export  function KeyWord({modifyClickedKeyWordIDs, word, id, clicked}: KeyWordsP
 // Интерфейс со свойством цвета кнопки-ключевого слова
 interface Props {
     color: string;
+    margin: number;
+    iconDims: number;
 }
 
 // Стилевой компонент кнопки-ключевого слова
@@ -61,10 +65,10 @@ const KeyWordButton = styled.button<Props>`
     font-family: 'Montserrat';
     font-size: ${adpt(18)}px;
     font-style: normal;
-    margin: 0 0 ${adpt(12)}px ${adpt(10)}px;
+    margin: 0 0 ${p => p.margin}px ${p => p.margin}px;
     .image{
-        height: ${adpt(13)}px;
-        width: ${adpt(13)}px;
+        height: ${p => p.iconDims}px;
+        width: ${p => p.iconDims}px;
         /* задать размеры */
         svg {
             width: 100%;

@@ -19,7 +19,7 @@ type ScreenProps = {
 
 export default function Search( {extendScreen, big}: ScreenProps ) {
     // Нажатые ключевые слова
-    const [clickedKeyWordIDs, setClickedKeyWordIDs] = useState<number[]>([]);
+    const [clickedKeyWordIDs, setClickedKeyWordIDs] = useState<number[]>([1]);
     
     // Функция, изменяющая список нажатых слов
     const modifyClickedKeyWordIDs = (keyWordID: number, clicked: boolean) => {
@@ -59,7 +59,8 @@ export default function Search( {extendScreen, big}: ScreenProps ) {
                             <KeyWord word = {keyWord.word}
                             modifyClickedKeyWordIDs={modifyClickedKeyWordIDs} 
                             id={keyWord.id}
-                            clicked={clickedKeyWordIDs.includes(keyWord.id)} />
+                            clicked={clickedKeyWordIDs.includes(keyWord.id)}
+                            big={false} />
                         ))}
                     </KeyWordsWrapDiv>
                 </KeyWordsDiv>
@@ -75,9 +76,25 @@ export default function Search( {extendScreen, big}: ScreenProps ) {
                 ))
             }
 
-            {big && <LineSearch type='text' placeholder="Введите запрос">
+            {big && 
+                // Отображение в большом окне поисковой строки или выбранных ключевых слов
+                ( clickedKeyWordIDs.length==0 ? (
+                        <LineSearch type='text' placeholder="Введите запрос">
 
-            </LineSearch> }
+                        </LineSearch>
+                    ) : (
+                        <ClickedDiv>
+                            { keyWordsList.map((keyWord) => (
+                                clickedKeyWordIDs.includes(keyWord.id) ? 
+                            (<KeyWord word = {keyWord.word}
+                                modifyClickedKeyWordIDs={modifyClickedKeyWordIDs} 
+                                id={keyWord.id}
+                                clicked={clickedKeyWordIDs.includes(keyWord.id)}
+                                big={true} />) : (<></>) 
+                            ))}
+                        </ClickedDiv>
+                    )
+            )}
 
 
             {/* Добавляем ссылку */}
@@ -246,4 +263,10 @@ const LineSearch = styled.input`
     color: '#000000';
     margin-bottom: ${adpt(35)}px;
     
+`
+const ClickedDiv = styled(Div)`
+    margin-bottom: ${adpt(30)}px;
+    flex-wrap: wrap;
+    /* justify-content: flex-start; */
+    width: ${adpt(730)}px;
 `
