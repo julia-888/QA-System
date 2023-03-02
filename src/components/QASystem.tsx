@@ -131,6 +131,7 @@ const HeaderDiv = styled(Div)<QASystemFrameDims>`
         margin-left: ${adpt(30)}px;
     }
     .backButton {
+        cursor: pointer;
         background: none;
         border: none;
     }

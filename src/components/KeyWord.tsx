@@ -66,7 +66,9 @@ const KeyWordButton = styled.button<Props>`
     font-size: ${adpt(18)}px;
     font-style: normal;
     margin: 0 0 ${p => p.margin}px ${p => p.margin}px;
-    .image{
+    cursor: pointer;
+    .image {
+
         height: ${p => p.iconDims}px;
         width: ${p => p.iconDims}px;
         /* задать размеры */

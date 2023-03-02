@@ -20,7 +20,7 @@ type ScreenProps = {
 
 export default function Search( {extendScreen, openArticle, big}: ScreenProps ) {
     // Нажатые ключевые слова
-    const [clickedKeyWordIDs, setClickedKeyWordIDs] = useState<number[]>([1]);
+    const [clickedKeyWordIDs, setClickedKeyWordIDs] = useState<number[]>([1, 2, 4]);
     
     // Функция, изменяющая список нажатых слов
     const modifyClickedKeyWordIDs = (keyWordID: number, clicked: boolean) => {
@@ -49,9 +49,9 @@ export default function Search( {extendScreen, openArticle, big}: ScreenProps ) 
                 !big && (clicked ? 
                 (
                 <KeyWordsDiv>
-                    <KeyDivButton onClick={(e) => setClicked(false)}>
+                    <KeyDivButton>
                         <div>Ключевые слова</div> 
-                        <div className="imgClose"><CloseIcon/></div>
+                        <div className="imgClose" onClick={(e) => setClicked(false)}><CloseIcon/></div>
                     </KeyDivButton>
                     
                      {/* Взятие и отображение ключевых слов из массива с учётом их нажатости */}
@@ -162,6 +162,7 @@ const SearchButton = styled.button`
     font-size: ${adpt(19)}px;
     font-family: 'Montserrat';
     font-weight: Medium;
+    cursor: pointer;
     .imgSearch{
         height: ${adpt(18)}px;
         width: ${adpt(18)}px;
@@ -203,6 +204,7 @@ const KeyDivButton = styled.button`
     font-family: 'Montserrat';
     font-weight: Medium;
     .imgClose{
+        cursor: pointer;
         height: ${adpt(13.5)}px;
         width: ${adpt(13.5)}px;
         /* задать размеры */
@@ -227,6 +229,7 @@ const ArticleButton = styled.button<ArticleButtonProps>`
     border: none;
     margin: 0 ${adpt(28)}px ${adpt(25)}px ${adpt(25)}px;
     padding: 0;
+    cursor: pointer;
     .imgOpen{
         height: ${adpt(19)}px;
         width: ${adpt(11)}px;
