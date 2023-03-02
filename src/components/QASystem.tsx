@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import MainArticleButton from './MainArticleButton';
-import { articles } from '../data';
+import { articles } from '../dataForArticles';
 import { adpt } from '../adaptive';
 import Search from './Search';
 import { Div } from './Div';
@@ -8,9 +8,12 @@ import { ScrolledDiv } from './ScrolledDiv';
 import { ReactComponent as MoveIcon} from "../img/move.svg";
 import { useState, useEffect } from 'react';
 import { ReactComponent as BackIcon} from "../img/back.svg";
-
+import Article from './Article';
 
 export default function QASystem() {
+    // Переменная, отвечающая за открытие-закрытие статей
+    const [articleOpenedID, setArticleOpenedID] = useState(-1);
+
     // Переменные, отвечающие за изменение размеров окна
     const [height, setHeight] = useState(adpt(672));
     const [width, setWidth] = useState(adpt(420));
@@ -36,37 +39,50 @@ export default function QASystem() {
             setBig(false);
             setHeader('Частые вопросы');
         }
-    }    
+    }
+
+    // Функция открытия статьи с определённым id
+    const openArticle = (articleID: number) => {
+        setArticleOpenedID(articleID);
+    }
 
     return(
         <QASystemFrame height={height} width={width}>
-            <HeaderDiv height={height} width={width}>
-                <Div>
-                {   /* Если экран расширен, то появляется кнопка-стрелочка назад */
-                    big &&
-                    <button className='backButton'
-                        onClick={() => {
-                            extendScreen(false);
-                        }} >
-                        <div className='image'><BackIcon/></div>
-                    </button>
-                }
-                <div className='headerText'>
-                    {header}
-                </div>
-                </Div>
-                <div className="image"><MoveIcon/></div>
-            </HeaderDiv>
-            <ArticlesDiv height={height} width={width}>
-                {   
-                    !big && 
-                        // Вывод трёх популярных статей (синие кнопки), если экран не расширен
-                        articles.map(elem => elem.popular ? (
-                            <MainArticleButton header={elem.title} paragraph={elem.popular}/>
-                        ) : <></>)
-                }
-                <Search extendScreen={extendScreen} big={big} />
-            </ArticlesDiv>
+            {
+                articleOpenedID == -1 ? (
+                    <>
+                    <HeaderDiv height={height} width={width}>
+                        <Div>
+                        {   /* Если экран расширен, то появляется кнопка-стрелочка назад */
+                            big &&
+                            <button className='backButton'
+                                onClick={() => {
+                                    extendScreen(false);
+                                }} >
+                                <div className='image'><BackIcon/></div>
+                            </button>
+                        }
+                        <div className='headerText'>
+                            {header}
+                        </div>
+                        </Div>
+                        <div className="image"><MoveIcon/></div>
+                    </HeaderDiv>
+                    <ArticlesDiv height={height} width={width}>
+                        {   
+                            !big && 
+                                // Вывод трёх популярных статей (синие кнопки), если экран не расширен
+                                articles.map(article => article.popular ? (
+                                    <MainArticleButton header={article.title} paragraph={article.popular} id={article.id} openArticle={openArticle}/>
+                                ) : <></>)
+                        }
+                        <Search extendScreen={extendScreen} big={big} openArticle={openArticle} />
+                    </ArticlesDiv>
+                    </>
+                ) : (
+                    <Article id={ articleOpenedID } />
+                )
+            }
         </QASystemFrame>
     );  
 };

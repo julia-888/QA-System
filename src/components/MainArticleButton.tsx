@@ -1,12 +1,21 @@
 import styled from 'styled-components'
-import { IArticle } from '../models';
+import { IArticle } from '../dataForArticles';
 import { adpt } from '../adaptive';
 
-const MainArticleButton = ({header, paragraph}: {header: string, paragraph: string}) => {
+type MainArticleButtonProps = {
+    openArticle: (articleID: number) => void;
+    header: string;
+    paragraph: string;
+    id: number;
+};
+
+const MainArticleButton = ({openArticle, header, paragraph, id}: MainArticleButtonProps) => {
     return(
-        <MainArticleButtonDiv>
-            <MainArticleButtonDivHeader>{header}</MainArticleButtonDivHeader>
-            <MainArticleButtonDivPar>{paragraph}</MainArticleButtonDivPar>
+        <MainArticleButtonDiv onClick={ () => {
+            openArticle(id);
+        }}>
+            <MainArticleButtonHeader>{header}</MainArticleButtonHeader>
+            <MainArticleButtonPar>{paragraph}</MainArticleButtonPar>
         </MainArticleButtonDiv>
     );
 };
@@ -25,7 +34,7 @@ color: white;
 `
 
 // Заголовок статьи на синем блоке
-const MainArticleButtonDivHeader = styled.h1`
+const MainArticleButtonHeader = styled.h1`
 white-space: pre-wrap;
 font-size: ${adpt(19)}px;
 font-weight: 600;
@@ -33,7 +42,7 @@ margin: 0;
 `
 
 // Подзаголовок статьи на синем блоке
-const MainArticleButtonDivPar = styled.p`
+const MainArticleButtonPar = styled.p`
 font-size: ${adpt(17)}px;
 font-weight: normal;
 margin: ${adpt(15)}px ${adpt(0)}px ${adpt(7)}px ${adpt(0)}px;

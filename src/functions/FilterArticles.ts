@@ -1,4 +1,4 @@
-import { IArticle } from "../models"
+import { IArticle } from "../dataForArticles"
 import { ListComparison } from "./ListComparison"
 
 

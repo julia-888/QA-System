@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useRef, useEffect } from 'react';
 import { adpt } from "../adaptive";
-import { articles } from "../data";
+import { articles } from "../dataForArticles";
 import { useState } from "react";
 import { ReactComponent as SearchIcon} from "../img/search.svg";
 import { ReactComponent as OpenIcon} from "../img/open.svg";
@@ -14,10 +14,11 @@ import { KeyWord } from "./KeyWord"
 
 type ScreenProps = {
     extendScreen: (big: boolean) => void;
+    openArticle: (id: number) => void;
     big: boolean;
   };
 
-export default function Search( {extendScreen, big}: ScreenProps ) {
+export default function Search( {extendScreen, openArticle, big}: ScreenProps ) {
     // Нажатые ключевые слова
     const [clickedKeyWordIDs, setClickedKeyWordIDs] = useState<number[]>([1]);
     
@@ -101,7 +102,10 @@ export default function Search( {extendScreen, big}: ScreenProps ) {
             <SearchDivArticles ref={targetRef}> 
             {/* Отображение всех статей, если окно большое, или первых четырёх заголовков из списка статей, если окно маленькое */}
             {   (big ? FilterArticles(articles, clickedKeyWordIDs) : FilterArticles(articles, clickedKeyWordIDs).slice(0, 4)).map(article => (
-                <ArticleButton articleButtonWidth={big?728:350} articleHeaderWidth={big?528:277}>
+                <ArticleButton articleButtonWidth={big?728:350} articleHeaderWidth={big?528:277}
+                    onClick={() => {
+                        openArticle(article.id);
+                    }}>
                     <div className="articleTitle">{article.title}</div><div className="imgOpen"><OpenIcon/></div>
                 </ArticleButton>
                 ))}
