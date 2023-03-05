@@ -11,12 +11,22 @@ import { ReactComponent as BackIcon} from "../img/back.svg";
 import Article from './Article';
 
 export default function QASystem() {
+    // Нажатые ключевые слова
+    const [clickedKeyWordIDs, setClickedKeyWordIDs] = useState<number[]>([1, 2, 4]);
+    
+    // Функция, изменяющая список нажатых слов
+    const modifyClickedKeyWordIDs = (keyWordID: number, clicked: boolean) => {
+        clicked ?
+        setClickedKeyWordIDs([...clickedKeyWordIDs, keyWordID])
+        :
+        setClickedKeyWordIDs([
+            ...clickedKeyWordIDs.slice(0, clickedKeyWordIDs.indexOf(keyWordID)),
+            ...clickedKeyWordIDs.slice(clickedKeyWordIDs.indexOf(keyWordID) + 1, clickedKeyWordIDs.length)
+        ]);
+    }
+
     // Переменная, отвечающая за открытие-закрытие статей
     const [articleOpenedID, setArticleOpenedID] = useState(-1);
-
-    // Переменные, отвечающие за изменение размеров окна
-    const [height, setHeight] = useState(adpt(672));
-    const [width, setWidth] = useState(adpt(420));
 
     // Переменная, отвечающая за отображение контента в зависимости от размеров окна. НЕ изменяется вне функции extendScreen!!!
     const [big, setBig] = useState(false);
@@ -27,31 +37,26 @@ export default function QASystem() {
         в зависимости от входного значения (true - расширить, false - сузить)
         изменяются размеры окна и переменные big и header, влияющие на контент */}
     const extendScreen = (big: boolean) => {
-        console.log(big);
         if (big) {
-            setHeight(adpt(730));
-            setWidth(adpt(850));
             setBig(true);
             setHeader('Поиск по вопросам');
         } else {
-            setHeight(adpt(672));
-            setWidth(adpt(420));
             setBig(false);
             setHeader('Частые вопросы');
         }
     }
 
     // Функция открытия статьи с определённым id
-    const openArticle = (articleID: number) => {
+    const openAndCloseArticle = (articleID: number) => {
         setArticleOpenedID(articleID);
     }
 
     return(
-        <QASystemFrame height={height} width={width}>
+        <QASystemFrame big={big}>
             {
                 articleOpenedID == -1 ? (
                     <>
-                    <HeaderDiv height={height} width={width}>
+                    <HeaderDiv big={big}>
                         <Div>
                         {   /* Если экран расширен, то появляется кнопка-стрелочка назад */
                             big &&
@@ -68,19 +73,23 @@ export default function QASystem() {
                         </Div>
                         <div className="image"><MoveIcon/></div>
                     </HeaderDiv>
-                    <ArticlesDiv height={height} width={width}>
+                    <ArticlesDiv big={big}>
                         {   
                             !big && 
                                 // Вывод трёх популярных статей (синие кнопки), если экран не расширен
                                 articles.map(article => article.popular ? (
-                                    <MainArticleButton header={article.title} paragraph={article.popular} id={article.id} openArticle={openArticle}/>
+                                    <MainArticleButton header={article.title} paragraph={article.popular} id={article.id} openAndCloseArticle={openAndCloseArticle}/>
                                 ) : <></>)
                         }
-                        <Search extendScreen={extendScreen} big={big} openArticle={openArticle} />
+                        <Search extendScreen={extendScreen} 
+                                big={big} 
+                                openAndCloseArticle={openAndCloseArticle} 
+                                clickedKeyWordIDs={clickedKeyWordIDs}
+                                modifyClickedKeyWordIDs={modifyClickedKeyWordIDs} />
                     </ArticlesDiv>
                     </>
                 ) : (
-                    <Article id={ articleOpenedID } />
+                    <Article id={ articleOpenedID } openAndCloseArticle={openAndCloseArticle} />
                 )
             }
         </QASystemFrame>
@@ -88,8 +97,7 @@ export default function QASystem() {
 };
 
 interface QASystemFrameDims {
-    width: number;
-    height: number;
+    big: boolean;
 }
 
 // Блок-родитель для всего приложения
@@ -97,11 +105,10 @@ const QASystemFrame = styled(Div)<QASystemFrameDims>`
     position: absolute;
     right: 0;
     bottom: ${adpt(10)}px;
-
     flex-direction: column;
     align-items: center;
-    width: ${p => p.width}px;
-    height: ${p => p.height}px;
+    width: ${p => p.big? adpt(850) : adpt(420) }px;
+    height: ${p => p.big? adpt(730): adpt(672)}px;
     padding: ${adpt(27)}px ${adpt(8)}px 0 ${adpt(15)}px;
     margin: 0 ${adpt(10)}px ${adpt(10)}px 0;
     box-shadow: ${adpt(0)}px ${adpt(0)}px ${adpt(24)}px lightgrey;
@@ -111,7 +118,7 @@ const QASystemFrame = styled(Div)<QASystemFrameDims>`
 // Заголовок страницы с элементом для перемещения окна
 const HeaderDiv = styled(Div)<QASystemFrameDims>`
     justify-content: space-between;
-    width: ${p => p.width - adpt(25)}px;
+    width: ${p => p.big ? adpt(850) : adpt(420) - adpt(25)}px;
     font-weight: 600;
     font-size: ${adpt(23)}px;
     text-align: left;
@@ -141,6 +148,6 @@ const HeaderDiv = styled(Div)<QASystemFrameDims>`
 const ArticlesDiv = styled(ScrolledDiv)<QASystemFrameDims>`
     flex-direction: column;
     align-items: center;
-    width: ${p => p.width}px;
-    height: ${p => p.height}px;
+    width: ${p => p.big? adpt(850) : adpt(420)}px;
+    height: ${p => p.big? adpt(730): adpt(672)}px;
 `

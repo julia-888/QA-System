@@ -12,27 +12,15 @@ import { ScrolledDiv } from "./ScrolledDiv";
 import { FilterArticles } from "../functions/FilterArticles";
 import { KeyWord } from "./KeyWord"
 
-type ScreenProps = {
+type SearchProps = {
     extendScreen: (big: boolean) => void;
-    openArticle: (id: number) => void;
+    openAndCloseArticle: (id: number) => void;
     big: boolean;
+    clickedKeyWordIDs: number[];
+    modifyClickedKeyWordIDs: (keyWordID: number, clicked: boolean) => void;
   };
 
-export default function Search( {extendScreen, openArticle, big}: ScreenProps ) {
-    // Нажатые ключевые слова
-    const [clickedKeyWordIDs, setClickedKeyWordIDs] = useState<number[]>([1, 2, 4]);
-    
-    // Функция, изменяющая список нажатых слов
-    const modifyClickedKeyWordIDs = (keyWordID: number, clicked: boolean) => {
-        clicked ?
-        setClickedKeyWordIDs([...clickedKeyWordIDs, keyWordID])
-        :
-        setClickedKeyWordIDs([
-            ...clickedKeyWordIDs.slice(0, clickedKeyWordIDs.indexOf(keyWordID)),
-            ...clickedKeyWordIDs.slice(clickedKeyWordIDs.indexOf(keyWordID) + 1, clickedKeyWordIDs.length)
-        ]);
-    }
-
+export default function Search( {extendScreen, openAndCloseArticle, big, modifyClickedKeyWordIDs, clickedKeyWordIDs}: SearchProps ) {
     // Состояние кнопки-открывателя списка ключевых слов
     const [clicked, setClicked] = useState(false);
 
@@ -40,10 +28,7 @@ export default function Search( {extendScreen, openArticle, big}: ScreenProps ) 
     const targetRef = useRef<any>(null)
 
     return (
-        <SearchDiv  shadow={big?false:true} 
-                    justify={big?'space-between':'center'}
-                    width={big?false:true}
-                    paddingTop={big?false:true}>
+        <SearchDiv  big={big}>
             {
                 // Эта часть кода относится только к маленькому экрану
                 !big && (clicked ? 
@@ -102,16 +87,16 @@ export default function Search( {extendScreen, openArticle, big}: ScreenProps ) 
             <SearchDivArticles ref={targetRef}> 
             {/* Отображение всех статей, если окно большое, или первых четырёх заголовков из списка статей, если окно маленькое */}
             {   (big ? FilterArticles(articles, clickedKeyWordIDs) : FilterArticles(articles, clickedKeyWordIDs).slice(0, 4)).map(article => (
-                <ArticleButton articleButtonWidth={big?728:350} articleHeaderWidth={big?528:277}
+                <ArticleButton big={big}
                     onClick={() => {
-                        openArticle(article.id);
+                        openAndCloseArticle(article.id);
                     }}>
                     <div className="articleTitle">{article.title}</div><div className="imgOpen"><OpenIcon/></div>
                 </ArticleButton>
                 ))}
             {
                 !big && (
-                    <ButtonLookAll articleButtonWidth={350} articleHeaderWidth={500} onClick={() => { /* При нажатии на "Показать все" экран расширяется */
+                    <ButtonLookAll big={big} onClick={() => { /* При нажатии на "Показать все" экран расширяется */
                     extendScreen(true);
                 }}> 
                     Показать все </ButtonLookAll>
@@ -123,29 +108,22 @@ export default function Search( {extendScreen, openArticle, big}: ScreenProps ) 
     );    
 }
 
-interface SearchDivProps {
-    shadow: boolean,
-    justify: string,
-    width: boolean,
-    paddingTop: boolean,
+interface Props {
+    big: boolean,
 }
 
-interface ArticleButtonProps {
-    articleButtonWidth: number,
-    articleHeaderWidth: number,
-}
 
 // Блок-родитель для поиска
-const SearchDiv = styled(Div)<SearchDivProps>`
+const SearchDiv = styled(Div)<Props>`
     box-sizing: border-box;
     flex-direction: column;
-    justify-content: ${props => props.justify};
+    justify-content: ${props => props.big ? 'space-between':'center'};
     align-items: center;
-    width: ${props => props.width && `${adpt(385)}px`};
-    padding-top: ${props => props.paddingTop && adpt(15)}px;
+    width: ${props => !props.big  && `${adpt(385)}px`};
+    padding-top: ${props => !props.big && adpt(15)}px;
     margin: ${adpt(15)}px 0;
     border-radius: ${adpt(13)}px;
-    box-shadow: ${props => props.shadow && `${adpt(0)}px ${adpt(3)}px ${adpt(6)}px lightgrey`};
+    box-shadow: ${props => !props.big && `${adpt(0)}px ${adpt(3)}px ${adpt(6)}px lightgrey`};
 `
 
 // Кнопка, открывающая блок с ключевыми словами
@@ -216,11 +194,11 @@ const KeyDivButton = styled.button`
 `
 
 // Кнопка-переход на статью
-const ArticleButton = styled.button<ArticleButtonProps>`
+const ArticleButton = styled.button<Props>`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: ${props => adpt(props.articleButtonWidth)}px;
+    width: ${props => props.big ? adpt(728) : adpt(350)}px;
     font-size: ${adpt(18)}px;
     font-weight: normal;
     background: none;
@@ -242,12 +220,12 @@ const ArticleButton = styled.button<ArticleButtonProps>`
     };
     
     .articleTitle{
-        width: ${props => adpt(props.articleHeaderWidth)}px;
+        width: ${props => props.big ? adpt(528) : adpt(277) }px;
     }
 `
 
 // Кнопка "Показать все"
-const ButtonLookAll = styled(ArticleButton)<ArticleButtonProps>`
+const ButtonLookAll = styled(ArticleButton)<Props>`
     color: rgba(60, 60, 60, 0.9);
     justify-content: center;
 `
@@ -274,6 +252,5 @@ const LineSearch = styled.input`
 const ClickedDiv = styled(Div)`
     margin-bottom: ${adpt(30)}px;
     flex-wrap: wrap;
-    /* justify-content: flex-start; */
     width: ${adpt(730)}px;
 `

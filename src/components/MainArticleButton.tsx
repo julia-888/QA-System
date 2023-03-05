@@ -3,16 +3,16 @@ import { IArticle } from '../dataForArticles';
 import { adpt } from '../adaptive';
 
 type MainArticleButtonProps = {
-    openArticle: (articleID: number) => void;
+    openAndCloseArticle: (articleID: number) => void;
     header: string;
     paragraph: string;
     id: number;
 };
 
-const MainArticleButton = ({openArticle, header, paragraph, id}: MainArticleButtonProps) => {
+const MainArticleButton = ({openAndCloseArticle, header, paragraph, id}: MainArticleButtonProps) => {
     return(
         <MainArticleButtonDiv onClick={ () => {
-            openArticle(id);
+            openAndCloseArticle(id);
         }}>
             <MainArticleButtonHeader>{header}</MainArticleButtonHeader>
             <MainArticleButtonPar>{paragraph}</MainArticleButtonPar>

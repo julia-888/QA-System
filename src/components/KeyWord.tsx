@@ -24,9 +24,6 @@ export  function KeyWord({modifyClickedKeyWordIDs, word, id, clicked, big}: KeyW
   // Активировано ли ключевое слово
   const [ keyWordClicked, setKeyWordClicked ] = useState(clicked);
 
-  // Цвет кнопки-ключевого слова
-  const [ backgroundColor, setBackgroundColor ] = useState(clicked ? '#2D3F61' : '#768EB7')
-
   useEffect(() => {
       firstDrawing ? setFirstDrawing(false) :
       modifyClickedKeyWordIDs(id, keyWordClicked);
@@ -34,10 +31,9 @@ export  function KeyWord({modifyClickedKeyWordIDs, word, id, clicked, big}: KeyW
   
 
     return (
-        <KeyWordButton color={backgroundColor} margin={big? adpt(15) : adpt(10)} iconDims={big? adpt(10) : adpt(13)}
+        <KeyWordButton clicked={keyWordClicked} big={big}
             onClick={(e) => {
                 setKeyWordClicked(!keyWordClicked);
-                backgroundColor == '#768EB7' ? setBackgroundColor('#2D3F61') : setBackgroundColor('#768EB7');
             }}>
             <WordDiv>{word}</WordDiv>
             <div className='image'>{keyWordClicked ? (big? (<CloseTagIcon/>) :(<SelectedIcon/>)) : (<PlusIcon/>)}</div>
@@ -48,9 +44,8 @@ export  function KeyWord({modifyClickedKeyWordIDs, word, id, clicked, big}: KeyW
 
 // Интерфейс со свойством цвета кнопки-ключевого слова
 interface Props {
-    color: string;
-    margin: number;
-    iconDims: number;
+    clicked: boolean;
+    big: boolean;
 }
 
 // Стилевой компонент кнопки-ключевого слова
@@ -60,17 +55,17 @@ const KeyWordButton = styled.button<Props>`
     border-radius: ${adpt(22)}px;
     border: none;
     padding: ${adpt(6)}px ${adpt(11)}px;
-    background-color: ${p => p.color};
+    background-color: ${p => p.clicked ? '#2D3F61' : '#768EB7' };
     color: #FFFFFF;
     font-family: 'Montserrat';
     font-size: ${adpt(18)}px;
     font-style: normal;
-    margin: 0 0 ${p => p.margin}px ${p => p.margin}px;
+    margin: 0 0 ${p => p.big ? adpt(15) : adpt(10)}px ${p => p.big ? adpt(15) : adpt(10)}px;
     cursor: pointer;
     .image {
 
-        height: ${p => p.iconDims}px;
-        width: ${p => p.iconDims}px;
+        height: ${p => p.big? adpt(10) : adpt(13)}px;
+        width: ${p => p.big? adpt(10) : adpt(13)}px;
         /* задать размеры */
         svg {
             width: 100%;
