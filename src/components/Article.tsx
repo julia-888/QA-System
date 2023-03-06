@@ -14,7 +14,6 @@ export default function Article({id, openAndCloseArticle}: ArticleProps) {
                     openAndCloseArticle(-1) }} >
                 <div className='image'><BackIcon/></div>
             </button>
-            <div>Hello, World!!!</div>
             <h1>{id}</h1>
         </div>
     );

@@ -25,7 +25,7 @@ export default function QASystem() {
         ]);
     }
 
-    // Переменная, отвечающая за открытие-закрытие статей
+    // Переменная, хранящая id открытой статьи. Когда значение -1, статья закрыта 
     const [articleOpenedID, setArticleOpenedID] = useState(-1);
 
     // Переменная, отвечающая за отображение контента в зависимости от размеров окна. НЕ изменяется вне функции extendScreen!!!
@@ -118,7 +118,7 @@ const QASystemFrame = styled(Div)<QASystemFrameDims>`
 // Заголовок страницы с элементом для перемещения окна
 const HeaderDiv = styled(Div)<QASystemFrameDims>`
     justify-content: space-between;
-    width: ${p => p.big ? adpt(850) : adpt(420) - adpt(25)}px;
+    width: ${p => p.big ? adpt(850) - adpt(25) : adpt(420) - adpt(25)}px;
     font-weight: 600;
     font-size: ${adpt(23)}px;
     text-align: left;
