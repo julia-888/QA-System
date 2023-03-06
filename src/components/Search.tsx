@@ -16,11 +16,11 @@ type SearchProps = {
     extendScreen: (big: boolean) => void;
     openAndCloseArticle: (id: number) => void;
     big: boolean;
-    clickedKeyWordIDs: number[];
-    modifyClickedKeyWordIDs: (keyWordID: number, clicked: boolean) => void;
+    clickedKeyWords: string[];
+    modifyclickedKeyWords: (keyWord: string, clicked: boolean) => void;
   };
 
-export default function Search( {extendScreen, openAndCloseArticle, big, modifyClickedKeyWordIDs, clickedKeyWordIDs}: SearchProps ) {
+export default function Search( {extendScreen, openAndCloseArticle, big, modifyclickedKeyWords, clickedKeyWords}: SearchProps ) {
     // Состояние кнопки-открывателя списка ключевых слов
     const [clicked, setClicked] = useState(false);
 
@@ -42,10 +42,9 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyC
                      {/* Взятие и отображение ключевых слов из массива с учётом их нажатости */}
                      <KeyWordsWrapDiv>
                         { keyWordsList.map((keyWord) => (
-                            <KeyWord word = {keyWord.word}
-                            modifyClickedKeyWordIDs={modifyClickedKeyWordIDs} 
-                            id={keyWord.id}
-                            clicked={clickedKeyWordIDs.includes(keyWord.id)}
+                            <KeyWord word = {keyWord}
+                            modifyclickedKeyWords={modifyclickedKeyWords} 
+                            clicked={clickedKeyWords.includes(keyWord)}
                             big={false} />
                         ))}
                     </KeyWordsWrapDiv>
@@ -64,18 +63,17 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyC
 
             {big && 
                 // Отображение в большом окне поисковой строки или выбранных ключевых слов
-                ( clickedKeyWordIDs.length==0 ? (
+                ( clickedKeyWords.length==0 ? (
                         <LineSearch type='text' placeholder="Введите запрос">
 
                         </LineSearch>
                     ) : (
                         <ClickedDiv>
                             { keyWordsList.map((keyWord) => (
-                                clickedKeyWordIDs.includes(keyWord.id) ? 
-                            (<KeyWord word = {keyWord.word}
-                                modifyClickedKeyWordIDs={modifyClickedKeyWordIDs} 
-                                id={keyWord.id}
-                                clicked={clickedKeyWordIDs.includes(keyWord.id)}
+                                clickedKeyWords.includes(keyWord) ? 
+                            (<KeyWord word = {keyWord}
+                                modifyclickedKeyWords={modifyclickedKeyWords} 
+                                clicked={clickedKeyWords.includes(keyWord)}
                                 big={true} />) : (<></>) 
                             ))}
                         </ClickedDiv>
@@ -86,7 +84,7 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyC
             {/* Добавляем ссылку */}
             <SearchDivArticles ref={targetRef}> 
             {/* Отображение всех статей, если окно большое, или первых четырёх заголовков из списка статей, если окно маленькое */}
-            {   (big ? FilterArticles(articles, clickedKeyWordIDs) : FilterArticles(articles, clickedKeyWordIDs).slice(0, 4)).map(article => (
+            {   (big ? FilterArticles(articles, clickedKeyWords) : FilterArticles(articles, clickedKeyWords).slice(0, 4)).map(article => (
                 <ArticleButton big={big}
                     onClick={() => {
                         openAndCloseArticle(article.id);

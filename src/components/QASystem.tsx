@@ -12,16 +12,16 @@ import Article from './Article';
 
 export default function QASystem() {
     // Нажатые ключевые слова
-    const [clickedKeyWordIDs, setClickedKeyWordIDs] = useState<number[]>([1, 2, 4]);
+    const [clickedKeyWords, setclickedKeyWords] = useState<string[]>([]);
     
     // Функция, изменяющая список нажатых слов
-    const modifyClickedKeyWordIDs = (keyWordID: number, clicked: boolean) => {
+    const modifyclickedKeyWords = (keyWord: string, clicked: boolean) => {
         clicked ?
-        setClickedKeyWordIDs([...clickedKeyWordIDs, keyWordID])
+        setclickedKeyWords([...clickedKeyWords, keyWord])
         :
-        setClickedKeyWordIDs([
-            ...clickedKeyWordIDs.slice(0, clickedKeyWordIDs.indexOf(keyWordID)),
-            ...clickedKeyWordIDs.slice(clickedKeyWordIDs.indexOf(keyWordID) + 1, clickedKeyWordIDs.length)
+        setclickedKeyWords([
+            ...clickedKeyWords.slice(0, clickedKeyWords.indexOf(keyWord)),
+            ...clickedKeyWords.slice(clickedKeyWords.indexOf(keyWord) + 1, clickedKeyWords.length)
         ]);
     }
 
@@ -64,14 +64,14 @@ export default function QASystem() {
                                 onClick={() => {
                                     extendScreen(false);
                                 }} >
-                                <div className='image'><BackIcon/></div>
+                                <div className='imgBack'><BackIcon/></div>
                             </button>
                         }
                         <div className='headerText'>
                             {header}
                         </div>
                         </Div>
-                        <div className="image"><MoveIcon/></div>
+                        <div className="imgMove"><MoveIcon/></div>
                     </HeaderDiv>
                     <ArticlesDiv big={big}>
                         {   
@@ -84,8 +84,8 @@ export default function QASystem() {
                         <Search extendScreen={extendScreen} 
                                 big={big} 
                                 openAndCloseArticle={openAndCloseArticle} 
-                                clickedKeyWordIDs={clickedKeyWordIDs}
-                                modifyClickedKeyWordIDs={modifyClickedKeyWordIDs} />
+                                clickedKeyWords={clickedKeyWords}
+                                modifyclickedKeyWords={modifyclickedKeyWords} />
                     </ArticlesDiv>
                     </>
                 ) : (
@@ -109,7 +109,7 @@ const QASystemFrame = styled(Div)<QASystemFrameDims>`
     align-items: center;
     width: ${p => p.big? adpt(850) : adpt(420) }px;
     height: ${p => p.big? adpt(730): adpt(672)}px;
-    padding: ${adpt(27)}px ${adpt(8)}px 0 ${adpt(15)}px;
+    padding: ${adpt(27)}px ${adpt(8)}px 0 0;
     margin: 0 ${adpt(10)}px ${adpt(10)}px 0;
     box-shadow: ${adpt(0)}px ${adpt(0)}px ${adpt(24)}px lightgrey;
     border-radius: ${adpt(20)}px;
@@ -125,9 +125,18 @@ const HeaderDiv = styled(Div)<QASystemFrameDims>`
     margin-left: ${adpt(35)}px;
     margin-right: ${adpt(30)}px;
     margin-bottom: ${adpt(10)}px;
-    .image{
-        height: ${adpt(17)}px;
-        width: ${adpt(10)}px;
+    .imgBack{
+        height: ${adpt(19)}px;
+        width: ${adpt(12)}px;
+        /* задать размеры */
+        svg {
+            width: 100%;
+            height: 100%;
+        }        
+    }
+    .imgMove{
+        height: ${adpt(25)}px;
+        width: ${adpt(15)}px;
         /* задать размеры */
         svg {
             width: 100%;

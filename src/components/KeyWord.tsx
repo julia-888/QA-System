@@ -10,14 +10,13 @@ import { isTemplateSpan } from 'typescript';
 
 // Тип для передачи в функцию
 type KeyWordsProps = {
-    modifyClickedKeyWordIDs: (keyWordID: number, clicked: boolean) => void;
+    modifyclickedKeyWords: (keyWord: string, clicked: boolean) => void;
     word: string;
-    id: number;
     clicked: boolean,
     big: boolean
 };
 
-export  function KeyWord({modifyClickedKeyWordIDs, word, id, clicked, big}: KeyWordsProps) {
+export function KeyWord({modifyclickedKeyWords, word, clicked, big}: KeyWordsProps) {
   //Предотвращает срабатывание useEffect при первой отрисовке
   const [ firstDrawing, setFirstDrawing ] = useState(true);
 
@@ -26,7 +25,7 @@ export  function KeyWord({modifyClickedKeyWordIDs, word, id, clicked, big}: KeyW
 
   useEffect(() => {
       firstDrawing ? setFirstDrawing(false) :
-      modifyClickedKeyWordIDs(id, keyWordClicked);
+      modifyclickedKeyWords(word, keyWordClicked);
   }, [keyWordClicked])
   
 

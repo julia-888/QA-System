@@ -8,7 +8,7 @@ export interface IArticle {
         content: string,
         url ?: string,
     }[]
-    keyIDs: number[],
+    keys: string[],
     popular ?:  string,
 }
 
@@ -37,7 +37,7 @@ export const articles: IArticle[] = [
                 content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
             }
         ],
-        keyIDs: [1, 2, 3, 4],
+        keys: ["Способы", "Регенерация", "Трансформаторы", "Заказ"],
     },
     {
         id: 2,
@@ -62,7 +62,7 @@ export const articles: IArticle[] = [
                 content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
             }
         ],
-        keyIDs: [2, 3],
+        keys: ["Регенерация", "Трансформаторы", "Заказ"],
     },
     {
         id: 3,
@@ -87,7 +87,7 @@ export const articles: IArticle[] = [
                 content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
             }
         ],
-        keyIDs: [6, 7],
+        keys: ["Преимущества", "Адсорбционная"],
     },
     {
         id: 4,
@@ -112,7 +112,7 @@ export const articles: IArticle[] = [
                 content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
             }
         ],
-        keyIDs: [1, 4, 7],
+        keys: ["Способы", "Заказ", "Издержки", "Результаты", ],
     },
     {
         id: 5,
@@ -137,7 +137,7 @@ export const articles: IArticle[] = [
                 content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
             }
         ],
-        keyIDs: [1, 3, 4, 5, 6],
+        keys: ["Заказ", "Издержки", "Результаты", "Установки", "Преимущества", "Адсорбционная",],
     },
     {
         id: 6,
@@ -162,7 +162,7 @@ export const articles: IArticle[] = [
                 content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
             }
         ],
-        keyIDs: [1],
+        keys: ["Способы"],
         popular: 'Масло, или невзаимозаменяемый токен, — это единица учета...'
     },
     {
@@ -188,7 +188,7 @@ export const articles: IArticle[] = [
                 content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
             }
         ],
-        keyIDs: [1, 4, 5],
+        keys: ["Способы", "Заказ", "Издержки",],
         popular: 'С помощью некоторых устройств, которые регенерируют и не только...'
     },
     {
@@ -214,8 +214,33 @@ export const articles: IArticle[] = [
                 content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
             }
         ],
-        keyIDs: [1, 3],
+        keys: ["Адсорбционная",],
         popular: 'Он, или они невзаимозаменяемый элементы, — это единица учета...'
+    },
+    {
+        id: 9,
+        title: 'Энергетическое масло',
+        subtitle: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.',
+        content: [
+            {
+                type: 'text',
+                content: 'Но недостаточно просто включить функцию в CSS. В спецификациях CSS Text Module Level 4 появилась возможность управлять переносами, как в программах для вёрстки (например, InDesign) и некоторых текстовых редакторах (включая Word). Эти элементы управления позволяют разными способами установить количество переносов в тексте.',
+            },
+            {
+                type: 'img',
+                url: '',
+                content: 'image.png',
+            },
+            {
+                type: 'text',
+                content: 'Но недостаточно просто включить функцию в CSS. В спецификациях CSS Text Module Level 4 появилась возможность управлять переносами, как в программах для вёрстки (например, InDesign) и некоторых текстовых редакторах (включая Word). Эти элементы управления позволяют разными способами установить количество переносов в тексте.',
+            },
+            {
+                type: 'tezis',
+                content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+            }
+        ],
+        keys: ["Адсорбционная", "Результаты", "Издержки"],
     },
 
 ]
