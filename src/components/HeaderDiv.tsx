@@ -23,7 +23,6 @@ export const HeaderDiv = styled(Div)<QASystemFrameDims>`
             width: 100%;
             height: 100%;
         }
-        padding-top: ${adpt(5)}px;
     }
     .imgMove{
         height: ${adpt(25)}px;

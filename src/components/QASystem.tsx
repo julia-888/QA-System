@@ -26,7 +26,7 @@ export default function QASystem() {
         ]);
     }
 
-    // Переменная, хранящая id открытой статьи. Когда значение -1, статья закрыта 
+    // Переменная, хранящая i открытой статьи. Когда значение -1, статья закрыта 
     const [articleOpenedID, setArticleOpenedID] = useState(-1);
 
     // Переменная, отвечающая за отображение контента в зависимости от размеров окна. НЕ изменяется вне функции extendScreen!!!
@@ -47,7 +47,7 @@ export default function QASystem() {
         }
     }
 
-    // Функция открытия статьи с определённым id
+    // Функция открытия статьи с определённым i
     const openAndCloseArticle = (articleID: number) => {
         setArticleOpenedID(articleID);
     }
@@ -79,7 +79,7 @@ export default function QASystem() {
                             !big && 
                                 // Вывод трёх популярных статей (синие кнопки), если экран не расширен
                                 articles.map(article => article.popular ? (
-                                    <MainArticleButton header={article.title} paragraph={article.popular} id={articles.indexOf(article)} openAndCloseArticle={openAndCloseArticle}/>
+                                    <MainArticleButton header={article.title} paragraph={article.popular} i={articles.indexOf(article)} openAndCloseArticle={openAndCloseArticle}/>
                                 ) : <></>)
                         }
                         <Search extendScreen={extendScreen} 
@@ -90,7 +90,7 @@ export default function QASystem() {
                     </ArticlesDiv>
                     </>
                 ) : (
-                    <Article big={ big } id={ articleOpenedID } openAndCloseArticle={openAndCloseArticle} />
+                    <Article big={ big } i={ articleOpenedID } openAndCloseArticle={openAndCloseArticle} />
                 )
             }
         </QASystemFrame>

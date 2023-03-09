@@ -6,13 +6,13 @@ type MainArticleButtonProps = {
     openAndCloseArticle: (articleID: number) => void;
     header: string;
     paragraph: string;
-    id: number;
+    i: number;
 };
 
-const MainArticleButton = ({openAndCloseArticle, header, paragraph, id}: MainArticleButtonProps) => {
+const MainArticleButton = ({openAndCloseArticle, header, paragraph, i}: MainArticleButtonProps) => {
     return(
         <MainArticleButtonDiv onClick={ () => {
-            openAndCloseArticle(id);
+            openAndCloseArticle(i);
         }}>
             <MainArticleButtonHeader>{header}</MainArticleButtonHeader>
             <MainArticleButtonPar>{paragraph}</MainArticleButtonPar>

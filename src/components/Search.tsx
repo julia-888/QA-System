@@ -14,7 +14,7 @@ import { KeyWord } from "./KeyWord"
 
 type SearchProps = {
     extendScreen: (big: boolean) => void;
-    openAndCloseArticle: (id: number) => void;
+    openAndCloseArticle: (i: number) => void;
     big: boolean;
     clickedKeyWords: string[];
     modifyclickedKeyWords: (keyWord: string, clicked: boolean) => void;

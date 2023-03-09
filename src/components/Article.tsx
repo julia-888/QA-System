@@ -6,44 +6,51 @@ import { ReactComponent as BackIcon} from "../img/back.svg";
 import { HeaderDiv } from './HeaderDiv';
 import { ReactComponent as MoveIcon} from "../img/move.svg";
 import { ReactComponent as CompressIcon} from "../img/compress.svg";
+import { ScrolledDiv } from "./ScrolledDiv";
 
 
 type ArticleProps = {
-    //Поле id здесь означает индекс статьи в массиве!!!
-    id: number;
+    //Поле i здесь означает индекс статьи в массиве!!!
+    i: number;
     big: boolean;
     openAndCloseArticle: (article: number) => void;
 };
 
-export default function Article({id, big, openAndCloseArticle}: ArticleProps) {
+export default function Article({i, big, openAndCloseArticle}: ArticleProps) {
     return (
-        <div>
+        <>
             <HeaderDiv big={big}>
-                    
-                        <button className='backButton'
-                            onClick={() => {
-                                openAndCloseArticle(-1);
-                            }} >
-                            <div className='imgBack'><BackIcon/></div>
-                        </button>
-                        <div className='headerText'>
-                            {articles[id].title}
-                        </div>
-                    
-                    <div className="imgMove"><CompressIcon/></div>
-                {/* <button className='backButton'
+                <Div>
+                <button className='backButton'
                     onClick={() => {
-                        openAndCloseArticle(-1) }} >
-                    <div className='image'><BackIcon/></div>
-                </button> */}
+                        openAndCloseArticle(-1);
+                    }} >
+                    <div className='imgBack'><BackIcon/></div>
+                </button>
+                <div className='headerText'>
+                    {articles[i].title}
+                </div>
+                </Div>
+                <div className="imgMove"><CompressIcon/></div>
             </HeaderDiv>
             <ContentDiv>
-
+                {/* {
+                    articles[i].content.map(contentElem => 
+                        (
+                            contentElem.type == 'text' ?
+                            (<p>{contentElem.content}</p>) : 
+                            contentElem.type == 'img' ?
+                            (<div>Картинка!!!</div>) :
+                            contentElem.type == 'tezis' ?
+                            (<div>Тезис</div>) : (<></>)
+                        ))
+                }
+                <p>{i}</p> */}
             </ContentDiv>
-        </div>
+        </>
     );
 }
 
-const ContentDiv = styled.div`
+const ContentDiv = styled(ScrolledDiv)`
 
 `
