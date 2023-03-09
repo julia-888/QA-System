@@ -87,7 +87,7 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
             {   (big ? FilterArticles(articles, clickedKeyWords) : FilterArticles(articles, clickedKeyWords).slice(0, 4)).map(article => (
                 <ArticleButton big={big}
                     onClick={() => {
-                        openAndCloseArticle(article.id);
+                        openAndCloseArticle(articles.indexOf(article));
                     }}>
                     <div className="articleTitle">{article.title}</div><div className="imgOpen"><OpenIcon/></div>
                 </ArticleButton>

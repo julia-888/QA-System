@@ -1,6 +1,5 @@
 // Интерфейс содержимого статьи
 export interface IArticle { 
-    id: number,
     title: string,
     subtitle: string,
     content: {
@@ -15,7 +14,6 @@ export interface IArticle {
 // Данные для статей
 export const articles: IArticle[] = [
     {
-        id: 1,
         title: 'Что лучше: купить масло или заказать регенерацию?',
         subtitle: 'Подзаголовок',
         content: [
@@ -40,7 +38,6 @@ export const articles: IArticle[] = [
         keys: ["Способы", "Регенерация", "Трансформаторы", "Заказ"],
     },
     {
-        id: 2,
         title: 'Как заказать регенерацию, если я нахожусь в Сибири?',
         subtitle: 'Подзаголовок',
         content: [
@@ -65,7 +62,6 @@ export const articles: IArticle[] = [
         keys: ["Регенерация", "Трансформаторы", "Заказ"],
     },
     {
-        id: 3,
         title: 'Возможно ли купить много установок бесплатно?',
         subtitle: 'Подзаголовок',
         content: [
@@ -90,7 +86,6 @@ export const articles: IArticle[] = [
         keys: ["Преимущества", "Адсорбционная"],
     },
     {
-        id: 4,
         title: 'Возможно ли забронировать регенерацию на год?',
         subtitle: 'Подзаголовок',
         content: [
@@ -115,7 +110,6 @@ export const articles: IArticle[] = [
         keys: ["Способы", "Заказ", "Издержки", "Результаты", ],
     },
     {
-        id: 5,
         title: 'Lorem ipsum, dolor sit amet consectetur adipisicing.',
         subtitle: 'Подзаголовок',
         content: [
@@ -140,7 +134,6 @@ export const articles: IArticle[] = [
         keys: ["Заказ", "Издержки", "Результаты", "Установки", "Преимущества", "Адсорбционная",],
     },
     {
-        id: 6,
         title: 'Что такое адсорбент?',
         subtitle: 'Подзаголовок',
         content: [
@@ -166,7 +159,6 @@ export const articles: IArticle[] = [
         popular: 'Масло, или невзаимозаменяемый токен, — это единица учета...'
     },
     {
-        id: 7,
         title: 'Как происходит регенерация масла технически?',
         subtitle: 'Подзаголовок',
         content: [
@@ -192,7 +184,6 @@ export const articles: IArticle[] = [
         popular: 'С помощью некоторых устройств, которые регенерируют и не только...'
     },
     {
-        id: 8,
         title: 'Что такое трансформатор?',
         subtitle: 'Подзаголовок',
         content: [
@@ -218,7 +209,6 @@ export const articles: IArticle[] = [
         popular: 'Он, или они невзаимозаменяемый элементы, — это единица учета...'
     },
     {
-        id: 9,
         title: 'Энергетическое масло',
         subtitle: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.',
         content: [

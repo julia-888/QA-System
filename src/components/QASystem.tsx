@@ -5,6 +5,7 @@ import { adpt } from '../adaptive';
 import Search from './Search';
 import { Div } from './Div';
 import { ScrolledDiv } from './ScrolledDiv';
+import { HeaderDiv } from './HeaderDiv';
 import { ReactComponent as MoveIcon} from "../img/move.svg";
 import { useState, useEffect } from 'react';
 import { ReactComponent as BackIcon} from "../img/back.svg";
@@ -78,7 +79,7 @@ export default function QASystem() {
                             !big && 
                                 // Вывод трёх популярных статей (синие кнопки), если экран не расширен
                                 articles.map(article => article.popular ? (
-                                    <MainArticleButton header={article.title} paragraph={article.popular} id={article.id} openAndCloseArticle={openAndCloseArticle}/>
+                                    <MainArticleButton header={article.title} paragraph={article.popular} id={articles.indexOf(article)} openAndCloseArticle={openAndCloseArticle}/>
                                 ) : <></>)
                         }
                         <Search extendScreen={extendScreen} 
@@ -89,7 +90,7 @@ export default function QASystem() {
                     </ArticlesDiv>
                     </>
                 ) : (
-                    <Article id={ articleOpenedID } openAndCloseArticle={openAndCloseArticle} />
+                    <Article big={ big } id={ articleOpenedID } openAndCloseArticle={openAndCloseArticle} />
                 )
             }
         </QASystemFrame>
@@ -113,44 +114,6 @@ const QASystemFrame = styled(Div)<QASystemFrameDims>`
     margin: 0 ${adpt(10)}px ${adpt(10)}px 0;
     box-shadow: ${adpt(0)}px ${adpt(0)}px ${adpt(24)}px lightgrey;
     border-radius: ${adpt(20)}px;
-`
-
-// Заголовок страницы с элементом для перемещения окна
-const HeaderDiv = styled(Div)<QASystemFrameDims>`
-    justify-content: space-between;
-    width: ${p => p.big ? adpt(850) - adpt(25) : adpt(420) - adpt(25)}px;
-    font-weight: 600;
-    font-size: ${adpt(23)}px;
-    text-align: left;
-    margin-left: ${adpt(35)}px;
-    margin-right: ${adpt(30)}px;
-    margin-bottom: ${adpt(10)}px;
-    .imgBack{
-        height: ${adpt(19)}px;
-        width: ${adpt(12)}px;
-        /* задать размеры */
-        svg {
-            width: 100%;
-            height: 100%;
-        }        
-    }
-    .imgMove{
-        height: ${adpt(25)}px;
-        width: ${adpt(15)}px;
-        /* задать размеры */
-        svg {
-            width: 100%;
-            height: 100%;
-        }        
-    }
-    .headerText {
-        margin-left: ${adpt(30)}px;
-    }
-    .backButton {
-        cursor: pointer;
-        background: none;
-        border: none;
-    }
 `
 
 // Основной блок с контентом
