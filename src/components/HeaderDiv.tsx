@@ -33,6 +33,24 @@ export const HeaderDiv = styled(Div)<QASystemFrameDims>`
             height: 100%;
         }        
     }
+    .imgCompress{
+        height: ${adpt(21)}px;
+        width: ${adpt(21)}px;
+        /* задать размеры */
+        svg {
+            width: 100%;
+            height: 100%;
+        }        
+    }
+    .imgExtend{
+        height: ${adpt(19)}px;
+        width: ${adpt(19)}px;
+        /* задать размеры */
+        svg {
+            width: 100%;
+            height: 100%;
+        }        
+    }
     .headerText {
         margin-left: ${adpt(30)}px;
         width: ${p => p.big ? adpt(710) : adpt(318)}px;

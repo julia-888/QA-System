@@ -6,6 +6,7 @@ import { ReactComponent as BackIcon} from "../img/back.svg";
 import { HeaderDiv } from './HeaderDiv';
 import { ReactComponent as MoveIcon} from "../img/move.svg";
 import { ReactComponent as CompressIcon} from "../img/compress.svg";
+import { ReactComponent as ExtendIcon} from "../img/extend.svg";
 import { ScrolledDiv } from "./ScrolledDiv";
 
 
@@ -14,9 +15,10 @@ type ArticleProps = {
     i: number;
     big: boolean;
     openAndCloseArticle: (article: number) => void;
+    extendScreen: (big: boolean) => void;
 };
 
-export default function Article({i, big, openAndCloseArticle}: ArticleProps) {
+export default function Article({i, big, openAndCloseArticle, extendScreen}: ArticleProps) {
     return (
         <>
             <HeaderDiv big={big}>
@@ -31,10 +33,26 @@ export default function Article({i, big, openAndCloseArticle}: ArticleProps) {
                     {articles[i].title}
                 </div>
                 </Div>
-                <div className="imgMove"><CompressIcon/></div>
+                {
+                    big ? (
+                        <button className='backButton'
+                            onClick={() => {
+                                extendScreen(false);
+                            }} >
+                            <div className="imgCompress"><CompressIcon/></div>
+                        </button>
+                    ) : (
+                        <button className='backButton'
+                            onClick={() => {
+                                extendScreen(true);
+                            }} >
+                            <div className="imgExtend"><ExtendIcon/></div>
+                        </button>
+                )}
             </HeaderDiv>
-            <ContentDiv>
-                {/* {
+            <ContentDiv big={big}>
+                <SubtitleForArticle>{articles[i].subtitle}</SubtitleForArticle>                
+                {
                     articles[i].content.map(contentElem => 
                         (
                             contentElem.type == 'text' ?
@@ -45,12 +63,25 @@ export default function Article({i, big, openAndCloseArticle}: ArticleProps) {
                             (<div>Тезис</div>) : (<></>)
                         ))
                 }
-                <p>{i}</p> */}
+                <h1>{i}</h1>
             </ContentDiv>
+            
         </>
     );
 }
 
-const ContentDiv = styled(ScrolledDiv)`
+const SubtitleForArticle = styled.div`
+    font: 300 ${adpt(17)}px 'Montserrat';
+`
 
+interface ContentDivProps {
+    big: boolean;
+};
+
+const ContentDiv = styled(ScrolledDiv)<ContentDivProps>`
+    flex-direction: column;
+    padding-top: ${adpt(15)}px;
+    padding-right: ${p => p.big? adpt(93) : adpt(40)}px;
+    padding-bottom: ${adpt(30)}px;
+    padding-left: ${p => p.big? adpt(75) : adpt(15)}px;
 `

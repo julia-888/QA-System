@@ -90,7 +90,7 @@ export default function QASystem() {
                     </ArticlesDiv>
                     </>
                 ) : (
-                    <Article big={ big } i={ articleOpenedID } openAndCloseArticle={openAndCloseArticle} />
+                    <Article big={ big } i={ articleOpenedID } openAndCloseArticle={openAndCloseArticle} extendScreen={extendScreen} />
                 )
             }
         </QASystemFrame>
