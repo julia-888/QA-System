@@ -6,9 +6,9 @@ import Search from './Search';
 import { Div } from './Div';
 import { ScrolledDiv } from './ScrolledDiv';
 import { HeaderDiv } from './HeaderDiv';
-import { ReactComponent as MoveIcon} from "../img/move.svg";
+import { ReactComponent as MoveIcon} from "../icons/move.svg";
 import { useState, useEffect } from 'react';
-import { ReactComponent as BackIcon} from "../img/back.svg";
+import { ReactComponent as BackIcon} from "../icons/back.svg";
 import Article from './Article';
 
 export default function QASystem() {
@@ -57,7 +57,7 @@ export default function QASystem() {
             {
                 articleOpenedID == -1 ? (
                     <>
-                    <HeaderDiv big={big}>
+                    <HeaderDiv big={big} isArticle={false}>
                         <Div>
                         {   /* Если экран расширен, то появляется кнопка-стрелочка назад */
                             big &&

@@ -2,11 +2,11 @@ import { articles } from "../dataForArticles";
 import { Div } from "./Div";
 import styled from "styled-components";
 import { adpt } from "../adaptive";
-import { ReactComponent as BackIcon} from "../img/back.svg";
+import { ReactComponent as BackIcon} from "../icons/back.svg";
 import { HeaderDiv } from './HeaderDiv';
-import { ReactComponent as MoveIcon} from "../img/move.svg";
-import { ReactComponent as CompressIcon} from "../img/compress.svg";
-import { ReactComponent as ExtendIcon} from "../img/extend.svg";
+import { ReactComponent as MoveIcon} from "../icons/move.svg";
+import { ReactComponent as CompressIcon} from "../icons/compress.svg";
+import { ReactComponent as ExtendIcon} from "../icons/extend.svg";
 import { ScrolledDiv } from "./ScrolledDiv";
 
 
@@ -21,7 +21,7 @@ type ArticleProps = {
 export default function Article({i, big, openAndCloseArticle, extendScreen}: ArticleProps) {
     return (
         <>
-            <HeaderDiv big={big}>
+            <HeaderDiv big={big} isArticle={true}>
                 <Div>
                 <button className='backButton'
                     onClick={() => {
@@ -50,22 +50,24 @@ export default function Article({i, big, openAndCloseArticle, extendScreen}: Art
                         </button>
                 )}
             </HeaderDiv>
+
+            
             <ContentDiv big={big}>
                 <SubtitleForArticle>{articles[i].subtitle}</SubtitleForArticle>                
                 {
                     articles[i].content.map(contentElem => 
-                        (
                             contentElem.type == 'text' ?
                             (<p>{contentElem.content}</p>) : 
                             contentElem.type == 'img' ?
-                            (<div>Картинка!!!</div>) :
-                            contentElem.type == 'tezis' ?
-                            (<div>Тезис</div>) : (<></>)
-                        ))
+                            (<Image big={big}>
+                                <img className="image" src={require(`../img/${contentElem.content}`)} alt="" />
+                            </Image>) :
+                            contentElem.type =='tezis' ?
+                            (<Tezis big={big}>{contentElem.content}</Tezis>)
+                            : (<></>)  
+                        )
                 }
-                <h1>{i}</h1>
             </ContentDiv>
-            
         </>
     );
 }
@@ -80,8 +82,27 @@ interface ContentDivProps {
 
 const ContentDiv = styled(ScrolledDiv)<ContentDivProps>`
     flex-direction: column;
+    box-sizing: border-box;
     padding-top: ${adpt(15)}px;
-    padding-right: ${p => p.big? adpt(93) : adpt(40)}px;
+    padding-right: ${p => p.big? adpt(108) : adpt(30)}px;
     padding-bottom: ${adpt(30)}px;
-    padding-left: ${p => p.big? adpt(75) : adpt(15)}px;
+    padding-left: ${p => p.big? adpt(75) : adpt(30)}px;
+`
+
+const Image = styled.div<ContentDivProps>`
+    width: ${p => p.big ? adpt(682) : adpt(335)}px;
+    height: ${adpt(219)}px;
+    text-align: center;
+    overflow-y: ${p => p.big && `hidden`};
+    
+    .image {
+        width: 100%;
+    }
+`
+
+const Tezis = styled.div<ContentDivProps>`
+    border-left: 3px solid #5E7398;
+    padding-left: ${adpt(20)}px;
+    width: ${p => p.big ? adpt(580) : adpt(335)}px;
+    align-self: center;
 `

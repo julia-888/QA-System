@@ -1,9 +1,9 @@
 import {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import { adpt } from "../adaptive";
-import { ReactComponent as PlusIcon} from "../img/plus.svg";
-import { ReactComponent as SelectedIcon} from "../img/selected.svg";
-import { ReactComponent as CloseTagIcon} from "../img/closeTag.svg";
+import { ReactComponent as PlusIcon} from "../icons/plus.svg";
+import { ReactComponent as SelectedIcon} from "../icons/selected.svg";
+import { ReactComponent as CloseTagIcon} from "../icons/closeTag.svg";
 import { ScrolledDiv } from "./ScrolledDiv"
 import { keyWordsList } from "../keyWordsList"
 import { isTemplateSpan } from 'typescript';

@@ -5,7 +5,7 @@ export interface IArticle {
     content: {
         type: string,
         content: string,
-        url ?: string,
+        linkText ?: string,
     }[]
     keys: string[],
     popular ?:  string,
@@ -23,8 +23,7 @@ export const articles: IArticle[] = [
             },
             {
                 type: 'img',
-                url: '',
-                content: 'image.png',
+                content: 'kamaz.png',
             },
             {
                 type: 'text',
@@ -47,8 +46,7 @@ export const articles: IArticle[] = [
             },
             {
                 type: 'img',
-                url: '',
-                content: 'image.png',
+                content: 'transforms.png',
             },
             {
                 type: 'text',
@@ -71,8 +69,7 @@ export const articles: IArticle[] = [
             },
             {
                 type: 'img',
-                url: '',
-                content: 'image.png',
+                content: 'transforms.png',
             },
             {
                 type: 'text',
@@ -95,8 +92,7 @@ export const articles: IArticle[] = [
             },
             {
                 type: 'img',
-                url: '',
-                content: 'image.png',
+                content: 'kamaz2.png',
             },
             {
                 type: 'text',
@@ -119,8 +115,7 @@ export const articles: IArticle[] = [
             },
             {
                 type: 'img',
-                url: '',
-                content: 'image.png',
+                content: 'kamaz.png',
             },
             {
                 type: 'text',
@@ -143,11 +138,10 @@ export const articles: IArticle[] = [
             },
             {
                 type: 'img',
-                url: '',
-                content: 'image.png',
+                content: 'kamaz.png',
             },
             {
-                type: 'text',
+                type: 'textMedium',
                 content: 'Но недостаточно просто включить функцию в CSS. В спецификациях CSS Text Module Level 4 появилась возможность управлять переносами, как в программах для вёрстки (например, InDesign) и некоторых текстовых редакторах (включая Word). Эти элементы управления позволяют разными способами установить количество переносов в тексте.',
             },
             {
@@ -167,8 +161,7 @@ export const articles: IArticle[] = [
             },
             {
                 type: 'img',
-                url: '',
-                content: 'image.png',
+                content: 'kamaz2.png',
             },
             {
                 type: 'text',
@@ -192,8 +185,7 @@ export const articles: IArticle[] = [
             },
             {
                 type: 'img',
-                url: '',
-                content: 'image.png',
+                content: 'kamaz2.png',
             },
             {
                 type: 'text',
@@ -217,8 +209,7 @@ export const articles: IArticle[] = [
             },
             {
                 type: 'img',
-                url: '',
-                content: 'image.png',
+                content: 'transforms.png',
             },
             {
                 type: 'text',
@@ -242,8 +233,7 @@ export const articles: IArticle[] = [
             },
             {
                 type: 'img',
-                url: '',
-                content: 'image.png',
+                content: 'kamaz2.png',
             },
             {
                 type: 'text',

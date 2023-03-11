@@ -2,22 +2,23 @@ import styled from "styled-components"
 import { adpt } from "../adaptive"
 import { Div } from "./Div"
 
-interface QASystemFrameDims {
+interface HeaderDivProps {
     big: boolean;
+    isArticle: boolean;
 }
 
 // Заголовок страницы с элементом для перемещения окна
-export const HeaderDiv = styled(Div)<QASystemFrameDims>`
+export const HeaderDiv = styled(Div)<HeaderDivProps>`
     justify-content: space-between;
     align-items: flex-start;
     width: ${p => p.big ? adpt(850) - adpt(25) : adpt(420) - adpt(25)}px;
     font-weight: 600;
-    font-size: ${adpt(23)}px;
+    font-size: ${p => p.isArticle ? adpt(20) : adpt(22)}px;
     text-align: left;
     margin-bottom: ${adpt(10)}px;
     .imgBack{
-        height: ${adpt(19)}px;
-        width: ${adpt(12)}px;
+        height: ${adpt(17)}px;
+        width: ${adpt(10)}px;
         /* задать размеры */
         svg {
             width: 100%;
@@ -52,7 +53,7 @@ export const HeaderDiv = styled(Div)<QASystemFrameDims>`
         }        
     }
     .headerText {
-        margin-left: ${adpt(30)}px;
+        margin-left: ${p => (p.isArticle && !p.big) ? adpt(15) : adpt(30)}px;
         width: ${p => p.big ? adpt(710) : adpt(318)}px;
     }
     .backButton {
