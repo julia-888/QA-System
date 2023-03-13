@@ -2,8 +2,7 @@ import { IArticle } from "../dataForArticles"
 import { ListComparison } from "./ListComparison"
 
 
-// Функция, возвращающая массив со статьями для отображения
-// Она отбирает подходящие статьи из все массива articles, ищет совпадение ключевых слов с помощью функции ListComparison
+// Функция, возвращающая массив со статьями для отображения на основе введённого поискового запроса
 export const FilterArticles = (articles: IArticle[], clickedKeyWords: string[]) => {
     let result: IArticle[] = [];
     articles.forEach((article) => {

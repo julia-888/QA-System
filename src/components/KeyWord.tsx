@@ -12,11 +12,12 @@ import { isTemplateSpan } from 'typescript';
 type KeyWordsProps = {
     modifyclickedKeyWords: (keyWord: string, clicked: boolean) => void;
     word: string;
-    clicked: boolean,
-    big: boolean
+    clicked: boolean;
+    big: boolean;
+    unclickable?: boolean;
 };
 
-export function KeyWord({modifyclickedKeyWords, word, clicked, big}: KeyWordsProps) {
+export function KeyWord({modifyclickedKeyWords, word, clicked, big, unclickable}: KeyWordsProps) {
   //Предотвращает срабатывание useEffect при первой отрисовке
   const [ firstDrawing, setFirstDrawing ] = useState(true);
 
@@ -30,14 +31,14 @@ export function KeyWord({modifyclickedKeyWords, word, clicked, big}: KeyWordsPro
   
 
     return (
-        <KeyWordButton clicked={keyWordClicked} big={big}
+        <KeyWordButton clicked={keyWordClicked} big={big} unclickable={unclickable}
             onClick={(e) => {
-                setKeyWordClicked(!keyWordClicked);
+                !unclickable && setKeyWordClicked(!keyWordClicked);
             }}>
             <WordDiv>{word}</WordDiv>
-            <div className='image'>{keyWordClicked ? (big? (<CloseTagIcon/>) :(<SelectedIcon/>)) : (<PlusIcon/>)}</div>
+            <div className='image'>{keyWordClicked ? (big&&!unclickable? (<CloseTagIcon/>) :(<SelectedIcon/>)) : (<PlusIcon/>)}</div>
         </KeyWordButton>
-    );
+    )
 }
 
 
@@ -45,6 +46,7 @@ export function KeyWord({modifyclickedKeyWords, word, clicked, big}: KeyWordsPro
 interface Props {
     clicked: boolean;
     big: boolean;
+    unclickable?: boolean;
 }
 
 // Стилевой компонент кнопки-ключевого слова
@@ -60,7 +62,7 @@ const KeyWordButton = styled.button<Props>`
     font-size: ${adpt(18)}px;
     font-style: normal;
     margin: 0 0 ${p => p.big ? adpt(15) : adpt(10)}px ${p => p.big ? adpt(15) : adpt(10)}px;
-    cursor: pointer;
+    ${p => !p.unclickable && `cursor: pointer`};
     .image {
 
         height: ${p => p.big? adpt(10) : adpt(13)}px;

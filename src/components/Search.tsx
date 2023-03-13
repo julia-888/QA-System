@@ -7,9 +7,11 @@ import { ReactComponent as SearchIcon} from "../icons/search.svg";
 import { ReactComponent as OpenIcon} from "../icons/open.svg";
 import { ReactComponent as CloseIcon} from "../icons/close.svg";
 import { Div } from "./Div";
+import { LineSearch } from "./LineSearch";
 import { keyWordsList } from "../keyWordsList";
 import { ScrolledDiv } from "./ScrolledDiv";
-import { FilterArticles } from "../functions/FilterArticles";
+import { FilterArticlesByKeys } from "../functions/FilterArticlesByKeys";
+import { FilterArticles } from '../functions/FilterArticles'
 import { KeyWord } from "./KeyWord"
 
 type SearchProps = {
@@ -64,9 +66,7 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
             {big && 
                 // Отображение в большом окне поисковой строки или выбранных ключевых слов
                 ( clickedKeyWords.length==0 ? (
-                        <LineSearch type='text' placeholder="Введите запрос">
-
-                        </LineSearch>
+                        <LineSearch/>
                     ) : (
                         <ClickedDiv>
                             { keyWordsList.map((keyWord) => (
@@ -84,7 +84,9 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
             {/* Добавляем ссылку */}
             <SearchDivArticles ref={targetRef}> 
             {/* Отображение всех статей, если окно большое, или первых четырёх заголовков из списка статей, если окно маленькое */}
-            {   (big ? FilterArticles(articles, clickedKeyWords) : FilterArticles(articles, clickedKeyWords).slice(0, 4)).map(article => (
+            {   (big ? 
+                    clickedKeyWords.length != 0 ? FilterArticlesByKeys(articles, clickedKeyWords) : FilterArticles(articles, clickedKeyWords)
+                    : FilterArticlesByKeys(articles, clickedKeyWords).slice(0, 4)).map(article => (
                 <ArticleButton big={big}
                     onClick={() => {
                         openAndCloseArticle(articles.indexOf(article));
@@ -233,20 +235,6 @@ const SearchDivArticles = styled(Div)`
     flex-direction: column;
 `
 
-const LineSearch = styled.input`
-    width: ${adpt(709)}px;
-    border-radius: ${adpt(13)}px;
-    border: none;
-    outline: none;
-    background: linear-gradient(150deg, rgba(91, 112, 149, 0.29) 30%, rgba(139, 161, 200, 0.29) 97%, rgba(91, 112, 149, 0.29));
-    padding: ${adpt(15)}px;
-    font-family: Montserrat;
-    font-weight: 600;
-    font-size: ${adpt(19)}px;
-    color: '#000000';
-    margin-bottom: ${adpt(35)}px;
-    
-`
 const ClickedDiv = styled(Div)`
     margin-bottom: ${adpt(30)}px;
     flex-wrap: wrap;
