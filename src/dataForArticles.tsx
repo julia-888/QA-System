@@ -1,7 +1,8 @@
 // Интерфейс содержимого статьи
 export interface IArticle { 
     title: string,
-    subtitle: string,
+    subtitle?: string,
+    note?: string,
     content: {
         type: string,
         content: string,

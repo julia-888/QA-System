@@ -54,24 +54,22 @@ export default function Article({i, big, openAndCloseArticle, extendScreen}: Art
 
             
             <ContentDiv big={big}>
-                <SubtitleForArticle>{articles[i].subtitle}</SubtitleForArticle>                
+                {articles[i].note != undefined && (<NoteForArticle>{articles[i].note}</NoteForArticle>)}
+                <SubtitleForArticle>{articles[i].subtitle}</SubtitleForArticle>
                 {
                     articles[i].content.map(contentElem => 
                             contentElem.type == 'text' ?
-                            (<Text>{contentElem.content}</Text>) : 
-                            contentElem.type == 'boldText' ?
-                            (<BoldText>{contentElem.content}</BoldText>) :
+                                (<Text>{contentElem.content}</Text>) : 
                             contentElem.type == 'img' ?
-                            (<Image big={big}>
-                                <img className="image" src={require(`../img/${contentElem.content}`)} alt="" />
-                            </Image>) :
+                                (<Image big={big}>
+                                    <img className="image" src={require(`../img/${contentElem.content}`)} alt="" />
+                                </Image>) :
                             contentElem.type =='tezis' ?
-                            (<Tezis big={big}>{contentElem.content}</Tezis>)
+                                (<Tezis big={big}>{contentElem.content}</Tezis>)
                             : (<></>)  
                         )
                 }
-            </ContentDiv>
-
+            
             <KeysDiv big={big}>
                 {
                     articles[i].keys.map(keyWord => 
@@ -79,11 +77,17 @@ export default function Article({i, big, openAndCloseArticle, extendScreen}: Art
                     )
                 }
             </KeysDiv>
+            </ContentDiv>
         </>
     );
 }
 
 const SubtitleForArticle = styled.div`
+    font: 600 ${adpt(18)}px Montserrat;
+    margin-bottom: ${adpt(30)}px;
+`
+
+const NoteForArticle = styled.div`
     font: 300 ${adpt(17)}px 'Montserrat';
     margin-bottom: ${adpt(35)}px;
 `
@@ -103,12 +107,7 @@ const ContentDiv = styled(ScrolledDiv)<ContentDivProps>`
 `
 
 const Text = styled.div`
-    font: 400 18px Montserrat;
-    margin-bottom: ${adpt(30)}px;
-`
-
-const BoldText = styled.div`
-    font: 600 18px Montserrat;
+    font: 400 ${adpt(18)}px Montserrat;
     margin-bottom: ${adpt(30)}px;
 `
 
@@ -131,12 +130,12 @@ const Tezis = styled.div<ContentDivProps>`
     width: ${p => p.big ? adpt(580) : adpt(335)}px;
     align-self: center;
     line-height: 1.5;
-    font: 500 18px Montserrat;
+    font: 500 ${adpt(18)}px Montserrat;
 `
 
 const KeysDiv = styled(Div)<ContentDivProps>`
     flex-direction: row;
-    margin: ${adpt(10)}px ${p => p.big ? adpt(50) : adpt(30)}px;
+    margin: ${adpt(10)}px;
+     /* ${p => p.big ? adpt(50) : adpt(30)}px; */
     flex-wrap: wrap;
-
 `
