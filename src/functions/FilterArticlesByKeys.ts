@@ -1,10 +1,10 @@
-import { IArticle } from "../dataForArticles"
-import { ListComparison } from "./ListComparison"
-
+import { IArticle } from "../dataForArticles";
+import { ListComparison } from "./ListComparison";
+import { articles } from "../dataForArticles";
 
 // Функция, возвращающая массив со статьями для отображения
 // Она отбирает подходящие статьи из все массива articles, ищет совпадение ключевых слов с помощью функции ListComparison
-export const FilterArticlesByKeys = (articles: IArticle[], clickedKeyWords: string[]) => {
+export const FilterArticlesByKeys = (clickedKeyWords: string[]) => {
     let result: IArticle[] = [];
     articles.forEach((article) => {
         if (ListComparison(article.keys, clickedKeyWords)) {

@@ -54,8 +54,8 @@ export default function Article({i, big, openAndCloseArticle, extendScreen}: Art
 
             
             <ContentDiv big={big}>
-                {articles[i].note != undefined && (<NoteForArticle>{articles[i].note}</NoteForArticle>)}
-                <SubtitleForArticle>{articles[i].subtitle}</SubtitleForArticle>
+                {articles[i].note != undefined && (<Note>{articles[i].note}</Note>)}
+                <Subtitle>{articles[i].subtitle}</Subtitle>
                 {
                     articles[i].content.map(contentElem => 
                             contentElem.type == 'text' ?
@@ -82,12 +82,12 @@ export default function Article({i, big, openAndCloseArticle, extendScreen}: Art
     );
 }
 
-const SubtitleForArticle = styled.div`
+const Subtitle = styled.div`
     font: 600 ${adpt(18)}px 'Montserrat-Medium';
     margin-bottom: ${adpt(30)}px;
 `
 
-const NoteForArticle = styled.div`
+const Note = styled.div`
     font: 300 ${adpt(17)}px 'Montserrat-Light';
     margin-bottom: ${adpt(35)}px;
 `

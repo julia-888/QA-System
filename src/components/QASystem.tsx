@@ -22,19 +22,19 @@ export default function QASystem() {
     // Переменная, отвечающая за отображение контента в зависимости от размеров окна. НЕ изменяется вне функции extendScreen!!!
     const [big, setBig] = useState(false);
     //Значение самого верхнего заголовка окна
-    const [header, setHeader] = useState('Частые вопросы')
+    const [header, setHeader] = useState('Частые вопросы');
+
+    const [articlesShowed, setArticlesShowed] = useState(articles.slice(0, 4));
 
     // Функция открытия статьи с определённым i
     const openAndCloseArticle = (articleID: number) => {
         setArticleOpenedID(articleID);
     }
     
-    const [articlesShowed, setArticlesShowed] = useState(articles.slice(0, 4));
-
     useEffect(() => {
         big ? 
-        setArticlesShowed(FilterArticlesByKeys(articles, clickedKeyWords)) : 
-        setArticlesShowed(FilterArticlesByKeys(articles, clickedKeyWords).slice(0, 4))
+        setArticlesShowed(FilterArticlesByKeys(clickedKeyWords)) : 
+        setArticlesShowed(FilterArticlesByKeys(clickedKeyWords).slice(0, 4))
         ;
     }, [big, clickedKeyWords])
     

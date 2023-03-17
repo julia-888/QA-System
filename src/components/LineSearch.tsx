@@ -4,23 +4,26 @@ import { Div } from "./Div";
 import { ReactComponent as SearchIcon} from "../icons/search.svg";
 import { FilterArticles } from "../functions/FilterArticles";
 import { articles, IArticle } from "../dataForArticles";
+import { useState } from "react";
 
 
 type LineSearchProps = {
     setArticlesShowed: (articles: IArticle[]) => void;
   };
 
-
 export const LineSearch = ({setArticlesShowed}: LineSearchProps) => {
+    const [inputText, setInputText] = useState("");
+    
     return (
         <Line>
             <input type='text' placeholder="Введите запрос" className="searchInput"
             onChange={(e) => {
-                setArticlesShowed(FilterArticles(articles, e.target.value));
+                setInputText(e.target.value);
+                setArticlesShowed(FilterArticles(e.target.value));
             }}/>
             
             <button className="searchButton" onClick={
-                () => {}
+                () => {setArticlesShowed(FilterArticles(inputText))}
             }>
                 <div className="imgSearch"><SearchIcon/></div>
             </button>
