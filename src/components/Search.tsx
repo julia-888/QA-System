@@ -84,8 +84,8 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
             {/* Добавляем ссылку */}
             <SearchDivArticles ref={targetRef}> 
             {/* Отображение всех статей, если окно большое, или первых четырёх заголовков из списка статей, если окно маленькое */}
-            {   (big ? 
-                    clickedKeyWords.length != 0 ? FilterArticlesByKeys(articles, clickedKeyWords) : FilterArticles(articles, clickedKeyWords)
+            {   (big && 
+                    clickedKeyWords.length != 0 ? FilterArticlesByKeys(articles, clickedKeyWords) 
                     : FilterArticlesByKeys(articles, clickedKeyWords).slice(0, 4)).map(article => (
                 <ArticleButton big={big}
                     onClick={() => {
@@ -137,9 +137,7 @@ const SearchButton = styled.button`
     border: 0;
     margin-bottom: ${adpt(34)}px;
     padding: ${adpt(15)}px;
-    font-size: ${adpt(19)}px;
-    font-family: 'Montserrat';
-    font-weight: Medium;
+    font: ${adpt(19)}px 'Montserrat-Medium';
     cursor: pointer;
     .imgSearch{
         height: ${adpt(18)}px;
@@ -178,9 +176,7 @@ const KeyDivButton = styled.button`
     width: ${adpt(369)}px;
     border: 0;
     padding: ${adpt(15)}px;
-    font-size: ${adpt(19)}px;
-    font-family: 'Montserrat';
-    font-weight: Medium;
+    font: ${adpt(19)}px 'Montserrat-Medium';
     .imgClose{
         cursor: pointer;
         height: ${adpt(13.5)}px;
@@ -199,10 +195,8 @@ const ArticleButton = styled.button<Props>`
     justify-content: space-between;
     align-items: center;
     width: ${props => props.big ? adpt(728) : adpt(350)}px;
-    font-size: ${adpt(18)}px;
-    font-weight: normal;
+    font: ${adpt(18)}px 'Montserrat-Regular';
     background: none;
-    font-family: 'Montserrat';
     text-align: start;
     border: none;
     margin: 0 ${adpt(28)}px ${adpt(25)}px ${adpt(25)}px;

@@ -1,5 +1,6 @@
 import React from 'react';
 import QASystem from './components/QASystem';
+import './fonts.css';
 
 function App() {
   return (

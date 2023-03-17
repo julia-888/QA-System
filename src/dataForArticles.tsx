@@ -252,5 +252,4 @@ export const articles: IArticle[] = [
         ],
         keys: ["Адсорбционная", "Результаты", "Издержки"],
     },
-
 ]

@@ -70,7 +70,7 @@ export default function Article({i, big, openAndCloseArticle, extendScreen}: Art
                         )
                 }
             
-            <KeysDiv big={big}>
+            <KeysDiv>
                 {
                     articles[i].keys.map(keyWord => 
                         <KeyWord modifyclickedKeyWords={()=>{}} big={big} clicked={true} unclickable={true} word={keyWord}></KeyWord>
@@ -83,12 +83,12 @@ export default function Article({i, big, openAndCloseArticle, extendScreen}: Art
 }
 
 const SubtitleForArticle = styled.div`
-    font: 600 ${adpt(18)}px Montserrat;
+    font: 600 ${adpt(18)}px 'Montserrat-Medium';
     margin-bottom: ${adpt(30)}px;
 `
 
 const NoteForArticle = styled.div`
-    font: 300 ${adpt(17)}px 'Montserrat';
+    font: 300 ${adpt(17)}px 'Montserrat-Light';
     margin-bottom: ${adpt(35)}px;
 `
 
@@ -107,7 +107,7 @@ const ContentDiv = styled(ScrolledDiv)<ContentDivProps>`
 `
 
 const Text = styled.div`
-    font: 400 ${adpt(18)}px Montserrat;
+    font: 400 ${adpt(18)}px 'Montserrat-Regular';
     margin-bottom: ${adpt(30)}px;
 `
 
@@ -130,12 +130,9 @@ const Tezis = styled.div<ContentDivProps>`
     width: ${p => p.big ? adpt(580) : adpt(335)}px;
     align-self: center;
     line-height: 1.5;
-    font: 500 ${adpt(18)}px Montserrat;
+    font: 500 ${adpt(18)}px 'Montserrat-Regular';
 `
 
-const KeysDiv = styled(Div)<ContentDivProps>`
-    flex-direction: row;
-    margin: ${adpt(10)}px;
-     /* ${p => p.big ? adpt(50) : adpt(30)}px; */
+const KeysDiv = styled(Div)`
     flex-wrap: wrap;
 `

@@ -58,9 +58,7 @@ const KeyWordButton = styled.button<Props>`
     padding: ${adpt(6)}px ${adpt(11)}px;
     background-color: ${p => p.clicked ? '#2D3F61' : '#768EB7' };
     color: #FFFFFF;
-    font-family: 'Montserrat';
-    font-size: ${adpt(18)}px;
-    font-style: normal;
+    font: 500 ${adpt(18)}px 'Montserrat-Regular';
     margin: 0 0 ${p => p.big ? adpt(15) : adpt(10)}px ${p => p.big ? adpt(15) : adpt(10)}px;
     ${p => !p.unclickable && `cursor: pointer`};
     .image {
