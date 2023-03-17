@@ -5,6 +5,7 @@ import { adpt } from '../adaptive';
 import Search from './Search';
 import { Div } from './Div';
 import { ScrolledDiv } from './ScrolledDiv';
+import { FilterArticlesByKeys } from '../functions/FilterArticlesByKeys';
 import { HeaderDiv } from './HeaderDiv';
 import { ReactComponent as MoveIcon} from "../icons/move.svg";
 import { useState, useEffect } from 'react';
@@ -14,17 +15,6 @@ import Article from './Article';
 export default function QASystem() {
     // Нажатые ключевые слова
     const [clickedKeyWords, setclickedKeyWords] = useState<string[]>([]);
-    
-    // Функция, изменяющая список нажатых слов
-    const modifyclickedKeyWords = (keyWord: string, clicked: boolean) => {
-        clicked ?
-        setclickedKeyWords([...clickedKeyWords, keyWord])
-        :
-        setclickedKeyWords([
-            ...clickedKeyWords.slice(0, clickedKeyWords.indexOf(keyWord)),
-            ...clickedKeyWords.slice(clickedKeyWords.indexOf(keyWord) + 1, clickedKeyWords.length)
-        ]);
-    }
 
     // Переменная, хранящая i открытой статьи. Когда значение -1, статья закрыта 
     const [articleOpenedID, setArticleOpenedID] = useState(-1);
@@ -34,22 +24,47 @@ export default function QASystem() {
     //Значение самого верхнего заголовка окна
     const [header, setHeader] = useState('Частые вопросы')
 
-    {/* Функция изменения контента:
-        в зависимости от входного значения (true - расширить, false - сузить)
-        изменяются размеры окна и переменные big и header, влияющие на контент */}
-    const extendScreen = (big: boolean) => {
-        if (big) {
-            setBig(true);
-            setHeader('Поиск по вопросам');
-        } else {
-            setBig(false);
-            setHeader('Частые вопросы');
-        }
-    }
-
     // Функция открытия статьи с определённым i
     const openAndCloseArticle = (articleID: number) => {
         setArticleOpenedID(articleID);
+    }
+    
+    const [articlesShowed, setArticlesShowed] = useState(articles.slice(0, 4));
+
+    useEffect(() => {
+        big ? 
+        setArticlesShowed(FilterArticlesByKeys(articles, clickedKeyWords)) : 
+        setArticlesShowed(FilterArticlesByKeys(articles, clickedKeyWords).slice(0, 4))
+        ;
+    }, [big, clickedKeyWords])
+    
+    
+    // Функция, изменяющая список нажатых слов
+    const modifyclickedKeyWords = (keyWord: string, clicked: boolean) => {
+        if (clicked) {
+            setclickedKeyWords([...clickedKeyWords, keyWord]);
+        }
+        else {
+            setclickedKeyWords([
+                ...clickedKeyWords.slice(0, clickedKeyWords.indexOf(keyWord)),
+                ...clickedKeyWords.slice(clickedKeyWords.indexOf(keyWord) + 1, clickedKeyWords.length)
+            ]);
+        }
+        // changeArticlesShowedByKeys();
+    }
+
+    {/* Функция изменения контента:
+        в зависимости от входного значения (true - расширить, false - сузить)
+        изменяются размеры окна и переменные big и header, влияющие на контент */}
+        const extendScreen = (big: boolean) => {
+            if (big) {
+                setBig(true);
+                setHeader('Поиск по вопросам');
+            } else {
+                setBig(false);
+                setHeader('Частые вопросы');
+            }
+            // changeArticlesShowedByKeys();
     }
 
     return(
@@ -86,7 +101,9 @@ export default function QASystem() {
                                 big={big} 
                                 openAndCloseArticle={openAndCloseArticle} 
                                 clickedKeyWords={clickedKeyWords}
-                                modifyclickedKeyWords={modifyclickedKeyWords} />
+                                modifyclickedKeyWords={modifyclickedKeyWords}
+                                articlesShowed={articlesShowed}
+                                setArticlesShowed={setArticlesShowed} />
                     </ArticlesDiv>
                     </>
                 ) : (

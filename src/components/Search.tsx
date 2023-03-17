@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useRef, useEffect } from 'react';
 import { adpt } from "../adaptive";
-import { articles } from "../dataForArticles";
+import { articles, IArticle } from "../dataForArticles";
 import { useState } from "react";
 import { ReactComponent as SearchIcon} from "../icons/search.svg";
 import { ReactComponent as OpenIcon} from "../icons/open.svg";
@@ -20,14 +20,16 @@ type SearchProps = {
     big: boolean;
     clickedKeyWords: string[];
     modifyclickedKeyWords: (keyWord: string, clicked: boolean) => void;
+    articlesShowed: IArticle[];
+    setArticlesShowed: (articles: IArticle[]) => void;
   };
 
-export default function Search( {extendScreen, openAndCloseArticle, big, modifyclickedKeyWords, clickedKeyWords}: SearchProps ) {
+export default function Search( {extendScreen, openAndCloseArticle, big, modifyclickedKeyWords, clickedKeyWords, articlesShowed, setArticlesShowed}: SearchProps ) {
     // Состояние кнопки-открывателя списка ключевых слов
     const [clicked, setClicked] = useState(false);
 
     // Ссылка на элемент
-    const targetRef = useRef<any>(null)
+    const targetRef = useRef<any>(null);
 
     return (
         <SearchDiv  big={big}>
@@ -66,7 +68,7 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
             {big && 
                 // Отображение в большом окне поисковой строки или выбранных ключевых слов
                 ( clickedKeyWords.length==0 ? (
-                        <LineSearch/>
+                        <LineSearch setArticlesShowed={setArticlesShowed}/>
                     ) : (
                         <ClickedDiv>
                             { keyWordsList.map((keyWord) => (
@@ -84,16 +86,15 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
             {/* Добавляем ссылку */}
             <SearchDivArticles ref={targetRef}> 
             {/* Отображение всех статей, если окно большое, или первых четырёх заголовков из списка статей, если окно маленькое */}
-            {   (big && 
-                    clickedKeyWords.length != 0 ? FilterArticlesByKeys(articles, clickedKeyWords) 
-                    : FilterArticlesByKeys(articles, clickedKeyWords).slice(0, 4)).map(article => (
-                <ArticleButton big={big}
-                    onClick={() => {
-                        openAndCloseArticle(articles.indexOf(article));
-                    }}>
-                    <div className="articleTitle">{article.title}</div><div className="imgOpen"><OpenIcon/></div>
-                </ArticleButton>
-                ))}
+            {       articlesShowed.map(article => (
+                        <ArticleButton big={big}
+                            onClick={() => {
+                                openAndCloseArticle(articles.indexOf(article));
+                            }}>
+                            <div className="articleTitle">{article.title}</div><div className="imgOpen"><OpenIcon/></div>
+                        </ArticleButton>
+                    ))
+                }
             {
                 !big && (
                     <ButtonLookAll big={big} onClick={() => { /* При нажатии на "Показать все" экран расширяется */

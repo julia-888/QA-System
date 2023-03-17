@@ -3,14 +3,20 @@ import styled from "styled-components";
 import { Div } from "./Div";
 import { ReactComponent as SearchIcon} from "../icons/search.svg";
 import { FilterArticles } from "../functions/FilterArticles";
-import { articles } from "../dataForArticles";
+import { articles, IArticle } from "../dataForArticles";
 
-export const LineSearch = () => {
+
+type LineSearchProps = {
+    setArticlesShowed: (articles: IArticle[]) => void;
+  };
+
+
+export const LineSearch = ({setArticlesShowed}: LineSearchProps) => {
     return (
         <Line>
             <input type='text' placeholder="Введите запрос" className="searchInput"
             onChange={(e) => {
-                FilterArticles(articles, e.target.value);
+                setArticlesShowed(FilterArticles(articles, e.target.value));
             }}/>
             
             <button className="searchButton" onClick={
