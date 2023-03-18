@@ -86,7 +86,10 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
             {/* Добавляем ссылку */}
             <SearchDivArticles ref={targetRef}> 
             {/* Отображение всех статей, если окно большое, или первых четырёх заголовков из списка статей, если окно маленькое */}
-            {       articlesShowed.map(article => (
+            {       articlesShowed.length == 0 ? (
+                        <ResultsNotFound>По вашему запросу ничего не найдено</ResultsNotFound>
+                    ) : (
+                    articlesShowed.map(article => (
                         <ArticleButton big={big}
                             onClick={() => {
                                 openAndCloseArticle(articles.indexOf(article));
@@ -94,7 +97,7 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
                             <div className="articleTitle">{article.title}</div><div className="imgOpen"><OpenIcon/></div>
                         </ArticleButton>
                     ))
-                }
+            )}
             {
                 !big && (
                     <ButtonLookAll big={big} onClick={() => { /* При нажатии на "Показать все" экран расширяется */
@@ -191,7 +194,7 @@ const KeyDivButton = styled.button`
 `
 
 // Кнопка-переход на статью
-const ArticleButton = styled.button<Props>`
+export const ArticleButton = styled.button<Props>`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -234,4 +237,9 @@ const ClickedDiv = styled(Div)`
     margin-bottom: ${adpt(30)}px;
     flex-wrap: wrap;
     width: ${adpt(730)}px;
+`
+
+const ResultsNotFound = styled(Div)`
+    font: ${adpt(18)}px 'Montserrat-Regular';
+    line-height: ${adpt(25)}px;
 `

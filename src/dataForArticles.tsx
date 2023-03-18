@@ -33,7 +33,22 @@ export const articles: IArticle[] = [
             {
                 type: 'tezis',
                 content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-            }
+            },
+            {
+                type: 'link',
+                content: 'https://vk.com/im',
+                linkText: 'Научная статья профессора Татур А.В.',
+            },
+            {
+                type: 'link',
+                content: 'https://vk.com/im',
+                linkText: 'Регенерация масел техпроцесс',
+            },
+            {
+                type: 'link',
+                content: 'https://vk.com/im',
+                linkText: 'Отчет по регенерации 2023 г.',
+            },
         ],
         keys: ["Результаты", "Установки", "Преимущества"],
     },
@@ -154,6 +169,7 @@ export const articles: IArticle[] = [
     },
     {
         title: 'Что такое адсорбент?',
+        note: 'Адсорбенты — высокодисперсные природные или искусственные',
         subtitle: 'Адсорбенты - это высокодисперсные природные или искусственные',
         content: [
             {

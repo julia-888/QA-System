@@ -7,8 +7,10 @@ import { HeaderDiv } from './HeaderDiv';
 import { ReactComponent as MoveIcon} from "../icons/move.svg";
 import { ReactComponent as CompressIcon} from "../icons/compress.svg";
 import { ReactComponent as ExtendIcon} from "../icons/extend.svg";
+import { ReactComponent as LinkIcon} from "../icons/link.svg";
 import { ScrolledDiv } from "./ScrolledDiv";
 import { KeyWord } from "./KeyWord";
+import { ArticleButton } from "./Search";
 
 
 type ArticleProps = {
@@ -65,30 +67,44 @@ export default function Article({i, big, openAndCloseArticle, extendScreen}: Art
                                     <img className="image" src={require(`../img/${contentElem.content}`)} alt="" />
                                 </Image>) :
                             contentElem.type =='tezis' ?
-                                (<Tezis big={big}>{contentElem.content}</Tezis>)
+                                (<Tezis big={big}>{contentElem.content}</Tezis>) :
+                            contentElem.type == 'link' ?
+                                (<Link>
+                                    <a href={contentElem.content} className="link">
+                                        <div className="imgLink"><LinkIcon/></div>
+                                        <div>{contentElem.linkText}</div>
+                                    </a>
+                                </Link>)
                             : (<></>)  
                         )
                 }
-            
-            <KeysDiv>
-                {
-                    articles[i].keys.map(keyWord => 
-                        <KeyWord modifyclickedKeyWords={()=>{}} big={big} clicked={true} unclickable={true} word={keyWord}></KeyWord>
-                    )
-                }
-            </KeysDiv>
+                
+                <SimilarQuestionsDiv big={big}>
+                        <hr className="hr" />
+                        <Subtitle>Похожие вопросы</Subtitle>
+                        <ArticleButton big={big}></ArticleButton>
+                    
+                </SimilarQuestionsDiv>
+
+                <KeysDiv>
+                    {
+                        articles[i].keys.map(keyWord => 
+                            <KeyWord modifyclickedKeyWords={()=>{}} big={big} clicked={true} unclickable={true} word={keyWord}></KeyWord>
+                        )
+                    }
+                </KeysDiv>
             </ContentDiv>
         </>
     );
 }
 
 const Subtitle = styled.div`
-    font: 600 ${adpt(18)}px 'Montserrat-Medium';
+    font: ${adpt(18)}px 'Montserrat-Medium';
     margin-bottom: ${adpt(30)}px;
 `
 
 const Note = styled.div`
-    font: 300 ${adpt(17)}px 'Montserrat-Light';
+    font: ${adpt(17)}px 'Montserrat-Light';
     margin-bottom: ${adpt(35)}px;
 `
 
@@ -107,15 +123,13 @@ const ContentDiv = styled(ScrolledDiv)<ContentDivProps>`
 `
 
 const Text = styled.div`
-    font: 400 ${adpt(18)}px 'Montserrat-Regular';
+    font: ${adpt(18)}px 'Montserrat-Regular';
     margin-bottom: ${adpt(30)}px;
 `
 
 const Image = styled.div<ContentDivProps>`
     width: ${p => p.big ? adpt(682) : adpt(335)}px;
-    height: ${adpt(500)}px;
     text-align: center;
-    overflow-y: ${p => p.big && `hidden`};
     margin-bottom: ${adpt(45)}px;
 
     .image {
@@ -130,9 +144,45 @@ const Tezis = styled.div<ContentDivProps>`
     width: ${p => p.big ? adpt(580) : adpt(335)}px;
     align-self: center;
     line-height: 1.5;
-    font: 500 ${adpt(18)}px 'Montserrat-Regular';
+    font: ${adpt(18)}px 'Montserrat-Regular';
 `
 
 const KeysDiv = styled(Div)`
     flex-wrap: wrap;
+`
+
+const Link = styled(Div)`
+    margin-bottom: ${adpt(10)}px;
+    .link {
+        font: ${adpt(17)}px 'Montserrat-Regular';
+        line-height: ${adpt(30)}px;
+        text-decoration: none;
+        color: black;
+        display: flex;
+        
+        .imgLink{
+            margin-right: ${adpt(10)}px;
+            height: ${adpt(17)}px;
+            width: ${adpt(17)}px;
+            /* задать размеры */
+                svg {
+                    width: 100%;
+                    height: 100%;
+                }
+        }
+    }
+`
+
+const SimilarQuestionsDiv = styled(Div)<ContentDivProps>`
+    flex-direction: column;
+    width: ${p => p.big ? adpt(580) : adpt(375)}px;
+    .hr {
+        width: ${p => p.big ? adpt(519) : adpt(380)}px;
+        background-color: #707070;
+        color: #707070;
+        align-items: stretch;
+        border: none;
+        height: ${adpt(1)}px;                            
+    }
+    
 `

@@ -2,6 +2,7 @@ import { adpt } from "../adaptive";
 import styled from "styled-components";
 import { Div } from "./Div";
 import { ReactComponent as SearchIcon} from "../icons/search.svg";
+import { ReactComponent as CleanIcon} from "../icons/close.svg";
 import { FilterArticles } from "../functions/FilterArticles";
 import { articles, IArticle } from "../dataForArticles";
 import { useState } from "react";
@@ -13,25 +14,38 @@ type LineSearchProps = {
 
 export const LineSearch = ({setArticlesShowed}: LineSearchProps) => {
     const [inputText, setInputText] = useState("");
-    
+
     return (
-        <Line>
-            <input type='text' placeholder="Введите запрос" className="searchInput"
+        <Line isEmpty={inputText==""}>
+            <input type='text' placeholder="Введите запрос" className="searchInput" value={inputText} 
             onChange={(e) => {
                 setInputText(e.target.value);
                 setArticlesShowed(FilterArticles(e.target.value));
             }}/>
-            
-            <button className="searchButton" onClick={
-                () => {setArticlesShowed(FilterArticles(inputText))}
-            }>
-                <div className="imgSearch"><SearchIcon/></div>
-            </button>
+
+            <div>
+                <button className="button cleanButton" onClick={() => {
+                    setInputText("");
+                    setArticlesShowed(articles);
+                }} >
+                    <div className="imgClean"><CleanIcon/></div>
+                </button>
+
+                <button className="button" onClick={
+                    () => {setArticlesShowed(FilterArticles(inputText))}
+                }>
+                    <div className="imgSearch"><SearchIcon/></div>
+                </button>
+            </div>
         </Line>
     )
 }
 
-const Line = styled(Div)`
+interface LineProps {
+    isEmpty: boolean;
+}
+
+const Line = styled(Div)<LineProps>`
     width: ${adpt(709)}px;
     border-radius: ${adpt(13)}px;
     border: none;
@@ -45,13 +59,15 @@ const Line = styled(Div)`
         background: none;
         border: none;
         outline: none;
-        font: 600 ${adpt(19)}px 'Montserrat-Medium';
+        font: ${adpt(19)}px 'Montserrat-Medium';
         width: ${adpt(500)}px;
     }
     
-    .searchButton {
+    .button {
         background: none;
         border: none;
+        padding-left: ${adpt(20)}px;
+        height: ${adpt(30)}px;
         .imgSearch{
             height: ${adpt(18)}px;
             width: ${adpt(18)}px;
@@ -62,4 +78,22 @@ const Line = styled(Div)`
             }        
         }
     }
+
+    .cleanButton {
+        border-right: ${adpt(3)}px solid #707070;
+        border-radius: ${adpt(3)}px;
+        padding-right: ${adpt(20)}px;
+        display: ${p => p.isEmpty? 'none' : 'inline-block'};
+        
+        .imgClean{
+            height: ${adpt(16)}px;
+            width: ${adpt(16)}px;
+            /* задать размеры */
+            svg {
+                width: 100%;
+                height: 100%;
+            }        
+        }
+    }
+
 `

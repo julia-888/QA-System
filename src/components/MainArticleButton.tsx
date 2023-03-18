@@ -37,13 +37,13 @@ cursor: pointer;
 // Заголовок статьи на синем блоке
 const MainArticleButtonHeader = styled.h1`
 white-space: pre-wrap;
-font: 600 ${adpt(19)}px 'Montserrat-SemiBold';
+font: ${adpt(19)}px 'Montserrat-SemiBold';
 margin: 0;
 `
 
 // Подзаголовок статьи на синем блоке
 const MainArticleButtonPar = styled.p`
-font: 500 ${adpt(17)}px 'Montserrat-Regular';
+font: ${adpt(17)}px 'Montserrat-Regular';
 margin: ${adpt(15)}px ${adpt(0)}px ${adpt(7)}px ${adpt(0)}px;
 hyphens: auto;
 display: -webkit-box;
