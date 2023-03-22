@@ -53,7 +53,6 @@ export default function Article({i, big, openAndCloseArticle, extendScreen}: Art
                         </button>
                 )}
             </HeaderDiv>
-
             
             <ContentDiv big={big}>
                 {articles[i].note != undefined && (<Note>{articles[i].note}</Note>)}
@@ -70,7 +69,7 @@ export default function Article({i, big, openAndCloseArticle, extendScreen}: Art
                                 (<Tezis big={big}>{contentElem.content}</Tezis>) :
                             contentElem.type == 'link' ?
                                 (<Link>
-                                    <a href={contentElem.content} className="link">
+                                    <a href={contentElem.content} target='_blank' className="link">
                                         <div className="imgLink"><LinkIcon/></div>
                                         <div>{contentElem.linkText}</div>
                                     </a>

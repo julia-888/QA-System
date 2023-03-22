@@ -4,16 +4,15 @@ import { articles } from "../dataForArticles";
 
 // Функция, возвращающая массив со статьями для отображения на основе введённого поискового запроса
 export const FilterArticles = (inputText: string) => {
-    const regex = new RegExp(inputText);
-
-    if (inputText=="") {
+    if (inputText.length <= 3) {
         return articles;
     }
-
+    
+    const regex = new RegExp(inputText.toLowerCase());
     let result: IArticle[] = [];
 
     articles.forEach((article) => {
-        if (regex.test(article.title)) {
+        if (regex.test(article.title.toLowerCase())) {
             result.push(article);
         };
     });

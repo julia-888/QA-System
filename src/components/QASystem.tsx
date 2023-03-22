@@ -16,21 +16,36 @@ export default function QASystem() {
     // Нажатые ключевые слова
     const [clickedKeyWords, setclickedKeyWords] = useState<string[]>([]);
 
-    // Переменная, хранящая i открытой статьи. Когда значение -1, статья закрыта 
+    // Переменная, хранящая i - индекс в массиве, открытой статьи. Когда значение -1, статья закрыта 
     const [articleOpenedID, setArticleOpenedID] = useState(-1);
 
     // Переменная, отвечающая за отображение контента в зависимости от размеров окна. НЕ изменяется вне функции extendScreen!!!
     const [big, setBig] = useState(false);
-    //Значение самого верхнего заголовка окна
+
+    // Переменная, показывающая каким было окно до открытия статьи. НЕ изменяется вне функции openAndCloseArticle!!!
+    const [previosWasBig, setPreviosWasBig] = useState(false);
+
+    // Значение самого верхнего заголовка окна
     const [header, setHeader] = useState('Частые вопросы');
 
+    // Список отображаемых статей
     const [articlesShowed, setArticlesShowed] = useState(articles.slice(0, 4));
 
-    // Функция открытия статьи с определённым i
+    // Функция открытия статьи с определённым i. Изменяет i открытой статьи, articleOpenedID
     const openAndCloseArticle = (articleID: number) => {
+        //Если статья закрывается, то размер окна изменяется на тот, который был до открытия статьи.
+        //Если статья открывается, то в переменную previousWasBig записывается значение big на момент открытия.
+        if (articleID == -1) {
+            extendScreen(previosWasBig);
+        } else {
+            setPreviosWasBig(big);
+            extendScreen(true);
+        }
+
         setArticleOpenedID(articleID);
     }
     
+    //Функция, отображающая список статей в зависимости от нажатых ключевых слов
     useEffect(() => {
         big ? 
         setArticlesShowed(FilterArticlesByKeys(clickedKeyWords)) : 
@@ -39,7 +54,7 @@ export default function QASystem() {
     }, [big, clickedKeyWords])
     
     
-    // Функция, изменяющая список нажатых слов
+    // Функция, изменяющая список нажатых слов. На вход подаётся слово и что произошло, т.е. "нажали"-"отжали". Затем изменяется список нажатых ключевых слов.
     const modifyclickedKeyWords = (keyWord: string, clicked: boolean) => {
         if (clicked) {
             setclickedKeyWords([...clickedKeyWords, keyWord]);
@@ -50,7 +65,6 @@ export default function QASystem() {
                 ...clickedKeyWords.slice(clickedKeyWords.indexOf(keyWord) + 1, clickedKeyWords.length)
             ]);
         }
-        // changeArticlesShowedByKeys();
     }
 
     {/* Функция изменения контента:
@@ -64,12 +78,12 @@ export default function QASystem() {
                 setBig(false);
                 setHeader('Частые вопросы');
             }
-            // changeArticlesShowedByKeys();
     }
 
     return(
         <QASystemFrame big={big}>
             {
+                // если никакая статья не открыта
                 articleOpenedID == -1 ? (
                     <>
                     <HeaderDiv big={big} isArticle={false}>
@@ -83,9 +97,9 @@ export default function QASystem() {
                                 <div className='imgBack'><BackIcon/></div>
                             </button>
                         }
-                        <div className='headerText'>
-                            {header}
-                        </div>
+                            <div className='headerText'>
+                                {header}
+                            </div>
                         </Div>
                         <div className="imgMove"><MoveIcon/></div>
                     </HeaderDiv>
@@ -97,6 +111,8 @@ export default function QASystem() {
                                     <MainArticleButton header={article.title} paragraph={article.popular} i={articles.indexOf(article)} openAndCloseArticle={openAndCloseArticle}/>
                                 ) : <></>)
                         }
+
+                        { /* блок поиска статей */ }
                         <Search extendScreen={extendScreen} 
                                 big={big} 
                                 openAndCloseArticle={openAndCloseArticle} 
@@ -115,6 +131,7 @@ export default function QASystem() {
 };
 
 interface QASystemFrameDims {
+    //Размер окна влияет на стили: размеры, границы, отображение/не отображение элементов
     big: boolean;
 }
 

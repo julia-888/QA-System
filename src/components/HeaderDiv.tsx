@@ -7,7 +7,7 @@ interface HeaderDivProps {
     isArticle: boolean;
 }
 
-// Заголовок страницы с элементом для перемещения окна
+// Заголовок страницы с элементом для перемещения окна (самый верхний заголовок)
 export const HeaderDiv = styled(Div)<HeaderDivProps>`
     justify-content: space-between;
     align-items: flex-start;

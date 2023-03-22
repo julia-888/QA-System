@@ -32,7 +32,7 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
     const targetRef = useRef<any>(null);
 
     return (
-        <SearchDiv  big={big}>
+        <SearchDiv big={big}>
             {
                 // Эта часть кода относится только к маленькому экрану
                 !big && (clicked ? 
@@ -85,8 +85,8 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
 
             {/* Добавляем ссылку */}
             <SearchDivArticles ref={targetRef}> 
-            {/* Отображение всех статей, если окно большое, или первых четырёх заголовков из списка статей, если окно маленькое */}
-            {       articlesShowed.length == 0 ? (
+            {/* Учёт отображения надписи, если окно большое, или кнопки "Показать все", если окно маленькое */}
+            {       articlesShowed.length == 0 && big ? (
                         <ResultsNotFound>По вашему запросу ничего не найдено</ResultsNotFound>
                     ) : (
                     articlesShowed.map(article => (
@@ -102,8 +102,7 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
                 !big && (
                     <ButtonLookAll big={big} onClick={() => { /* При нажатии на "Показать все" экран расширяется */
                     extendScreen(true);
-                }}> 
-                    Показать все </ButtonLookAll>
+                }}> Показать все </ButtonLookAll>
                 )                
             }
             

@@ -12,6 +12,7 @@ type LineSearchProps = {
     setArticlesShowed: (articles: IArticle[]) => void;
   };
 
+// поисковая строка в большом окне
 export const LineSearch = ({setArticlesShowed}: LineSearchProps) => {
     const [inputText, setInputText] = useState("");
 
@@ -80,10 +81,22 @@ const Line = styled(Div)<LineProps>`
     }
 
     .cleanButton {
-        border-right: ${adpt(3)}px solid #707070;
-        border-radius: ${adpt(3)}px;
+        /* border-right: ${adpt(3)}px solid #707070; */
+        /* border-radius: ${adpt(3)}px; */
         padding-right: ${adpt(20)}px;
         display: ${p => p.isEmpty? 'none' : 'inline-block'};
+        position: relative;
+        &::before {
+            content:"";
+            position: absolute;
+            top: 0;
+            right: -2px;
+            background-color: #707070;
+            width: 2px;
+            height: ${adpt(27)}px;
+            border-radius: 6px;
+
+        }
         
         .imgClean{
             height: ${adpt(16)}px;

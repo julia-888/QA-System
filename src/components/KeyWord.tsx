@@ -24,6 +24,7 @@ export function KeyWord({modifyclickedKeyWords, word, clicked, big, unclickable}
   // Активировано ли ключевое слово
   const [ keyWordClicked, setKeyWordClicked ] = useState(clicked);
 
+  //Автоматическое изменение списка ключевых слов при изменеии свойства "Ключевое слово нажато"
   useEffect(() => {
       firstDrawing ? setFirstDrawing(false) :
       modifyclickedKeyWords(word, keyWordClicked);

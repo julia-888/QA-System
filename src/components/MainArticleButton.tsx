@@ -11,7 +11,7 @@ type MainArticleButtonProps = {
 
 const MainArticleButton = ({openAndCloseArticle, header, paragraph, i}: MainArticleButtonProps) => {
     return(
-        <MainArticleButtonDiv onClick={ () => {
+        <MainArticleButtonDiv onClick={ () => { //при нажатии на синюю кнопку открывается статья
             openAndCloseArticle(i);
         }}>
             <MainArticleButtonHeader>{header}</MainArticleButtonHeader>
