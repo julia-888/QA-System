@@ -13,6 +13,7 @@ import { KeyWord } from "./KeyWord";
 import { ArticleButton } from "./Search";
 import { FilterArticlesByKeys } from "../functions/FilterArticlesByKeys";
 import { ReactComponent as OpenIcon} from "../icons/open.svg";
+import { ShowSimilarArticles } from "../functions/ShowSimilarArticles";
 
 
 type ArticleProps = {
@@ -84,15 +85,14 @@ export default function Article({i, big, openAndCloseArticle, extendScreen}: Art
                         <hr className="hr" />
                         <Subtitle>Похожие вопросы</Subtitle>
                         {
-                            FilterArticlesByKeys(articles[i].keys).slice(0, 4).map(article => (
-                                <ArticleButton big={big}
+                            ShowSimilarArticles(i).slice(0,3).map(article => (
+                                <ArticleButton big={big} className='question' similar={true}
                                     onClick={() => {
                                         openAndCloseArticle(articles.indexOf(article));
                                     }}>
                                     <div className="articleTitle">{article.title}</div><div className="imgOpen"><OpenIcon/></div>
                                 </ArticleButton>
                             ))
-
                         }
                     
                 </SimilarQuestionsDiv>
@@ -184,17 +184,24 @@ const Link = styled(Div)`
     }
 `
 
-const SimilarQuestionsDiv = styled(Div)<ContentDivProps>`
-    flex-direction: column;
+const SimilarQuestionsDiv = styled.div<ContentDivProps>`
+    /* flex-direction: column; */
     width: ${p => p.big ? adpt(580) : adpt(375)}px;
     .hr {
         width: ${p => p.big ? adpt(519) : adpt(380)}px;
         background-color: #707070;
         color: #707070;
-        align-items: stretch;
+        /* align-items: stretch; */
         border: none;
-        height: ${adpt(1)}px;                            
+        height: ${adpt(1)}px;
+        margin: 0 0 ${p => p.big ? adpt(30) : adpt(20)}px 0;
     }
-    align-self: flex-start;
+    /* align-self: stretch; */
+
+    .question {
+        margin: 0 0 ${adpt(20)}px 0;
+    }
+
+    margin: 0 0 ${adpt(40)}px 0;
     
 `
