@@ -4,9 +4,6 @@ import { adpt } from "../adaptive";
 import { ReactComponent as PlusIcon} from "../icons/plus.svg";
 import { ReactComponent as SelectedIcon} from "../icons/selected.svg";
 import { ReactComponent as CloseTagIcon} from "../icons/closeTag.svg";
-import { ScrolledDiv } from "./ScrolledDiv"
-import { keyWordsList } from "../keyWordsList"
-import { isTemplateSpan } from 'typescript';
 
 // Тип для передачи в функцию
 type KeyWordsProps = {
@@ -14,10 +11,12 @@ type KeyWordsProps = {
     word: string;
     clicked: boolean;
     big: boolean;
-    unclickable?: boolean;
+    fromArticle?: boolean;
+    openAndCloseArticle: (article: number, fromKeyWord: boolean, word: string) => void;
+    extendScreen: (big: boolean) => void;
 };
 
-export function KeyWord({modifyclickedKeyWords, word, clicked, big, unclickable}: KeyWordsProps) {
+export function KeyWord({modifyclickedKeyWords, word, clicked, big, fromArticle, openAndCloseArticle}: KeyWordsProps) {
   //Предотвращает срабатывание useEffect при первой отрисовке
   const [ firstDrawing, setFirstDrawing ] = useState(true);
 
@@ -32,12 +31,12 @@ export function KeyWord({modifyclickedKeyWords, word, clicked, big, unclickable}
   
 
     return (
-        <KeyWordButton clicked={keyWordClicked} big={big} unclickable={unclickable}
+        <KeyWordButton clicked={keyWordClicked} big={big}
             onClick={(e) => {
-                !unclickable && setKeyWordClicked(!keyWordClicked);
+                !fromArticle ? setKeyWordClicked(!keyWordClicked) : openAndCloseArticle(-1, true, word);
             }}>
             <WordDiv>{word}</WordDiv>
-            <div className='image'>{keyWordClicked ? (big&&!unclickable? (<CloseTagIcon/>) :(<SelectedIcon/>)) : (<PlusIcon/>)}</div>
+            <div className='image'>{keyWordClicked ? (big&&!fromArticle? (<CloseTagIcon/>) :(<SelectedIcon/>)) : (<PlusIcon/>)}</div>
         </KeyWordButton>
     )
 }
@@ -47,7 +46,6 @@ export function KeyWord({modifyclickedKeyWords, word, clicked, big, unclickable}
 interface Props {
     clicked: boolean;
     big: boolean;
-    unclickable?: boolean;
 }
 
 // Стилевой компонент кнопки-ключевого слова
@@ -61,7 +59,7 @@ const KeyWordButton = styled.button<Props>`
     color: #FFFFFF;
     font: ${adpt(18)}px 'Montserrat-Regular';
     margin: 0 0 ${p => p.big ? adpt(15) : adpt(10)}px ${p => p.big ? adpt(15) : adpt(10)}px;
-    ${p => !p.unclickable && `cursor: pointer`};
+    cursor: pointer;
     .image {
 
         height: ${p => p.big? adpt(10) : adpt(13)}px;

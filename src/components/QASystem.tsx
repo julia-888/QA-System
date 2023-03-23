@@ -32,16 +32,16 @@ export default function QASystem() {
     const [articlesShowed, setArticlesShowed] = useState(articles.slice(0, 4));
 
     // Функция открытия статьи с определённым i. Изменяет i открытой статьи, articleOpenedID
-    const openAndCloseArticle = (articleID: number) => {
+    const openAndCloseArticle = (articleID: number, fromKeyWord?:boolean, word?: string) => {
         //Если статья закрывается, то размер окна изменяется на тот, который был до открытия статьи.
         //Если статья открывается, то в переменную previousWasBig записывается значение big на момент открытия.
         if (articleID == -1) {
-            extendScreen(previosWasBig);
+            fromKeyWord ? extendScreen(true) : extendScreen(previosWasBig);
+            fromKeyWord && word != undefined && setclickedKeyWords([word]);
         } else {
             setPreviosWasBig(big);
             extendScreen(true);
         }
-
         setArticleOpenedID(articleID);
     }
     
@@ -78,7 +78,7 @@ export default function QASystem() {
                 setBig(false);
                 setHeader('Частые вопросы');
             }
-    }
+        }
 
     return(
         <QASystemFrame big={big}>

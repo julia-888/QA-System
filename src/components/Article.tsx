@@ -11,6 +11,8 @@ import { ReactComponent as LinkIcon} from "../icons/link.svg";
 import { ScrolledDiv } from "./ScrolledDiv";
 import { KeyWord } from "./KeyWord";
 import { ArticleButton } from "./Search";
+import { FilterArticlesByKeys } from "../functions/FilterArticlesByKeys";
+import { ReactComponent as OpenIcon} from "../icons/open.svg";
 
 
 type ArticleProps = {
@@ -81,14 +83,24 @@ export default function Article({i, big, openAndCloseArticle, extendScreen}: Art
                 <SimilarQuestionsDiv big={big}>
                         <hr className="hr" />
                         <Subtitle>Похожие вопросы</Subtitle>
-                        <ArticleButton big={big}></ArticleButton>
+                        {
+                            FilterArticlesByKeys(articles[i].keys).slice(0, 4).map(article => (
+                                <ArticleButton big={big}
+                                    onClick={() => {
+                                        openAndCloseArticle(articles.indexOf(article));
+                                    }}>
+                                    <div className="articleTitle">{article.title}</div><div className="imgOpen"><OpenIcon/></div>
+                                </ArticleButton>
+                            ))
+
+                        }
                     
                 </SimilarQuestionsDiv>
 
                 <KeysDiv>
                     {
                         articles[i].keys.map(keyWord => 
-                            <KeyWord modifyclickedKeyWords={()=>{}} big={big} clicked={true} unclickable={true} word={keyWord}></KeyWord>
+                            <KeyWord modifyclickedKeyWords={()=>{}} big={big} clicked={true} fromArticle={true} word={keyWord} openAndCloseArticle={openAndCloseArticle} extendScreen={extendScreen} />
                         )
                     }
                 </KeysDiv>
@@ -183,5 +195,6 @@ const SimilarQuestionsDiv = styled(Div)<ContentDivProps>`
         border: none;
         height: ${adpt(1)}px;                            
     }
+    align-self: flex-start;
     
 `

@@ -49,7 +49,9 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
                             <KeyWord word = {keyWord}
                             modifyclickedKeyWords={modifyclickedKeyWords} 
                             clicked={clickedKeyWords.includes(keyWord)}
-                            big={false} />
+                            big={false}
+                            openAndCloseArticle={openAndCloseArticle}
+                            extendScreen={extendScreen} />
                         ))}
                     </KeyWordsWrapDiv>
                 </KeyWordsDiv>
@@ -76,7 +78,9 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
                             (<KeyWord word = {keyWord}
                                 modifyclickedKeyWords={modifyclickedKeyWords} 
                                 clicked={clickedKeyWords.includes(keyWord)}
-                                big={true} />) : (<></>) 
+                                big={true}
+                                openAndCloseArticle={openAndCloseArticle}
+                                extendScreen={extendScreen} />) : (<></>) 
                             ))}
                         </ClickedDiv>
                     )
@@ -87,7 +91,21 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
             <SearchDivArticles ref={targetRef}> 
             {/* Учёт отображения надписи, если окно большое, или кнопки "Показать все", если окно маленькое */}
             {       articlesShowed.length == 0 && big ? (
-                        <ResultsNotFound>По вашему запросу ничего не найдено</ResultsNotFound>
+                        <SearchDivArticles>
+                            <ResultsNotFound>По вашему запросу ничего не найдено</ResultsNotFound>
+                            <AlsoFinds>
+                                <div className="alsoAsk">Также задают:</div>
+                                {
+                                    articles.slice(0, 6).map(article => (
+                                        <ArticleButton big={big} similar={true}
+                                            onClick={() => {
+                                                openAndCloseArticle(articles.indexOf(article));
+                                            }}>
+                                            <div className="articleTitle">{article.title}</div><div className="imgOpen"><OpenIcon/></div>
+                                        </ArticleButton>))
+                                }
+                            </AlsoFinds>
+                        </SearchDivArticles>
                     ) : (
                     articlesShowed.map(article => (
                         <ArticleButton big={big}
@@ -113,6 +131,7 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
 
 interface Props {
     big: boolean,
+    similar?: boolean,
 }
 
 
@@ -197,12 +216,13 @@ export const ArticleButton = styled.button<Props>`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: ${props => props.big ? adpt(728) : adpt(350)}px;
+    width: ${props => props.big ? (props.similar ? adpt(680) : adpt(728)) : adpt(350)}px;
     font: ${adpt(18)}px 'Montserrat-Regular';
     background: none;
     text-align: start;
     border: none;
-    margin: 0 ${adpt(28)}px ${adpt(25)}px ${adpt(25)}px;
+    margin: 0 ${adpt(20)}px ${adpt(25)}px ${adpt(25)}px;
+    margin-left: ${p => p.similar ? adpt(0) : adpt(25)}px;
     padding: 0;
     cursor: pointer;
     .imgOpen{
@@ -230,6 +250,7 @@ const ButtonLookAll = styled(ArticleButton)<Props>`
 // Блок на котором отображаются статьи
 const SearchDivArticles = styled(Div)`
     flex-direction: column;
+    align-self: flex-start;
 `
 
 const ClickedDiv = styled(Div)`
@@ -241,4 +262,17 @@ const ClickedDiv = styled(Div)`
 const ResultsNotFound = styled(Div)`
     font: ${adpt(18)}px 'Montserrat-Regular';
     line-height: ${adpt(25)}px;
+    margin: 0 auto;
+    align-self: center;
+`
+
+const AlsoFinds = styled.div`
+    font-size: ${adpt(22)}px;
+    font-family: 'Montserrat-Bold';
+    line-height: ${adpt(25)}px;
+    align-self: stretch;
+
+    .alsoAsk {
+        margin: ${adpt(70)}px 0 ${adpt(35)}px 0;
+    }
 `
