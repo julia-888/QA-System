@@ -12,11 +12,12 @@ type KeyWordsProps = {
     clicked: boolean;
     big: boolean;
     fromArticle?: boolean;
-    openAndCloseArticle: (article: number, fromKeyWord: boolean, word: string) => void;
+    articleNumber?: number;
+    openAndCloseArticle: (article: number, fromKeyWord: boolean, word: string, previousArticle: number) => void;
     extendScreen: (big: boolean) => void;
 };
 
-export function KeyWord({modifyclickedKeyWords, word, clicked, big, fromArticle, openAndCloseArticle}: KeyWordsProps) {
+export function KeyWord({modifyclickedKeyWords, word, clicked, big, fromArticle, articleNumber, openAndCloseArticle}: KeyWordsProps) {
   //Предотвращает срабатывание useEffect при первой отрисовке
   const [ firstDrawing, setFirstDrawing ] = useState(true);
 
@@ -33,7 +34,7 @@ export function KeyWord({modifyclickedKeyWords, word, clicked, big, fromArticle,
     return (
         <KeyWordButton clicked={keyWordClicked} big={big}
             onClick={(e) => {
-                !fromArticle ? setKeyWordClicked(!keyWordClicked) : openAndCloseArticle(-1, true, word);
+                fromArticle && articleNumber ? openAndCloseArticle(-1, true, word, articleNumber) : setKeyWordClicked(!keyWordClicked);
             }}>
             <WordDiv>{word}</WordDiv>
             <div className='image'>{keyWordClicked ? (big&&!fromArticle? (<CloseTagIcon/>) :(<SelectedIcon/>)) : (<PlusIcon/>)}</div>

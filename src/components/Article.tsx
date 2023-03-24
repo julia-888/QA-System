@@ -100,7 +100,7 @@ export default function Article({i, big, openAndCloseArticle, extendScreen}: Art
                 <KeysDiv>
                     {
                         articles[i].keys.map(keyWord => 
-                            <KeyWord modifyclickedKeyWords={()=>{}} big={big} clicked={true} fromArticle={true} word={keyWord} openAndCloseArticle={openAndCloseArticle} extendScreen={extendScreen} />
+                            <KeyWord modifyclickedKeyWords={()=>{}} big={big} clicked={true} fromArticle={true} articleNumber={i} word={keyWord} openAndCloseArticle={openAndCloseArticle} extendScreen={extendScreen} />
                         )
                     }
                 </KeysDiv>

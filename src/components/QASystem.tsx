@@ -19,6 +19,8 @@ export default function QASystem() {
     // Переменная, хранящая i - индекс в массиве, открытой статьи. Когда значение -1, статья закрыта 
     const [articleOpenedID, setArticleOpenedID] = useState(-1);
 
+    const [previousArticle, setPreviousArticle] = useState(-1);
+
     // Переменная, отвечающая за отображение контента в зависимости от размеров окна. НЕ изменяется вне функции extendScreen!!!
     const [big, setBig] = useState(false);
 
@@ -32,15 +34,18 @@ export default function QASystem() {
     const [articlesShowed, setArticlesShowed] = useState(articles.slice(0, 4));
 
     // Функция открытия статьи с определённым i. Изменяет i открытой статьи, articleOpenedID
-    const openAndCloseArticle = (articleID: number, fromKeyWord?:boolean, word?: string) => {
+    const openAndCloseArticle = (articleID: number, fromKeyWord?:boolean, word?: string, previousArticle?: number) => {
         //Если статья закрывается, то размер окна изменяется на тот, который был до открытия статьи.
         //Если статья открывается, то в переменную previousWasBig записывается значение big на момент открытия.
         if (articleID == -1) {
             fromKeyWord ? extendScreen(true) : extendScreen(previosWasBig);
             fromKeyWord && word != undefined && setclickedKeyWords([word]);
+            fromKeyWord && previousArticle && setPreviousArticle(previousArticle);
         } else {
             setPreviosWasBig(big);
             extendScreen(true);
+            previousArticle != -1 && setPreviousArticle(-1);
+            previousArticle != -1 && setclickedKeyWords([]);
         }
         setArticleOpenedID(articleID);
     }
@@ -92,7 +97,7 @@ export default function QASystem() {
                             big &&
                             <button className='backButton'
                                 onClick={() => {
-                                    extendScreen(false);
+                                    previousArticle != -1 ? openAndCloseArticle(previousArticle) : extendScreen(false);
                                 }} >
                                 <div className='imgBack'><BackIcon/></div>
                             </button>
