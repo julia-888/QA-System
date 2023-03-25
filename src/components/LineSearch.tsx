@@ -10,30 +10,32 @@ import { useState } from "react";
 
 type LineSearchProps = {
     setArticlesShowed: (articles: IArticle[]) => void;
+    searchLineText: string;
+    setSearchLineText: (text: string) => void;
   };
 
 // поисковая строка в большом окне
-export const LineSearch = ({setArticlesShowed}: LineSearchProps) => {
-    const [inputText, setInputText] = useState("");
+export const LineSearch = ({setArticlesShowed, searchLineText, setSearchLineText}: LineSearchProps) => {
+    // const [inputText, setInputText] = useState("");
 
     return (
-        <Line isEmpty={inputText==""}>
-            <input type='text' placeholder="Введите запрос" className="searchInput" value={inputText} 
+        <Line isEmpty={searchLineText==""}>
+            <input type='text' placeholder="Введите запрос" className="searchInput" value={searchLineText} 
             onChange={(e) => {
-                setInputText(e.target.value);
-                setArticlesShowed(FilterArticles(e.target.value));
+                setSearchLineText(e.target.value);
+                setArticlesShowed(FilterArticles(searchLineText));
             }}/>
 
             <div>
                 <button className="button cleanButton" onClick={() => {
-                    setInputText("");
+                    setSearchLineText("");
                     setArticlesShowed(articles);
                 }} >
                     <div className="imgClean"><CleanIcon/></div>
                 </button>
 
                 <button className="button" onClick={
-                    () => {setArticlesShowed(FilterArticles(inputText))}
+                    () => {setArticlesShowed(FilterArticles(searchLineText))}
                 }>
                     <div className="imgSearch"><SearchIcon/></div>
                 </button>

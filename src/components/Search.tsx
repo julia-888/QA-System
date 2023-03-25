@@ -17,16 +17,18 @@ import { Tag } from "./Tag";
 
 type SearchProps = {
     extendScreen: (big: boolean) => void;
-    openAndCloseArticle: (i: number) => void;
+    openAndCloseArticle: (i: number, word?: string, fromTag?: boolean, fromArticle?: number) => void;
     big: boolean;
     clickedKeyWords: string[];
     modifyclickedKeyWords: (keyWord: string, clicked: boolean) => void;
     articlesShowed: IArticle[];
     setArticlesShowed: (articles: IArticle[]) => void;
     clickedTag: [string, number];
+    searchLineText: string;
+    setSearchLineText: (text: string) => void;
   };
 
-export default function Search( {extendScreen, openAndCloseArticle, big, modifyclickedKeyWords, clickedKeyWords, articlesShowed, setArticlesShowed, clickedTag}: SearchProps ) {
+export default function Search( {extendScreen, openAndCloseArticle, big, modifyclickedKeyWords, clickedKeyWords, articlesShowed, setArticlesShowed, clickedTag, searchLineText, setSearchLineText}: SearchProps ) {
     // Состояние кнопки-открывателя списка ключевых слов
     const [clicked, setClicked] = useState(false);
 
@@ -51,9 +53,7 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
                             <KeyWord word = {keyWord}
                             modifyclickedKeyWords={modifyclickedKeyWords} 
                             clicked={clickedKeyWords.includes(keyWord)}
-                            big={false}
-                            openAndCloseArticle={openAndCloseArticle}
-                            extendScreen={extendScreen} />
+                            big={false} />
                         ))}
                     </KeyWordsWrapDiv>
                 </KeyWordsDiv>
@@ -73,7 +73,7 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
                 // Отображение в большом окне поисковой строки или выбранных ключевых слов
                 ( clickedKeyWords.length==0 || clickedTag[0] !== "" ? (
                         clickedTag[0] == "" && clickedTag[1] == -1 ?
-                        <LineSearch setArticlesShowed={setArticlesShowed}/>
+                        <LineSearch setArticlesShowed={setArticlesShowed} searchLineText={searchLineText} setSearchLineText={setSearchLineText} />
                         :
                         <Tag word={clickedTag[0]} clicked={true} articleNumber={clickedTag[1]} openAndCloseArticle={openAndCloseArticle} />
                     ) : (
@@ -83,9 +83,7 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
                             (<KeyWord word = {keyWord}
                                 modifyclickedKeyWords={modifyclickedKeyWords} 
                                 clicked={clickedKeyWords.includes(keyWord)}
-                                big={true}
-                                openAndCloseArticle={openAndCloseArticle}
-                                extendScreen={extendScreen} />) : (<></>) 
+                                big={true} />) : (<></>) 
                             ))}
                         </ClickedDiv>
                     )

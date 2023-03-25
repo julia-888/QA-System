@@ -6,14 +6,14 @@ import { ReactComponent as SelectedIcon} from "../icons/selected.svg";
 import { ReactComponent as CloseTagIcon} from "../icons/closeTag.svg";
 
 // Тип для передачи в функцию
-type KeyWordsProps = {
+type TagProps = {
     word: string;
     clicked: boolean;
     articleNumber: number;
     openAndCloseArticle: (article: number, word: string, fromTag: boolean, fromArticle: number) => void;
 };
 
-export function Tag({articleNumber, clicked, word, openAndCloseArticle}: KeyWordsProps) {
+export function Tag({articleNumber, clicked, word, openAndCloseArticle}: TagProps) {
   // Нажат ли тег
   const [ tagClicked, setTagClicked ] = useState(clicked);
   
@@ -43,7 +43,7 @@ const TagButton = styled.button<Props>`
     border-radius: ${adpt(22)}px;
     border: none;
     padding: ${adpt(6)}px ${adpt(11)}px;
-    background-color: '#2D3F61';
+    background-color: ${p => p.clicked ? '#2D3F61' : '#2D3F61'};
     color: #FFFFFF;
     font: ${adpt(18)}px 'Montserrat-Regular';
     margin: 0 0 ${adpt(15)}px ${adpt(15)}px;

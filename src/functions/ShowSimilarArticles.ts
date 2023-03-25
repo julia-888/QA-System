@@ -7,7 +7,9 @@ export const ShowSimilarArticles = (i: number) => {
     
     articles[i].keys.forEach(key => {
         articles.forEach(article => {
-            if (article.keys.includes(key)) {
+            if (article.keys.includes(key) && !result.includes(article) && article.title !== articles[i].title) {
+                console.log(article.title);
+                console.log(articles[i].title);
                 result.push(article);
             }
         });

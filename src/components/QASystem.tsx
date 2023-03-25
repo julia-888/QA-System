@@ -16,7 +16,11 @@ export default function QASystem() {
     // Нажатые ключевые слова
     const [clickedKeyWords, setclickedKeyWords] = useState<string[]>([]);
 
+    // Нажатый тег из статьи. Хранит в себе слово и номер статьи, в которой был нажат
     const [clickedTag, setclickedTag] = useState<[string, number]>(["", -1]);
+
+    //Содержимое поисковой строки
+    const [searchLineText, setSearchLineText] = useState("");
 
     // Переменная, хранящая i - индекс в массиве, открытой статьи. Когда значение -1, статья закрыта 
     const [articleOpenedID, setArticleOpenedID] = useState(-1);
@@ -41,7 +45,7 @@ export default function QASystem() {
             fromTag ? extendScreen(true) : extendScreen(previosWasBig);
             fromTag && word != undefined && fromArticle != undefined && setclickedTag([word, fromArticle]);
         } else {
-            setPreviosWasBig(big);
+            !fromTag && setPreviosWasBig(big);
             extendScreen(true);
             setclickedTag(["", -1]);
         }
@@ -129,7 +133,9 @@ export default function QASystem() {
                                 modifyclickedKeyWords={modifyclickedKeyWords}
                                 articlesShowed={articlesShowed}
                                 setArticlesShowed={setArticlesShowed}
-                                clickedTag={clickedTag} />
+                                clickedTag={clickedTag}
+                                searchLineText={searchLineText}
+                                setSearchLineText={setSearchLineText} />
                     </ArticlesDiv>
                     </>
                 ) : (
