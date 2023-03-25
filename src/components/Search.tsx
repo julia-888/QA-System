@@ -13,6 +13,7 @@ import { ScrolledDiv } from "./ScrolledDiv";
 import { FilterArticlesByKeys } from "../functions/FilterArticlesByKeys";
 import { FilterArticles } from '../functions/FilterArticles'
 import { KeyWord } from "./KeyWord"
+import { Tag } from "./Tag";
 
 type SearchProps = {
     extendScreen: (big: boolean) => void;
@@ -22,9 +23,10 @@ type SearchProps = {
     modifyclickedKeyWords: (keyWord: string, clicked: boolean) => void;
     articlesShowed: IArticle[];
     setArticlesShowed: (articles: IArticle[]) => void;
+    clickedTag: [string, number];
   };
 
-export default function Search( {extendScreen, openAndCloseArticle, big, modifyclickedKeyWords, clickedKeyWords, articlesShowed, setArticlesShowed}: SearchProps ) {
+export default function Search( {extendScreen, openAndCloseArticle, big, modifyclickedKeyWords, clickedKeyWords, articlesShowed, setArticlesShowed, clickedTag}: SearchProps ) {
     // Состояние кнопки-открывателя списка ключевых слов
     const [clicked, setClicked] = useState(false);
 
@@ -69,8 +71,11 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
 
             {big && 
                 // Отображение в большом окне поисковой строки или выбранных ключевых слов
-                ( clickedKeyWords.length==0 ? (
+                ( clickedKeyWords.length==0 || clickedTag[0] !== "" ? (
+                        clickedTag[0] == "" && clickedTag[1] == -1 ?
                         <LineSearch setArticlesShowed={setArticlesShowed}/>
+                        :
+                        <Tag word={clickedTag[0]} clicked={true} articleNumber={clickedTag[1]} openAndCloseArticle={openAndCloseArticle} />
                     ) : (
                         <ClickedDiv>
                             { keyWordsList.map((keyWord) => (

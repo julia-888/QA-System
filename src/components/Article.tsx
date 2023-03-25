@@ -14,6 +14,7 @@ import { ArticleButton } from "./Search";
 import { FilterArticlesByKeys } from "../functions/FilterArticlesByKeys";
 import { ReactComponent as OpenIcon} from "../icons/open.svg";
 import { ShowSimilarArticles } from "../functions/ShowSimilarArticles";
+import { Tag } from "./Tag";
 
 
 type ArticleProps = {
@@ -97,13 +98,13 @@ export default function Article({i, big, openAndCloseArticle, extendScreen}: Art
                     
                 </SimilarQuestionsDiv>
 
-                <KeysDiv>
+                <TagsDiv>
                     {
-                        articles[i].keys.map(keyWord => 
-                            <KeyWord modifyclickedKeyWords={()=>{}} big={big} clicked={true} fromArticle={true} word={keyWord} openAndCloseArticle={openAndCloseArticle} extendScreen={extendScreen} />
+                        articles[i].keys.map(tag => 
+                            <Tag articleNumber={i} clicked={false} word={tag} openAndCloseArticle={openAndCloseArticle} />
                         )
                     }
-                </KeysDiv>
+                </TagsDiv>
             </ContentDiv>
         </>
     );
@@ -158,7 +159,7 @@ const Tezis = styled.div<ContentDivProps>`
     font: ${adpt(18)}px 'Montserrat-Regular';
 `
 
-const KeysDiv = styled(Div)`
+const TagsDiv = styled(Div)`
     flex-wrap: wrap;
 `
 

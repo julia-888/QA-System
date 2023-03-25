@@ -16,6 +16,8 @@ export default function QASystem() {
     // Нажатые ключевые слова
     const [clickedKeyWords, setclickedKeyWords] = useState<string[]>([]);
 
+    const [clickedTag, setclickedTag] = useState<[string, number]>(["", -1]);
+
     // Переменная, хранящая i - индекс в массиве, открытой статьи. Когда значение -1, статья закрыта 
     const [articleOpenedID, setArticleOpenedID] = useState(-1);
 
@@ -32,26 +34,30 @@ export default function QASystem() {
     const [articlesShowed, setArticlesShowed] = useState(articles.slice(0, 4));
 
     // Функция открытия статьи с определённым i. Изменяет i открытой статьи, articleOpenedID
-    const openAndCloseArticle = (articleID: number, fromKeyWord?:boolean, word?: string) => {
+    const openAndCloseArticle = (articleID: number, word?: string, fromTag?: boolean, fromArticle?: number) => {
         //Если статья закрывается, то размер окна изменяется на тот, который был до открытия статьи.
         //Если статья открывается, то в переменную previousWasBig записывается значение big на момент открытия.
         if (articleID == -1) {
-            fromKeyWord ? extendScreen(true) : extendScreen(previosWasBig);
-            fromKeyWord && word != undefined && setclickedKeyWords([word]);
+            fromTag ? extendScreen(true) : extendScreen(previosWasBig);
+            fromTag && word != undefined && fromArticle != undefined && setclickedTag([word, fromArticle]);
         } else {
             setPreviosWasBig(big);
             extendScreen(true);
+            setclickedTag(["", -1]);
         }
         setArticleOpenedID(articleID);
     }
     
     //Функция, отображающая список статей в зависимости от нажатых ключевых слов
     useEffect(() => {
-        big ? 
-        setArticlesShowed(FilterArticlesByKeys(clickedKeyWords)) : 
-        setArticlesShowed(FilterArticlesByKeys(clickedKeyWords).slice(0, 4))
-        ;
-    }, [big, clickedKeyWords])
+        if (clickedTag[0] === "") {
+            big ? 
+            setArticlesShowed(FilterArticlesByKeys(clickedKeyWords)) : 
+            setArticlesShowed(FilterArticlesByKeys(clickedKeyWords).slice(0, 4));
+        } else {
+            setArticlesShowed(FilterArticlesByKeys([clickedTag[0]]));
+        }        
+    }, [big, clickedKeyWords, clickedTag])
     
     
     // Функция, изменяющая список нажатых слов. На вход подаётся слово и что произошло, т.е. "нажали"-"отжали". Затем изменяется список нажатых ключевых слов.
@@ -93,6 +99,9 @@ export default function QASystem() {
                             <button className='backButton'
                                 onClick={() => {
                                     extendScreen(false);
+                                    if (clickedTag[1] != -1) {
+                                        openAndCloseArticle(clickedTag[1], clickedTag[0], true, -1);
+                                    }
                                 }} >
                                 <div className='imgBack'><BackIcon/></div>
                             </button>
@@ -119,7 +128,8 @@ export default function QASystem() {
                                 clickedKeyWords={clickedKeyWords}
                                 modifyclickedKeyWords={modifyclickedKeyWords}
                                 articlesShowed={articlesShowed}
-                                setArticlesShowed={setArticlesShowed} />
+                                setArticlesShowed={setArticlesShowed}
+                                clickedTag={clickedTag} />
                     </ArticlesDiv>
                     </>
                 ) : (
