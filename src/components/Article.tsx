@@ -15,7 +15,7 @@ import { FilterArticlesByKeys } from "../functions/FilterArticlesByKeys";
 import { ReactComponent as OpenIcon} from "../icons/open.svg";
 import { ShowSimilarArticles } from "../functions/ShowSimilarArticles";
 import { Tag } from "./Tag";
-
+import { useDrag } from "react-use-gesture";
 
 type ArticleProps = {
     //Поле i здесь означает индекс статьи в массиве!!!
@@ -23,12 +23,21 @@ type ArticleProps = {
     big: boolean;
     openAndCloseArticle: (article: number) => void;
     extendScreen: (big: boolean) => void;
+    setpositionOfWindow: ({x, y}: {x: number, y: number}) => void;
+
 };
 
-export default function Article({i, big, openAndCloseArticle, extendScreen}: ArticleProps) {
+export default function Article({i, big, openAndCloseArticle, extendScreen, setpositionOfWindow}: ArticleProps) {
+    const bindpositionOfWindow = useDrag((params) => {
+        setpositionOfWindow({
+        x: params.offset[0],
+        y: params.offset[1],
+        });
+    });
+
     return (
         <>
-            <HeaderDiv big={big} isArticle={true}>
+            <HeaderDiv big={big} isArticle={true} {...bindpositionOfWindow()}>
                 <Div>
                 <button className='backButton'
                     onClick={() => {

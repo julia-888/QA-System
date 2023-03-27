@@ -9,10 +9,20 @@ import { FilterArticlesByKeys } from '../functions/FilterArticlesByKeys';
 import { HeaderDiv } from './HeaderDiv';
 import { ReactComponent as MoveIcon} from "../icons/move.svg";
 import { useState, useEffect } from 'react';
+import { useDrag } from 'react-use-gesture';
 import { ReactComponent as BackIcon} from "../icons/back.svg";
 import Article from './Article';
 
 export default function QASystem() {
+    //Координаты окна и функция его перемещения
+    const [positionOfWindow, setpositionOfWindow] = useState({x: 0, y: 0});
+    const bindpositionOfWindow = useDrag((params) => {
+        setpositionOfWindow({
+        x: params.offset[0],
+        y: params.offset[1],
+        });
+    });
+
     // Нажатые ключевые слова
     const [clickedKeyWords, setclickedKeyWords] = useState<string[]>([]);
 
@@ -91,12 +101,13 @@ export default function QASystem() {
         }
 
     return(
-        <QASystemFrame big={big}>
+        <Wrap positionOfWindow={positionOfWindow} big={big}>
+            <QASystemFrame big={big} >
             {
                 // если никакая статья не открыта
                 articleOpenedID == -1 ? (
                     <>
-                    <HeaderDiv big={big} isArticle={false}>
+                    <HeaderDiv big={big} isArticle={false} {...bindpositionOfWindow()}>
                         <Div>
                         {   /* Если экран расширен, то появляется кнопка-стрелочка назад */
                             big &&
@@ -138,13 +149,21 @@ export default function QASystem() {
                                 setSearchLineText={setSearchLineText} />
                     </ArticlesDiv>
                     </>
-                ) : (
-                    <Article big={ big } i={ articleOpenedID } openAndCloseArticle={openAndCloseArticle} extendScreen={extendScreen} />
-                )
-            }
-        </QASystemFrame>
+                    ) : (
+                        <Article big={ big } i={ articleOpenedID } openAndCloseArticle={openAndCloseArticle} extendScreen={extendScreen} setpositionOfWindow={setpositionOfWindow} />
+                    )
+                }
+            </QASystemFrame>        
+        </Wrap>
     );  
 };
+
+interface WrapProps {
+    //positionOfWindow влияет на позицию
+    positionOfWindow: {x: number, y: number};
+    //Размер окна влияет на стили: размеры, границы, отображение/не отображение элементов
+    big: boolean;
+}
 
 interface QASystemFrameDims {
     //Размер окна влияет на стили: размеры, границы, отображение/не отображение элементов
@@ -153,9 +172,7 @@ interface QASystemFrameDims {
 
 // Блок-родитель для всего приложения
 const QASystemFrame = styled(Div)<QASystemFrameDims>`
-    position: absolute;
-    right: 0;
-    bottom: ${adpt(10)}px;
+    /* bottom: ${adpt(10)}px; */
     flex-direction: column;
     align-items: center;
     width: ${p => p.big? adpt(850) : adpt(420) }px;
@@ -171,5 +188,13 @@ const ArticlesDiv = styled(ScrolledDiv)<QASystemFrameDims>`
     flex-direction: column;
     align-items: center;
     width: ${p => p.big? adpt(850) : adpt(420)}px;
+    height: ${p => p.big? adpt(730): adpt(672)}px;
+`
+
+const Wrap = styled(Div)<WrapProps>`
+    position: relative;
+    top: calc(${p => p.positionOfWindow.y}px + 94vh - ${p => p.big? adpt(730): adpt(672)}px);
+    left: calc(${p => p.positionOfWindow.x}px + 98vw - ${p => p.big? adpt(850) : adpt(420) }px);
+    width: ${p => p.big? adpt(850) : adpt(420) }px;
     height: ${p => p.big? adpt(730): adpt(672)}px;
 `
