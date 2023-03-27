@@ -13,6 +13,7 @@ type TagProps = {
     openAndCloseArticle: (article: number, word: string, fromTag: boolean, fromArticle: number) => void;
 };
 
+//Тег - ключевое слово внутри статьи, нажав на которое открывается поиск по нему
 export function Tag({articleNumber, clicked, word, openAndCloseArticle}: TagProps) {
   // Нажат ли тег
   const [ tagClicked, setTagClicked ] = useState(clicked);

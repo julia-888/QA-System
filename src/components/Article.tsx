@@ -126,7 +126,6 @@ interface ContentDivProps {
 
 const ContentDiv = styled(ScrolledDiv)<ContentDivProps>`
     flex-direction: column;
-    box-sizing: border-box;
     padding-top: ${adpt(15)}px;
     padding-right: ${p => p.big? adpt(95) : adpt(30)}px;
     padding-bottom: ${adpt(30)}px;

@@ -5,6 +5,7 @@ import styled from "styled-components";
 export const Div = styled.div`
     display: flex;
     align-items: baseline;
+    padding: 0;
 
     font-family: 'Montserrat-SemiBold';
 `

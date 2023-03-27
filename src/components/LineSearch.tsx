@@ -5,7 +5,7 @@ import { ReactComponent as SearchIcon} from "../icons/search.svg";
 import { ReactComponent as CleanIcon} from "../icons/close.svg";
 import { FilterArticles } from "../functions/FilterArticles";
 import { articles, IArticle } from "../dataForArticles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 type LineSearchProps = {
@@ -18,12 +18,15 @@ type LineSearchProps = {
 export const LineSearch = ({setArticlesShowed, searchLineText, setSearchLineText}: LineSearchProps) => {
     // const [inputText, setInputText] = useState("");
 
+    useEffect (() => {
+        setArticlesShowed(FilterArticles(searchLineText));
+    }, [searchLineText] )
+
     return (
         <Line isEmpty={searchLineText==""}>
             <input type='text' placeholder="Введите запрос" className="searchInput" value={searchLineText} 
             onChange={(e) => {
                 setSearchLineText(e.target.value);
-                setArticlesShowed(FilterArticles(searchLineText));
             }}/>
 
             <div>

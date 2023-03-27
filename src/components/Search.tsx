@@ -140,7 +140,6 @@ interface Props {
 
 // Блок-родитель для поиска
 const SearchDiv = styled(Div)<Props>`
-    box-sizing: border-box;
     flex-direction: column;
     justify-content: ${props => props.big ? 'space-between':'center'};
     align-items: center;
@@ -187,6 +186,7 @@ const KeyWordsDiv = styled(Div)`
 
 // Блок с ключевыми словами
 const KeyWordsWrapDiv = styled(ScrolledDiv)`
+    display: flex;
     flex-wrap: wrap;
     max-height: ${adpt(250)}px;
 `
