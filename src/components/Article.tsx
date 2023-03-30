@@ -134,12 +134,13 @@ interface ContentDivProps {
 };
 
 const ContentDiv = styled(ScrolledDiv)<ContentDivProps>`
-    flex-direction: column;
+    /* flex-direction: column; */
     padding-top: ${adpt(15)}px;
     padding-right: ${p => p.big? adpt(95) : adpt(30)}px;
     padding-bottom: ${adpt(30)}px;
     padding-left: ${p => p.big? adpt(75) : adpt(30)}px;
     line-height: 1.5;
+    max-height: ${p => p.big? adpt(660): adpt(615)}px;
 `
 
 const Text = styled.div`

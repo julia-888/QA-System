@@ -139,27 +139,32 @@ interface Props {
 
 
 // Блок-родитель для поиска
-const SearchDiv = styled(Div)<Props>`
-    flex-direction: column;
-    justify-content: ${props => props.big ? 'space-between':'center'};
-    align-items: center;
-    width: ${props => !props.big  && `${adpt(385)}px`};
-    padding-top: ${props => !props.big && adpt(15)}px;
-    margin: ${adpt(15)}px 0;
+const SearchDiv = styled.div<Props>`
+    /* flex-direction: column;
+    justify-content: ${props => props.big ? 'space-between':'center'}; */
+    /* align-items: center; */
+    /* width: ${props => !props.big  && `${adpt(385)}px`}; */
+    /* padding: ${props => !props.big && adpt(15)}px; */
+
+    /* margin: ${adpt(15)}px 0; */
+    /* margin-right: ${adpt(12)}px; */
+    /* margin-left: auto;
+    margin-right: auto; */
+    margin: ${adpt(30)}px ${adpt(12)}px ${adpt(15)}px 0;
     border-radius: ${adpt(13)}px;
-    box-shadow: ${props => !props.big && `${adpt(0)}px ${adpt(3)}px ${adpt(6)}px lightgrey`};
+    box-shadow: ${props => !props.big && `0 3px 6px rgba(0, 0, 0, 0.16)`};
 `
 
 // Кнопка, открывающая блок с ключевыми словами
 const SearchButton = styled.button`
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     display: flex;
     justify-content: space-between;
     width: ${adpt(369)}px;
     background-color: rgba(118, 142, 183, 0.3);
     border-radius: ${adpt(13)}px;
     border: 0;
-    margin-bottom: ${adpt(34)}px;
+    margin: ${adpt(15)}px auto ${adpt(34)}px auto;
     padding: ${adpt(15)}px;
     font: ${adpt(19)}px 'Montserrat-Medium';
     cursor: pointer;
@@ -177,10 +182,11 @@ const SearchButton = styled.button`
 // Блок-контейнер для кнопки и блока с ключевыми словами
 const KeyWordsDiv = styled(Div)`
     background-color: #E9ECEE;
-    width: ${adpt(363)}px;
+    width: ${adpt(369)}px;
     border-radius: ${adpt(13)}px;
     flex-direction: column;
     margin-bottom: ${adpt(30)}px;
+    margin: ${adpt(15)}px auto ${adpt(34)}px auto;
     padding-right: ${adpt(7)}px;
 `
 
@@ -224,8 +230,8 @@ export const ArticleButton = styled.button<Props>`
     background: none;
     text-align: start;
     border: none;
-    margin: 0 ${adpt(20)}px ${adpt(25)}px ${adpt(25)}px;
-    margin-left: ${p => p.similar ? adpt(0) : adpt(25)}px;
+    margin: 0 ${adpt(20)}px ${adpt(25)}px ${p => p.similar ? adpt(0) : adpt(25)}px;
+    /* margin-left: ${p => p.similar ? adpt(0) : adpt(25)}px; */
     padding: 0;
     cursor: pointer;
     .imgOpen{
@@ -248,12 +254,13 @@ export const ArticleButton = styled.button<Props>`
 const ButtonLookAll = styled(ArticleButton)<Props>`
     color: rgba(60, 60, 60, 0.9);
     justify-content: center;
+    
 `
 
 // Блок на котором отображаются статьи
-const SearchDivArticles = styled(Div)`
-    flex-direction: column;
-    align-self: flex-start;
+const SearchDivArticles = styled.div`
+    /* flex-direction: column; */
+    /* align-self: flex-start; */
 `
 
 const ClickedDiv = styled(Div)`
