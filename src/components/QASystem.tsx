@@ -172,9 +172,6 @@ interface QASystemFrameDims {
 
 // Блок-родитель для всего приложения
 const QASystemFrame = styled.div<QASystemFrameDims>`
-    /* bottom: ${adpt(10)}px; */
-    /* flex-direction: column;
-    align-items: center; */
     width: ${p => p.big? adpt(850) : adpt(420) }px;
     height: ${p => p.big? adpt(730): adpt(672)}px;
     padding: ${adpt(27)}px ${adpt(8)}px 0 ${adpt(15)}px;
@@ -185,8 +182,6 @@ const QASystemFrame = styled.div<QASystemFrameDims>`
 
 // Основной блок с контентом
 const ArticlesDiv = styled(ScrolledDiv)<QASystemFrameDims>`
-    /* flex-direction: column;
-    align-items: center; */
     width: ${p => p.big? adpt(850) : adpt(420)}px;
     max-height: ${p => p.big? adpt(730): adpt(625)}px;
 `

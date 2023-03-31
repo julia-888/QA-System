@@ -23,8 +23,6 @@ export default MainArticleButton;
 
 // Синий блок
 const MainArticleButtonDiv = styled.div`
-/* box-sizing: border-box; */
-/* width: ${adpt(385)}px; */
 margin: ${adpt(25)}px ${adpt(12)}px 0 0;
 padding: ${adpt(15)}px;
 padding-right: ${adpt(40)}px;

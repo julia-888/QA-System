@@ -140,19 +140,10 @@ interface Props {
 
 // Блок-родитель для поиска
 const SearchDiv = styled.div<Props>`
-    /* flex-direction: column;
-    justify-content: ${props => props.big ? 'space-between':'center'}; */
-    /* align-items: center; */
-    /* width: ${props => !props.big  && `${adpt(385)}px`}; */
-    /* padding: ${props => !props.big && adpt(15)}px; */
-
-    /* margin: ${adpt(15)}px 0; */
-    /* margin-right: ${adpt(12)}px; */
-    /* margin-left: auto;
-    margin-right: auto; */
     margin: ${adpt(30)}px ${adpt(12)}px ${adpt(15)}px 0;
     border-radius: ${adpt(13)}px;
     box-shadow: ${props => !props.big && `0 3px 6px rgba(0, 0, 0, 0.16)`};
+    padding: ${adpt(5)}px 0 ${adpt(5)}px 0;
 `
 
 // Кнопка, открывающая блок с ключевыми словами
@@ -259,8 +250,7 @@ const ButtonLookAll = styled(ArticleButton)<Props>`
 
 // Блок на котором отображаются статьи
 const SearchDivArticles = styled.div`
-    /* flex-direction: column; */
-    /* align-self: flex-start; */
+    
 `
 
 const ClickedDiv = styled(Div)`

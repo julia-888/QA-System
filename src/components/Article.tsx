@@ -36,7 +36,7 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
     });
 
     return (
-        <>
+        <ArticleWrap big={big}>
             <HeaderDiv big={big} isArticle={true} {...bindpositionOfWindow()}>
                 <Div>
                 <button className='backButton'
@@ -76,7 +76,7 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
                                 (<Text>{contentElem.content}</Text>) : 
                             contentElem.type == 'img' ?
                                 (<Image big={big}>
-                                    <img className="image" src={require(`../img/${contentElem.content}`)} alt="" />
+                                    {/* <img className="image" src={require(`../img/${contentElem.content}`)} alt="" /> */}
                                 </Image>) :
                             contentElem.type =='tezis' ?
                                 (<Tezis big={big}>{contentElem.content}</Tezis>) :
@@ -100,7 +100,7 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
                                     onClick={() => {
                                         openAndCloseArticle(articles.indexOf(article));
                                     }}>
-                                    <div className="articleTitle">{article.title}</div><div className="imgOpen"><OpenIcon/></div>
+                                    <div className="articleTitle">{article.title}</div>
                                 </ArticleButton>
                             ))
                         }
@@ -115,9 +115,10 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
                     }
                 </TagsDiv>
             </ContentDiv>
-        </>
+        </ArticleWrap>
     );
 }
+
 
 const Subtitle = styled.div`
     font: ${adpt(18)}px 'Montserrat-Medium';
@@ -133,14 +134,15 @@ interface ContentDivProps {
     big: boolean;
 };
 
+const ArticleWrap = styled.div<ContentDivProps>`
+    
+`
+
 const ContentDiv = styled(ScrolledDiv)<ContentDivProps>`
-    /* flex-direction: column; */
-    padding-top: ${adpt(15)}px;
-    padding-right: ${p => p.big? adpt(95) : adpt(30)}px;
-    padding-bottom: ${adpt(30)}px;
-    padding-left: ${p => p.big? adpt(75) : adpt(30)}px;
+    padding: ${adpt(15)}px ${p => p.big? adpt(95) : adpt(30)}px ${adpt(30)}px ${p => p.big? adpt(75) : adpt(10)}px;
     line-height: 1.5;
-    max-height: ${p => p.big? adpt(660): adpt(615)}px;
+    width: ${p => p.big? adpt(650) : adpt(380)}px;
+    max-height: ${p => p.big? adpt(650): adpt(585)}px;
 `
 
 const Text = styled.div`
@@ -149,9 +151,11 @@ const Text = styled.div`
 `
 
 const Image = styled.div<ContentDivProps>`
-    width: ${p => p.big ? adpt(682) : adpt(335)}px;
+    width: ${p => p.big ? adpt(642) : adpt(315)}px;
+    height: ${adpt(300)}px;
     text-align: center;
     margin-bottom: ${adpt(45)}px;
+    background-color: green;
 
     .image {
         width: 100%;
@@ -195,18 +199,15 @@ const Link = styled(Div)`
 `
 
 const SimilarQuestionsDiv = styled.div<ContentDivProps>`
-    /* flex-direction: column; */
     width: ${p => p.big ? adpt(580) : adpt(375)}px;
     .hr {
-        width: ${p => p.big ? adpt(519) : adpt(380)}px;
+        width: ${p => p.big ? adpt(519) : adpt(350)}px;
         background-color: #707070;
         color: #707070;
-        /* align-items: stretch; */
         border: none;
         height: ${adpt(1)}px;
         margin: 0 0 ${p => p.big ? adpt(30) : adpt(20)}px 0;
     }
-    /* align-self: stretch; */
 
     .question {
         margin: 0 0 ${adpt(20)}px 0;
