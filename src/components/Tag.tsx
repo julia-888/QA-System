@@ -47,7 +47,8 @@ const TagButton = styled.button<Props>`
     background-color: ${p => p.clicked ? '#2D3F61' : '#2D3F61'};
     color: #FFFFFF;
     font: ${adpt(18)}px 'Montserrat-Regular';
-    margin: 0 0 ${adpt(15)}px ${adpt(30)}px;
+    margin: 0 ${adpt(20)}px ${adpt(15)}px 0;
+    margin-left: ${p => p.clicked && adpt(20)}px;
     cursor: pointer;
     .image {
         height: ${adpt(13)}px;

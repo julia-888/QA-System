@@ -262,6 +262,7 @@ const SearchDivArticles = styled.div`
 
 const ClickedDiv = styled(Div)`
     margin-bottom: ${adpt(30)}px;
+    margin-left: ${adpt(15)}px;
     flex-wrap: wrap;
     width: ${adpt(730)}px;
 `

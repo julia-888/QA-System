@@ -36,7 +36,7 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
     });
 
     return (
-        <ArticleWrap big={big}>
+        <div>
             <HeaderDiv big={big} isArticle={true} {...bindpositionOfWindow()}>
                 <Div>
                 <button className='backButton'
@@ -83,8 +83,8 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
                             contentElem.type == 'link' ?
                                 (<Link>
                                     <a href={contentElem.content} target='_blank' className="link">
-                                        <div className="imgLink"><LinkIcon/></div>
-                                        <div>{contentElem.linkText}</div>
+                                        <div className="imgLink"><LinkIcon /></div>
+                                        <div className="textLink">{contentElem.linkText}</div>
                                     </a>
                                 </Link>)
                             : (<></>)  
@@ -93,7 +93,7 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
                 
                 <SimilarQuestionsDiv big={big}>
                         <hr className="hr" />
-                        <Subtitle>Похожие вопросы</Subtitle>
+                        <Subtitle className="similarTitle">Похожие вопросы:</Subtitle>
                         {
                             ShowSimilarArticles(i).slice(0,3).map(article => (
                                 <ArticleButton big={big} className='question' similar={true}
@@ -115,7 +115,7 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
                     }
                 </TagsDiv>
             </ContentDiv>
-        </ArticleWrap>
+        </div>
     );
 }
 
@@ -135,10 +135,6 @@ const Note = styled.div`
 interface ContentDivProps {
     big: boolean;
 };
-
-const ArticleWrap = styled.div<ContentDivProps>`
-    
-`
 
 const ContentDiv = styled(ScrolledDiv)<ContentDivProps>`
     padding: ${adpt(15)}px ${p => p.big? adpt(95) : adpt(30)}px ${adpt(30)}px ${p => p.big? adpt(75) : adpt(10)}px;
@@ -178,10 +174,11 @@ const Tezis = styled.div<ContentDivProps>`
 `
 
 const TagsDiv = styled(Div)`
+    
     flex-wrap: wrap;
 `
 
-const Link = styled(Div)`
+const Link = styled.div`
     margin-bottom: ${adpt(10)}px;
     .link {
         font: ${adpt(17)}px 'Montserrat-Regular';
@@ -190,9 +187,9 @@ const Link = styled(Div)`
         text-decoration: none;
         color: black;
         display: flex;
-        
+
         .imgLink{
-            margin-right: ${adpt(10)}px;
+            /* margin-right: ${adpt(10)}px; */
             height: ${adpt(17)}px;
             width: ${adpt(17)}px;
             /* задать размеры */
@@ -200,6 +197,11 @@ const Link = styled(Div)`
                     width: 100%;
                     height: 100%;
                 }
+        }
+
+        .textLink {
+            margin-left: ${adpt(10)}px;
+            
         }
     }
 `
@@ -212,11 +214,15 @@ const SimilarQuestionsDiv = styled.div<ContentDivProps>`
         color: #707070;
         border: none;
         height: ${adpt(1)}px;
-        margin: 0 0 ${p => p.big ? adpt(30) : adpt(20)}px 0;
+        margin: ${p => p.big ? adpt(60) : adpt(30)}px 0 ${p => p.big ? adpt(30) : adpt(20)}px 0;
     }
 
     .question {
         margin: 0 0 ${adpt(20)}px 0;
+    }
+
+    .similarTitle {
+        margin-left: 5px;
     }
 
     margin: 0 0 ${adpt(40)}px 0;

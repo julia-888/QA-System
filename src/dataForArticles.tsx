@@ -75,11 +75,6 @@ export const articles: IArticle[] = [
             },
             {
                 type: 'link',
-                content: 'https://www.mt.com/us/en/home/products/Laboratory_Analytics_Browse/Titration.html',
-                linkText: 'ОФициальный сайт производителя титраторов',
-            },
-            {
-                type: 'link',
                 content: 'https://www.hannainst.com/titrators.html',
                 linkText: 'Документация по титратору выбранной модели АТ-510, используемого для проверки показателя кислотного числа',
             },
@@ -92,6 +87,11 @@ export const articles: IArticle[] = [
                 type: 'link',
                 content: 'https://pubs.acs.org/journal/jceda8',
                 linkText: 'Официальный сайт производителя титраторов от другого производителя',
+            },
+            {
+                type: 'link',
+                content: 'https://www.mt.com/us/en/home/products/Laboratory_Analytics_Browse/Titration.html',
+                linkText: 'Официальный сайт производителя титраторов',
             },
         ],
         keys: ['Показатели']
