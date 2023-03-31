@@ -182,8 +182,11 @@ const QASystemFrame = styled.div<QASystemFrameDims>`
 
 // Основной блок с контентом
 const ArticlesDiv = styled(ScrolledDiv)<QASystemFrameDims>`
-    width: ${p => p.big? adpt(850) : adpt(420)}px;
+    width: ${p => p.big? adpt(830) : adpt(420)}px;
     max-height: ${p => p.big? adpt(730): adpt(625)}px;
+    ${p => p.big && `&::-webkit-scrollbar-track {
+        margin-block-start: 25px;
+    }`}
 `
 
 const Wrap = styled.div<WrapProps>`

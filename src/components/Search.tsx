@@ -38,7 +38,7 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
     return (
         <SearchDiv big={big}>
             {
-                // Эта часть кода относится только к маленькому экрану
+                // Эта часть кода относится только к маленькому окну
                 !big && (clicked ? 
                 (
                 <KeyWordsDiv>
@@ -69,6 +69,7 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
                 ))
             }
 
+            {/* Эта часть кода относится только к большому окну */}
             {big && 
                 // Отображение в большом окне поисковой строки или выбранных ключевых слов
                 ( clickedKeyWords.length==0 || clickedTag[0] !== "" ? (
@@ -92,7 +93,7 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
 
             {/* Добавляем ссылку */}
             <SearchDivArticles ref={targetRef}> 
-            {/* Учёт отображения надписи, если окно большое, или кнопки "Показать все", если окно маленькое */}
+            {/* Отображение надписи, если окно большое, или кнопки "Показать все", если окно маленькое */}
             {       articlesShowed.length == 0 && big ? (
                         <SearchDivArticles>
                             <ResultsNotFound>По вашему запросу ничего не найдено</ResultsNotFound>
@@ -140,15 +141,20 @@ interface Props {
 
 // Блок-родитель для поиска
 const SearchDiv = styled.div<Props>`
-    margin: ${adpt(30)}px ${adpt(12)}px ${adpt(15)}px 0;
+    margin: ${p => p.big ? 
+        `${adpt(10)}px ${adpt(0)}px ${adpt(15)}px ${adpt(20)}px` :
+        `${adpt(30)}px ${adpt(9)}px ${adpt(15)}px ${adpt(3)}px` };
     border-radius: ${adpt(13)}px;
-    box-shadow: ${props => !props.big && `0 3px 6px rgba(0, 0, 0, 0.16)`};
+    ${props => !props.big && `box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16)`};
     padding: ${adpt(5)}px 0 ${adpt(5)}px 0;
+    ${p => p.big && 
+    `
+     max-height: ${adpt(630)}px;`
+    };
 `
 
 // Кнопка, открывающая блок с ключевыми словами
 const SearchButton = styled.button`
-    /* box-sizing: border-box; */
     display: flex;
     justify-content: space-between;
     width: ${adpt(369)}px;
@@ -218,12 +224,11 @@ export const ArticleButton = styled.button<Props>`
     align-items: center;
     width: ${props => props.big ? (props.similar ? adpt(680) : adpt(728)) : adpt(350)}px;
     font: ${adpt(18)}px 'Montserrat-Regular';
+    line-height: 1.5;
     background: none;
     text-align: start;
     border: none;
     margin: 0 ${adpt(20)}px ${adpt(25)}px ${p => p.similar ? adpt(0) : adpt(25)}px;
-    /* margin-left: ${p => p.similar ? adpt(0) : adpt(25)}px; */
-    padding: 0;
     cursor: pointer;
     .imgOpen{
         height: ${adpt(19)}px;
@@ -259,20 +264,19 @@ const ClickedDiv = styled(Div)`
     width: ${adpt(730)}px;
 `
 
-const ResultsNotFound = styled(Div)`
+const ResultsNotFound = styled.div`
     font: ${adpt(18)}px 'Montserrat-Regular';
     line-height: ${adpt(25)}px;
-    margin: 0 auto;
-    align-self: center;
+    text-align: center;
 `
 
 const AlsoFinds = styled.div`
+    margin: ${adpt(70)}px 0 ${adpt(35)}px ${adpt(35)}px;
     font-size: ${adpt(22)}px;
     font-family: 'Montserrat-Bold';
     line-height: ${adpt(25)}px;
-    align-self: stretch;
 
     .alsoAsk {
-        margin: ${adpt(70)}px 0 ${adpt(35)}px 0;
+        margin: ${adpt(70)}px 0 ${adpt(35)}px 3px;
     }
 `

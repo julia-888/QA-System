@@ -36,12 +36,14 @@ cursor: pointer;
 const MainArticleButtonHeader = styled.h1`
 white-space: pre-wrap;
 font: ${adpt(19)}px 'Montserrat-SemiBold';
+line-height: 1.5;
 margin: 0;
 `
 
 // Подзаголовок статьи на синем блоке
 const MainArticleButtonPar = styled.p`
 font: ${adpt(17)}px 'Montserrat-Regular';
+line-height: 1.5;
 margin: ${adpt(15)}px ${adpt(0)}px ${adpt(7)}px ${adpt(0)}px;
 hyphens: auto;
 display: -webkit-box;

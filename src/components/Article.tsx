@@ -122,11 +122,13 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
 
 const Subtitle = styled.div`
     font: ${adpt(18)}px 'Montserrat-Medium';
+    line-height: 1.75;
     margin-bottom: ${adpt(30)}px;
 `
 
 const Note = styled.div`
     font: ${adpt(17)}px 'Montserrat-Light';
+    line-height: 1.75;
     margin-bottom: ${adpt(35)}px;
 `
 
@@ -140,13 +142,18 @@ const ArticleWrap = styled.div<ContentDivProps>`
 
 const ContentDiv = styled(ScrolledDiv)<ContentDivProps>`
     padding: ${adpt(15)}px ${p => p.big? adpt(95) : adpt(30)}px ${adpt(30)}px ${p => p.big? adpt(75) : adpt(10)}px;
-    line-height: 1.5;
+    line-height: 1.75;
     width: ${p => p.big? adpt(650) : adpt(380)}px;
     max-height: ${p => p.big? adpt(650): adpt(585)}px;
+
+    &::-webkit-scrollbar-track {
+        margin-block-start: 25px;
+    }
 `
 
 const Text = styled.div`
     font: ${adpt(18)}px 'Montserrat-Regular';
+    line-height: 1.75;
     margin-bottom: ${adpt(30)}px;
 `
 
@@ -170,6 +177,7 @@ const Tezis = styled.div<ContentDivProps>`
     align-self: center;
     line-height: 1.5;
     font: ${adpt(18)}px 'Montserrat-Regular';
+    line-height: 1.5;
 `
 
 const TagsDiv = styled(Div)`
@@ -180,6 +188,7 @@ const Link = styled(Div)`
     margin-bottom: ${adpt(10)}px;
     .link {
         font: ${adpt(17)}px 'Montserrat-Regular';
+        /* line-height: 1.75; */
         line-height: ${adpt(30)}px;
         text-decoration: none;
         color: black;
