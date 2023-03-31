@@ -76,7 +76,7 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
                                 (<Text>{contentElem.content}</Text>) : 
                             contentElem.type == 'img' ?
                                 (<Image big={big}>
-                                    {/* <img className="image" src={require(`../img/${contentElem.content}`)} alt="" /> */}
+                                    <img className="image" src={require(`../img/${contentElem.content}`)} alt="" />
                                 </Image>) :
                             contentElem.type =='tezis' ?
                                 (<Tezis big={big}>{contentElem.content}</Tezis>) :
@@ -128,7 +128,7 @@ const Subtitle = styled.div`
 
 const Note = styled.div`
     font: ${adpt(17)}px 'Montserrat-Light';
-    line-height: 1.75;
+    /* line-height: 1.75; */
     margin-bottom: ${adpt(35)}px;
 `
 
@@ -144,11 +144,7 @@ const ContentDiv = styled(ScrolledDiv)<ContentDivProps>`
     padding: ${adpt(15)}px ${p => p.big? adpt(95) : adpt(30)}px ${adpt(30)}px ${p => p.big? adpt(75) : adpt(10)}px;
     line-height: 1.75;
     width: ${p => p.big? adpt(650) : adpt(380)}px;
-    max-height: ${p => p.big? adpt(650): adpt(585)}px;
-
-    &::-webkit-scrollbar-track {
-        margin-block-start: 25px;
-    }
+    max-height: ${p => p.big? adpt(650): adpt(540)}px;
 `
 
 const Text = styled.div`
@@ -159,22 +155,23 @@ const Text = styled.div`
 
 const Image = styled.div<ContentDivProps>`
     width: ${p => p.big ? adpt(642) : adpt(315)}px;
-    height: ${adpt(300)}px;
+    height: ${p => p.big && 219}px;
     text-align: center;
-    margin-bottom: ${adpt(45)}px;
-    background-color: green;
+    margin-bottom: ${adpt(15)}px;
+    overflow: hidden;
 
     .image {
         width: 100%;
+        height: auto;
     }
+
 `
 
 const Tezis = styled.div<ContentDivProps>`
     border-left: 3px solid #5E7398;
-    padding-left: ${adpt(20)}px;
-    margin-bottom: ${adpt(25)}px;
+    padding: ${adpt(20)}px 0 ${adpt(20)}px ${adpt(20)}px;
+    margin: 0 auto ${adpt(25)}px auto;
     width: ${p => p.big ? adpt(580) : adpt(335)}px;
-    align-self: center;
     line-height: 1.5;
     font: ${adpt(18)}px 'Montserrat-Regular';
     line-height: 1.5;

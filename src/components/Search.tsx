@@ -76,7 +76,9 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
                         clickedTag[0] == "" && clickedTag[1] == -1 ?
                         <LineSearch setArticlesShowed={setArticlesShowed} searchLineText={searchLineText} setSearchLineText={setSearchLineText} />
                         :
-                        <Tag word={clickedTag[0]} clicked={true} articleNumber={clickedTag[1]} openAndCloseArticle={openAndCloseArticle} />
+                        <ClickedDiv>
+                            <Tag word={clickedTag[0]} clicked={true} articleNumber={clickedTag[1]} openAndCloseArticle={openAndCloseArticle} />
+                        </ClickedDiv>
                     ) : (
                         <ClickedDiv>
                             { keyWordsList.map((keyWord) => (
@@ -242,7 +244,7 @@ export const ArticleButton = styled.button<Props>`
     };
     
     .articleTitle{
-        width: ${props => props.big ? adpt(528) : adpt(277) }px;
+        width: ${props => props.big ? adpt(528) : adpt(300) }px;
     }
 `
 

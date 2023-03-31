@@ -13,7 +13,7 @@ export const ScrolledDiv = styled.div`
         background-color: rgba(139, 161, 200, 0.7);
         border-radius: ${adpt(10)}px;
         margin-block: ${adpt(22)}px;
-        margin-block-start: 0;
+        /* margin-block-start: 0; */
     }
     &::-webkit-scrollbar-thumb {
         border-radius: ${adpt(10)}px;

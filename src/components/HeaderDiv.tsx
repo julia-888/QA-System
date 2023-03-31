@@ -11,11 +11,13 @@ interface HeaderDivProps {
 export const HeaderDiv = styled(Div)<HeaderDivProps>`
     justify-content: space-between;
     align-items: flex-start;
-    width: ${p => p.big ? adpt(850) - adpt(25) : adpt(420) - adpt(25)}px;
+    width: ${p => p.big ? adpt(850-40) : adpt(420-10)}px;
     font-weight: 600;
     font-size: ${p => p.isArticle ? adpt(20) : adpt(22)}px;
     text-align: left;
     margin-bottom: ${adpt(10)}px;
+    margin-left: ${p => p.big && adpt(15) }px;
+
     .imgBack{
         height: ${adpt(17)}px;
         width: ${adpt(10)}px;
@@ -53,7 +55,7 @@ export const HeaderDiv = styled(Div)<HeaderDivProps>`
         }        
     }
     .headerText {
-        margin-left: ${p => (p.isArticle && !p.big) ? adpt(15) : adpt(30)}px;
+        margin-left: ${p => p.big ? adpt(30) : (p.isArticle && !p.big) ? adpt(15) : adpt(30)}px;
         width: ${p => p.big ? adpt(710) : adpt(318)}px;
     }
     .backButton {
