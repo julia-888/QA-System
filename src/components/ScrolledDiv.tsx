@@ -6,7 +6,7 @@ export const ScrolledDiv = styled.div`
     overflow-y: auto;
     
     &::-webkit-scrollbar {
-        width: ${adpt(5)}px;
+        width: 5px;
         border-radius: ${adpt(10)}px;
     }
     &::-webkit-scrollbar-track {

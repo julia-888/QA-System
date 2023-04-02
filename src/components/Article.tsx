@@ -15,6 +15,7 @@ import { FilterArticlesByKeys } from "../functions/FilterArticlesByKeys";
 import { ReactComponent as OpenIcon} from "../icons/open.svg";
 import { ShowSimilarArticles } from "../functions/ShowSimilarArticles";
 import { Tag } from "./Tag";
+import { useEffect } from 'react';
 import { useDrag } from "react-use-gesture";
 
 type ArticleProps = {
@@ -35,9 +36,17 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
         });
     });
 
+    let artHeader = document.getElementById('artHeader')?.offsetHeight;
+
+    useEffect(() => {
+        artHeader = document.getElementById('artHeader')?.offsetHeight;
+        console.log(artHeader);
+    }, [artHeader])
+    
+
     return (
         <div>
-            <HeaderDiv big={big} isArticle={true} {...bindpositionOfWindow()}>
+            <HeaderDiv big={big} isArticle={true} {...bindpositionOfWindow()} id='artHeader'>
                 <Div>
                 <button className='backButton'
                     onClick={() => {
@@ -67,7 +76,7 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
                 )}
             </HeaderDiv>
             
-            <ContentDiv big={big}>
+            <ContentDiv big={big} artHeader={artHeader}>
                 {articles[i].note != undefined && (<Note>{articles[i].note}</Note>)}
                 <Subtitle>{articles[i].subtitle}</Subtitle>
                 {
@@ -119,6 +128,10 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
     );
 }
 
+interface ContentDivProps {
+    big: boolean;
+    artHeader?: number;
+};
 
 const Subtitle = styled.div`
     font: ${adpt(18)}px 'Montserrat-Medium';
@@ -132,15 +145,11 @@ const Note = styled.div`
     margin-bottom: ${adpt(35)}px;
 `
 
-interface ContentDivProps {
-    big: boolean;
-};
-
 const ContentDiv = styled(ScrolledDiv)<ContentDivProps>`
     padding: ${adpt(15)}px ${p => p.big? adpt(95) : adpt(30)}px ${adpt(30)}px ${p => p.big? adpt(75) : adpt(10)}px;
     line-height: 1.75;
     width: ${p => p.big? adpt(650) : adpt(380)}px;
-    max-height: ${p => p.big? adpt(650): adpt(540)}px;
+    max-height: ${p => p.artHeader ? adpt(680) - p.artHeader : adpt(680)}px;
 `
 
 const Text = styled.div`
@@ -174,7 +183,6 @@ const Tezis = styled.div<ContentDivProps>`
 `
 
 const TagsDiv = styled(Div)`
-    
     flex-wrap: wrap;
 `
 
@@ -226,5 +234,6 @@ const SimilarQuestionsDiv = styled.div<ContentDivProps>`
     }
 
     margin: 0 0 ${adpt(40)}px 0;
+
     
 `
