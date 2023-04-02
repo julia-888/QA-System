@@ -143,12 +143,13 @@ interface Props {
 
 // Блок-родитель для поиска
 const SearchDiv = styled.div<Props>`
+    width: ${p => p.big ? adpt(380) : adpt(385) }px;
     margin: ${p => p.big ? 
-        `${adpt(10)}px ${adpt(0)}px ${adpt(15)}px ${adpt(20)}px` :
-        `${adpt(30)}px ${adpt(9)}px ${adpt(15)}px ${adpt(3)}px` };
+        `${adpt(0)}px ${adpt(0)}px ${adpt(15)}px ${adpt(59)}px` :
+        `${adpt(30)}px ${adpt(9)}px ${adpt(15)}px ${adpt(15)}px` };
     border-radius: ${adpt(13)}px;
     ${props => !props.big && `box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16)`};
-    padding: ${adpt(5)}px 0 ${adpt(5)}px 0;
+    padding: ${p => p.big? adpt(10) : adpt(15)}px 0 0 0;
     ${p => p.big && 
     `
      max-height: ${adpt(630)}px;`
@@ -163,7 +164,7 @@ const SearchButton = styled.button`
     background-color: rgba(118, 142, 183, 0.3);
     border-radius: ${adpt(13)}px;
     border: 0;
-    margin: ${adpt(15)}px auto ${adpt(34)}px auto;
+    margin: 0 ${adpt(8)}px ${adpt(34)}px ${adpt(8)}px;
     padding: ${adpt(15)}px;
     font: ${adpt(19)}px 'Montserrat-Medium';
     cursor: pointer;
@@ -181,12 +182,12 @@ const SearchButton = styled.button`
 // Блок-контейнер для кнопки и блока с ключевыми словами
 const KeyWordsDiv = styled(Div)`
     background-color: #E9ECEE;
-    width: ${adpt(369)}px;
+    width: ${adpt(362)}px;
+    padding-left: 7px; 
     border-radius: ${adpt(13)}px;
     flex-direction: column;
     margin-bottom: ${adpt(30)}px;
-    margin: ${adpt(15)}px auto ${adpt(34)}px auto;
-    padding-right: ${adpt(7)}px;
+    margin: 0 ${adpt(8)}px ${adpt(34)}px ${adpt(8)}px;
 `
 
 // Блок с ключевыми словами
@@ -203,7 +204,7 @@ const KeyDivButton = styled.button`
     justify-content: space-between;
     background-color: #E9ECEE;
     border-radius: ${adpt(13)}px;
-    width: ${adpt(369)}px;
+    width: ${adpt(362)}px;
     border: 0;
     padding: ${adpt(15)}px;
     font: ${adpt(19)}px 'Montserrat-Medium';
@@ -224,13 +225,14 @@ export const ArticleButton = styled.button<Props>`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: ${props => props.big ? (props.similar ? adpt(680) : adpt(728)) : adpt(350)}px;
+    width: ${props => props.big ? (props.similar ? adpt(680) : adpt(639)) : adpt(334)}px;
     font: ${adpt(18)}px 'Montserrat-Regular';
     line-height: 1.5;
     background: none;
     text-align: start;
     border: none;
-    margin: 0 ${adpt(20)}px ${adpt(25)}px ${p => p.similar ? adpt(0) : adpt(25)}px;
+    margin: 0 ${adpt(28)}px 0 ${p => p.similar ? adpt(0) : p.big ? adpt(15) : adpt(25)}px;
+    padding-bottom: ${adpt(20)}px;
     cursor: pointer;
     .imgOpen{
         height: ${adpt(19)}px;
@@ -244,7 +246,7 @@ export const ArticleButton = styled.button<Props>`
     };
     
     .articleTitle{
-        width: ${props => props.big ? adpt(528) : adpt(300) }px;
+        width: ${props => props.big ? adpt(528) : adpt(278) }px;
     }
 `
 
@@ -252,7 +254,7 @@ export const ArticleButton = styled.button<Props>`
 const ButtonLookAll = styled(ArticleButton)<Props>`
     color: rgba(60, 60, 60, 0.9);
     justify-content: center;
-    
+    padding-bottom: ${adpt(25)}px;
 `
 
 // Блок на котором отображаются статьи
@@ -262,24 +264,24 @@ const SearchDivArticles = styled.div`
 
 const ClickedDiv = styled(Div)`
     margin-bottom: ${adpt(30)}px;
-    margin-left: ${adpt(15)}px;
+    margin-left: ${adpt(0)}px;
     flex-wrap: wrap;
     width: ${adpt(730)}px;
 `
 
 const ResultsNotFound = styled.div`
+    margin-left: ${adpt(171)}px;
+    width: ${adpt(380)}px;
     font: ${adpt(18)}px 'Montserrat-Regular';
-    line-height: ${adpt(25)}px;
-    text-align: center;
 `
 
 const AlsoFinds = styled.div`
-    margin: ${adpt(70)}px 0 ${adpt(35)}px ${adpt(35)}px;
+    margin: ${adpt(70)}px 0 ${adpt(35)}px 0;
     font-size: ${adpt(22)}px;
     font-family: 'Montserrat-Bold';
     line-height: ${adpt(25)}px;
 
     .alsoAsk {
-        margin: ${adpt(70)}px 0 ${adpt(35)}px 3px;
+        margin-bottom: ${adpt(35)}px;
     }
 `

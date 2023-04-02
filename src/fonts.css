@@ -46,3 +46,7 @@
     font-weight: normal;
     font-style: normal;  
 }
+
+button {
+    padding: 0;
+}

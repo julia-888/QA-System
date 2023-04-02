@@ -15,6 +15,7 @@ import { FilterArticlesByKeys } from "../functions/FilterArticlesByKeys";
 import { ReactComponent as OpenIcon} from "../icons/open.svg";
 import { ShowSimilarArticles } from "../functions/ShowSimilarArticles";
 import { Tag } from "./Tag";
+import { useEffect } from 'react';
 import { useDrag } from "react-use-gesture";
 
 type ArticleProps = {
@@ -35,9 +36,17 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
         });
     });
 
+    let artHeader = document.getElementById('artHeader')?.offsetHeight;
+
+    useEffect(() => {
+        artHeader = document.getElementById('artHeader')?.offsetHeight;
+        console.log(artHeader);
+    }, [artHeader])
+    
+
     return (
         <div>
-            <HeaderDiv big={big} isArticle={true} {...bindpositionOfWindow()}>
+            <HeaderDiv big={big} isArticle={true} {...bindpositionOfWindow()} id='artHeader'>
                 <Div>
                 <button className='backButton'
                     onClick={() => {
@@ -67,13 +76,13 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
                 )}
             </HeaderDiv>
             
-            <ContentDiv big={big}>
-                {articles[i].note != undefined && (<Note>{articles[i].note}</Note>)}
-                <Subtitle>{articles[i].subtitle}</Subtitle>
+            <ContentDiv big={big} artHeader={artHeader}>
+                {articles[i].note != undefined && (<Note big={big}>{articles[i].note}</Note>)}
+                <Subtitle big={big}>{articles[i].subtitle}</Subtitle>
                 {
                     articles[i].content.map(contentElem => 
                             contentElem.type == 'text' ?
-                                (<Text>{contentElem.content}</Text>) : 
+                                (<Text big={big}>{contentElem.content}</Text>) : 
                             contentElem.type == 'img' ?
                                 (<Image big={big}>
                                     <img className="image" src={require(`../img/${contentElem.content}`)} alt="" />
@@ -81,7 +90,7 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
                             contentElem.type =='tezis' ?
                                 (<Tezis big={big}>{contentElem.content}</Tezis>) :
                             contentElem.type == 'link' ?
-                                (<Link>
+                                (<Link big={big}>
                                     <a href={contentElem.content} target='_blank' className="link">
                                         <div className="imgLink"><LinkIcon /></div>
                                         <div className="textLink">{contentElem.linkText}</div>
@@ -93,7 +102,7 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
                 
                 <SimilarQuestionsDiv big={big}>
                         <hr className="hr" />
-                        <Subtitle className="similarTitle">Похожие вопросы:</Subtitle>
+                        <Subtitle className="similarTitle" big={big}>Похожие вопросы:</Subtitle>
                         {
                             ShowSimilarArticles(i).slice(0,3).map(article => (
                                 <ArticleButton big={big} className='question' similar={true}
@@ -119,41 +128,43 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
     );
 }
 
-
-const Subtitle = styled.div`
-    font: ${adpt(18)}px 'Montserrat-Medium';
-    line-height: 1.75;
-    margin-bottom: ${adpt(30)}px;
-`
-
-const Note = styled.div`
-    font: ${adpt(17)}px 'Montserrat-Light';
-    /* line-height: 1.75; */
-    margin-bottom: ${adpt(35)}px;
-`
-
 interface ContentDivProps {
     big: boolean;
+    artHeader?: number;
 };
 
-const ContentDiv = styled(ScrolledDiv)<ContentDivProps>`
-    padding: ${adpt(15)}px ${p => p.big? adpt(95) : adpt(30)}px ${adpt(30)}px ${p => p.big? adpt(75) : adpt(10)}px;
+const Subtitle = styled.div<ContentDivProps>`
+    width: ${p => p.big ? adpt(642) : adpt(350)}px;
+    font: ${adpt(18)}px 'Montserrat-Medium';
     line-height: 1.75;
-    width: ${p => p.big? adpt(650) : adpt(380)}px;
-    max-height: ${p => p.big? adpt(650): adpt(540)}px;
+    margin-top: ${adpt(35)}px;
 `
 
-const Text = styled.div`
+const Note = styled.div<ContentDivProps>`
+    width: ${p => p.big ? adpt(642) : adpt(350)}px;
+    font: ${adpt(17)}px 'Montserrat-Light';
+`
+
+const ContentDiv = styled(ScrolledDiv)<ContentDivProps>`
+    padding: 0 0 ${adpt(30)}px 0;
+    margin: 0 ${p => p.big? adpt(95) : adpt(30)}px 0 ${p => p.big? adpt(75) : adpt(30)}px;
+    line-height: 1.75;
+    width: ${p => p.big? adpt(743) : adpt(385)}px;
+    max-height: ${p => p.artHeader ? (p.big? adpt(680) - p.artHeader : adpt(622) - p.artHeader) : adpt(680)}px;
+`
+
+const Text = styled.div<ContentDivProps>`
+    width: ${p => p.big ? adpt(642) : adpt(350)}px;
     font: ${adpt(18)}px 'Montserrat-Regular';
     line-height: 1.75;
-    margin-bottom: ${adpt(30)}px;
+    margin-top: ${adpt(25)}px;
 `
 
 const Image = styled.div<ContentDivProps>`
-    width: ${p => p.big ? adpt(642) : adpt(315)}px;
+    width: ${p => p.big ? adpt(642) : adpt(365)}px;
     height: ${p => p.big && 219}px;
     text-align: center;
-    margin-bottom: ${adpt(15)}px;
+    margin: ${adpt(40)}px 0;
     overflow: hidden;
 
     .image {
@@ -166,20 +177,20 @@ const Image = styled.div<ContentDivProps>`
 const Tezis = styled.div<ContentDivProps>`
     border-left: 3px solid #5E7398;
     padding: ${adpt(20)}px 0 ${adpt(20)}px ${adpt(20)}px;
-    margin: 0 auto ${adpt(25)}px auto;
-    width: ${p => p.big ? adpt(580) : adpt(335)}px;
+    margin: ${adpt(40)}px auto ${adpt(25)}px auto;
+    width: ${p => p.big ? adpt(580) : adpt(345)}px;
     line-height: 1.5;
     font: ${adpt(18)}px 'Montserrat-Regular';
     line-height: 1.5;
 `
 
 const TagsDiv = styled(Div)`
-    
     flex-wrap: wrap;
 `
 
-const Link = styled.div`
-    margin-bottom: ${adpt(10)}px;
+const Link = styled.div<ContentDivProps>`
+    margin-top: ${adpt(20)}px;
+    width: ${p => p.big? adpt(656) : adpt(313)}px;
     .link {
         font: ${adpt(17)}px 'Montserrat-Regular';
         /* line-height: 1.75; */
@@ -189,7 +200,6 @@ const Link = styled.div`
         display: flex;
 
         .imgLink{
-            /* margin-right: ${adpt(10)}px; */
             height: ${adpt(17)}px;
             width: ${adpt(17)}px;
             /* задать размеры */
@@ -208,23 +218,25 @@ const Link = styled.div`
 
 const SimilarQuestionsDiv = styled.div<ContentDivProps>`
     width: ${p => p.big ? adpt(580) : adpt(375)}px;
+    padding-top: ${p => p.big? adpt(60) : adpt(36)}px;
     .hr {
-        width: ${p => p.big ? adpt(519) : adpt(350)}px;
+        width: ${p => p.big ? adpt(519) : adpt(370)}px;
         background-color: #707070;
         color: #707070;
         border: none;
-        height: ${adpt(1)}px;
-        margin: ${p => p.big ? adpt(60) : adpt(30)}px 0 ${p => p.big ? adpt(30) : adpt(20)}px 0;
+        height: 1px;
+        margin: 0;
     }
 
     .question {
-        margin: 0 0 ${adpt(20)}px 0;
+        /* margin: 0 0 ${adpt(20)}px 0; */
     }
 
     .similarTitle {
-        margin-left: 5px;
+        margin: ${p => p.big? adpt(25) : adpt(22)}px 0 ${adpt(20)}px 0;
     }
 
-    margin: 0 0 ${adpt(40)}px 0;
+    margin: 0 0 ${p => p.big ? adpt(40) : adpt(20)}px 0;
+
     
 `
