@@ -10,14 +10,14 @@ interface HeaderDivProps {
 // Заголовок страницы с элементом для перемещения окна (самый верхний заголовок)
 export const HeaderDiv = styled(Div)<HeaderDivProps>`
     justify-content: space-between;
-    align-items: ${p => !p.big && p.isArticle ? `center` : `flex-start`};
+    /* align-items: ${p => !p.big && p.isArticle ? `center` : `flex-start`}; */
     width: ${p => p.big ? adpt(850) : adpt(420)}px;
     font-size: ${p => p.isArticle ? adpt(20) : adpt(22)}px;
     text-align: left;
     padding: ${adpt(27)}px 0 ${adpt(10)}px 0;
 
     .imgBack{
-        margin-left: ${adpt(35)}px;
+        margin-left: ${p => !p.big && p.isArticle ? adpt(20) : adpt(35)}px;
         height: ${adpt(17)}px;
         width: ${adpt(10)}px;
         /* задать размеры */
@@ -27,7 +27,7 @@ export const HeaderDiv = styled(Div)<HeaderDivProps>`
         }
     }
     .imgMove{
-        margin-right: ${adpt(20)}px;
+        margin-right: ${p => p.big ? adpt(36) : adpt(20)}px;
         height: ${adpt(25)}px;
         width: ${adpt(15)}px;
         /* задать размеры */
@@ -47,6 +47,7 @@ export const HeaderDiv = styled(Div)<HeaderDivProps>`
         }        
     }
     .imgExtend{
+        margin-right: ${adpt(24)}px;
         height: ${adpt(19)}px;
         width: ${adpt(19)}px;
         /* задать размеры */
@@ -58,8 +59,8 @@ export const HeaderDiv = styled(Div)<HeaderDivProps>`
     .headerText {
         margin-left: ${p => p.big ? adpt(30) : (p.isArticle && !p.big) ? adpt(15) : adpt(40)}px;
         width: ${p => p.big ? adpt(710) : adpt(318)}px;
-        font: ${adpt(23)}px 'Montserrat-SemiBold';
-
+        font: ${p => p.big ? `${adpt(22)}px 'Montserrat-Bold'` : `${adpt(23)}px 'Montserrat-SemiBold'`};
+        ${p => p.isArticle && `font: ${adpt(20)}px 'Montserrat-Bold';`}
     }
     .backButton {
         cursor: pointer;

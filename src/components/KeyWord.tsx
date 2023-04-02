@@ -56,7 +56,7 @@ const KeyWordButton = styled.button<Props>`
     background-color: ${p => p.clicked ? '#2D3F61' : '#768EB7' };
     color: #FFFFFF;
     font: ${adpt(18)}px 'Montserrat-Regular';
-    margin: 0 0 ${p => p.big ? adpt(15) : adpt(10)}px ${p => p.big ? adpt(15) : adpt(10)}px;
+    margin: 0 ${p => p.big ? adpt(15) : adpt(10)}px ${p => p.big ? adpt(15) : adpt(10)}px 0;
     cursor: pointer;
     .image {
         height: ${p => p.big? adpt(10) : adpt(13)}px;

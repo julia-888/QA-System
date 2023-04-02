@@ -184,7 +184,7 @@ const QASystemFrame = styled.div<QASystemFrameDims>`
 const ArticlesDiv = styled(ScrolledDiv)<QASystemFrameDims>`
     /* width: ${p => p.big? adpt(830) : adpt(420)}px; */
     max-height: ${p => p.big? adpt(730-65): adpt(672-65)}px;
-    margin-right: 6px;
+    margin-right: ${p => p.big? adpt(36) : 6}px;
 `
 
 const Wrap = styled.div<WrapProps>`
