@@ -134,15 +134,16 @@ interface ContentDivProps {
 };
 
 const Subtitle = styled.div<ContentDivProps>`
-    width: ${p => p.big ? adpt(642) : adpt(350)}px;
+    width: ${p => p.big ? adpt(682) : adpt(365)}px;
     font: ${adpt(18)}px 'Montserrat-Medium';
     line-height: 1.75;
     margin-top: ${adpt(35)}px;
 `
 
 const Note = styled.div<ContentDivProps>`
-    width: ${p => p.big ? adpt(642) : adpt(350)}px;
+    width: ${p => p.big ? adpt(682) : adpt(365)}px;
     font: ${adpt(17)}px 'Montserrat-Light';
+    line-height: 1.5;
 `
 
 const ContentDiv = styled(ScrolledDiv)<ContentDivProps>`
@@ -154,14 +155,14 @@ const ContentDiv = styled(ScrolledDiv)<ContentDivProps>`
 `
 
 const Text = styled.div<ContentDivProps>`
-    width: ${p => p.big ? adpt(642) : adpt(350)}px;
+    width: ${p => p.big ? adpt(682) : adpt(365)}px;
     font: ${adpt(18)}px 'Montserrat-Regular';
     line-height: 1.75;
-    margin-top: ${adpt(25)}px;
+    margin-top: ${adpt(20)}px;
 `
 
 const Image = styled.div<ContentDivProps>`
-    width: ${p => p.big ? adpt(642) : adpt(365)}px;
+    width: ${p => p.big ? adpt(682) : adpt(365)}px;
     height: ${p => p.big && 219}px;
     text-align: center;
     margin: ${adpt(40)}px 0;
@@ -177,7 +178,7 @@ const Image = styled.div<ContentDivProps>`
 const Tezis = styled.div<ContentDivProps>`
     border-left: 3px solid #5E7398;
     padding: ${adpt(20)}px 0 ${adpt(20)}px ${adpt(20)}px;
-    margin: ${adpt(40)}px auto ${adpt(25)}px auto;
+    margin: ${adpt(40)}px auto ${adpt(45)}px auto;
     width: ${p => p.big ? adpt(580) : adpt(345)}px;
     line-height: 1.5;
     font: ${adpt(18)}px 'Montserrat-Regular';
@@ -189,7 +190,7 @@ const TagsDiv = styled(Div)`
 `
 
 const Link = styled.div<ContentDivProps>`
-    margin-top: ${adpt(20)}px;
+    margin-top: ${p => p.big ? adpt(20) : adpt(15)}px;
     width: ${p => p.big? adpt(656) : adpt(313)}px;
     .link {
         font: ${adpt(17)}px 'Montserrat-Regular';

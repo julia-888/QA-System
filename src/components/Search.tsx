@@ -206,7 +206,7 @@ const KeyDivButton = styled.button`
     border-radius: ${adpt(13)}px;
     width: ${adpt(362)}px;
     border: 0;
-    padding: ${adpt(15)}px;
+    padding: ${adpt(14)}px ${adpt(19)}px ${adpt(14)}px 4px;
     font: ${adpt(19)}px 'Montserrat-Medium';
     .imgClose{
         cursor: pointer;
@@ -246,7 +246,7 @@ export const ArticleButton = styled.button<Props>`
     };
     
     .articleTitle{
-        width: ${props => props.big ? adpt(528) : adpt(278) }px;
+        width: ${props => props.big ? adpt(528) : adpt(276) }px;
     }
 `
 
@@ -254,7 +254,7 @@ export const ArticleButton = styled.button<Props>`
 const ButtonLookAll = styled(ArticleButton)<Props>`
     color: rgba(60, 60, 60, 0.9);
     justify-content: center;
-    padding-bottom: ${adpt(25)}px;
+    padding-bottom: ${adpt(20)}px;
 `
 
 // Блок на котором отображаются статьи
