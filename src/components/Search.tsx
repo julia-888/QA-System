@@ -151,8 +151,7 @@ const SearchDiv = styled.div<Props>`
     ${props => !props.big && `box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16)`};
     padding: ${p => p.big? adpt(10) : adpt(15)}px 0 0 0;
     ${p => p.big && 
-    `
-     max-height: ${adpt(630)}px;`
+    `max-height: ${adpt(630)}px;`
     };
 `
 
@@ -232,7 +231,7 @@ export const ArticleButton = styled.button<Props>`
     text-align: start;
     border: none;
     margin: 0 ${adpt(28)}px 0 ${p => p.similar ? adpt(0) : p.big ? adpt(15) : adpt(25)}px;
-    padding-bottom: ${adpt(20)}px;
+    padding-bottom: ${adpt(15)}px;
     cursor: pointer;
     .imgOpen{
         height: ${adpt(19)}px;
@@ -263,7 +262,7 @@ const SearchDivArticles = styled.div`
 `
 
 const ClickedDiv = styled(Div)`
-    margin-bottom: ${adpt(30)}px;
+    margin-bottom: ${adpt(23)}px;
     margin-left: ${adpt(0)}px;
     flex-wrap: wrap;
     width: ${adpt(730)}px;

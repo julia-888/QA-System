@@ -10,7 +10,6 @@ interface HeaderDivProps {
 // Заголовок страницы с элементом для перемещения окна (самый верхний заголовок)
 export const HeaderDiv = styled(Div)<HeaderDivProps>`
     justify-content: space-between;
-    /* align-items: ${p => !p.big && p.isArticle ? `center` : `flex-start`}; */
     width: ${p => p.big ? adpt(850) : adpt(420)}px;
     font-size: ${p => p.isArticle ? adpt(20) : adpt(22)}px;
     text-align: left;
@@ -61,6 +60,10 @@ export const HeaderDiv = styled(Div)<HeaderDivProps>`
         width: ${p => p.big ? adpt(710) : adpt(318)}px;
         font: ${p => p.big ? `${adpt(22)}px 'Montserrat-Bold'` : `${adpt(23)}px 'Montserrat-SemiBold'`};
         ${p => p.isArticle && `font: ${adpt(20)}px 'Montserrat-Bold';`}
+        ${p => p.isArticle && `display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;  
+        overflow: hidden;`}
     }
     .backButton {
         cursor: pointer;
