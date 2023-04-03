@@ -26,49 +26,12 @@ type ArticleProps = {
     extendScreen: (big: boolean) => void;
     setpositionOfWindow: ({x, y}: {x: number, y: number}) => void;
     setClickedTag: (clickedTag: [string, number]) => void;
+    artHeader?: number;
 };
 
-export default function Article({i, big, openAndCloseArticle, extendScreen, setpositionOfWindow, setClickedTag}: ArticleProps) {
-    let artHeader = document.getElementById('artHeader')?.offsetHeight;
-
-    useEffect(() => {
-        artHeader = document.getElementById('artHeader')?.offsetHeight;
-        console.log(artHeader);
-    }, [artHeader])
-    
-
+export default function Article({i, big, openAndCloseArticle, extendScreen, setpositionOfWindow, setClickedTag, artHeader}: ArticleProps) {
     return (
         <div>
-            <HeaderDiv big={big} isArticle={true} id='artHeader'>
-                <Div>
-                <button className='backButton'
-                    onClick={() => {
-                        openAndCloseArticle(-1);
-                    }} >
-                    <div className='imgBack'><BackIcon/></div>
-                </button>
-                <div className='headerText' title={articles[i].title}>
-                    {articles[i].title}
-                </div>
-                </Div>
-                {
-                    big ? (
-                        <button className='backButton'
-                            onClick={() => {
-                                extendScreen(false);
-                            }} >
-                            <div className="imgCompress"><CompressIcon/></div>
-                        </button>
-                    ) : (
-                        <button className='backButton'
-                            onClick={() => {
-                                extendScreen(true);
-                            }} >
-                            <div className="imgExtend"><ExtendIcon/></div>
-                        </button>
-                )}
-            </HeaderDiv>
-            
             <ContentDiv big={big} artHeader={artHeader}>
                 {articles[i].note != undefined && (<Note big={big}>{articles[i].note}</Note>)}
                 <Subtitle big={big}>{articles[i].subtitle}</Subtitle>

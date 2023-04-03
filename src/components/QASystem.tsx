@@ -11,6 +11,8 @@ import { ReactComponent as MoveIcon} from "../icons/move.svg";
 import { useState, useEffect } from 'react';
 import { useDrag } from 'react-use-gesture';
 import { ReactComponent as BackIcon} from "../icons/back.svg";
+import { ReactComponent as CompressIcon} from "../icons/compress.svg";
+import { ReactComponent as ExtendIcon} from "../icons/extend.svg";
 import Article from './Article';
 
 export default function QASystem() {
@@ -46,10 +48,6 @@ export default function QASystem() {
 
     // Список отображаемых статей
     const [articlesShowed, setArticlesShowed] = useState(articles.slice(0, 4));
-
-    // const changeTagClicked = () => {
-    //     setClickedTag(["", clickedTag[1]]);
-    // }
 
     // Функция открытия статьи с определённым i. Изменяет i открытой статьи, т.е. articleOpenedID. articleID - это номер статьи в которую нужно перейти.
     const openAndCloseArticle = (articleID: number, word?: string, fromTag?: boolean, fromArticle?: number) => {
@@ -105,33 +103,75 @@ export default function QASystem() {
             }
         }
 
+    let artHeader = document.getElementById('artHeader')?.offsetHeight;
+
+    useEffect(() => {
+        artHeader = document.getElementById('artHeader')?.offsetHeight;
+    }, [artHeader])
+    
     return(
         <Wrap positionOfWindow={positionOfWindow} big={big}>
             <QASystemFrame big={big} >
+                <HeaderDiv big={big} isArticle={articleOpenedID != -1} id="artHeader" {...bindpositionOfWindow()}>
+                    {
+                        articleOpenedID == -1 ? (
+                            <>
+                            <Div>
+                            {   /* Если экран расширен, то появляется кнопка-стрелочка назад */
+                                big &&
+                                <button className='backButton'
+                                    onClick={() => {
+                                        extendScreen(false);
+                                        if (clickedTag[1] != -1) {
+                                            openAndCloseArticle(clickedTag[1], clickedTag[0], false, -1);
+                                        }
+                                    }} >
+                                    <div className='imgBack'><BackIcon/></div>
+                                </button>
+                            }
+                                <div className='headerText'>
+                                    {header}
+                                </div>
+                            </Div>
+                            <div className="imgMove"><MoveIcon/></div>
+                            </>
+                        ) : (
+                            <>
+                            <Div>
+                            <button className='backButton'
+                                onClick={() => {
+                                    openAndCloseArticle(-1);
+                                }} >
+                                <div className='imgBack'><BackIcon/></div>
+                            </button>
+                            <div className='headerText' title={articles[articleOpenedID].title}>
+                                {articles[articleOpenedID].title}
+                            </div>
+                            </Div>
+                            {                                
+                                big ? (
+                                    <button className='backButton'
+                                        onClick={() => {
+                                            extendScreen(false);
+                                        }} >
+                                        <div className="imgCompress"><CompressIcon/></div>
+                                    </button>
+                                ) : (
+                                    <button className='backButton'
+                                        onClick={() => {
+                                            extendScreen(true);
+                                        }} >
+                                        <div className="imgExtend"><ExtendIcon/></div>
+                                    </button>
+                            )}
+                            </>
+                        )
+                    }
+                </HeaderDiv>    
             {
                 // если никакая статья не открыта
                 articleOpenedID == -1 ? (
                     <>
-                    <HeaderDiv big={big} isArticle={false} {...bindpositionOfWindow()}>
-                        <Div>
-                        {   /* Если экран расширен, то появляется кнопка-стрелочка назад */
-                            big &&
-                            <button className='backButton'
-                                onClick={() => {
-                                    extendScreen(false);
-                                    if (clickedTag[1] != -1) {
-                                        openAndCloseArticle(clickedTag[1], clickedTag[0], false, -1);
-                                    }
-                                }} >
-                                <div className='imgBack'><BackIcon/></div>
-                            </button>
-                        }
-                            <div className='headerText'>
-                                {header}
-                            </div>
-                        </Div>
-                        <div className="imgMove"><MoveIcon/></div>
-                    </HeaderDiv>
                     <ArticlesDiv big={big}>
                         {   
                             !big && 
@@ -156,7 +196,7 @@ export default function QASystem() {
                     </ArticlesDiv>
                     </>
                     ) : (
-                        <Article big={ big } i={ articleOpenedID } openAndCloseArticle={openAndCloseArticle} extendScreen={extendScreen} setpositionOfWindow={setpositionOfWindow} setClickedTag={setClickedTag} />
+                        <Article big={ big } i={ articleOpenedID } openAndCloseArticle={openAndCloseArticle} extendScreen={extendScreen} setpositionOfWindow={setpositionOfWindow} setClickedTag={setClickedTag} artHeader={artHeader} />
                     )
                 }
             </QASystemFrame>        
