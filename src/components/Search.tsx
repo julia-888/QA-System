@@ -26,9 +26,10 @@ type SearchProps = {
     clickedTag: [string, number];
     searchLineText: string;
     setSearchLineText: (text: string) => void;
+    setClickedTag: (clickedTag: [string, number]) => void;
   };
 
-export default function Search( {extendScreen, openAndCloseArticle, big, modifyclickedKeyWords, clickedKeyWords, articlesShowed, setArticlesShowed, clickedTag, searchLineText, setSearchLineText}: SearchProps ) {
+export default function Search( {extendScreen, openAndCloseArticle, big, modifyclickedKeyWords, clickedKeyWords, articlesShowed, setArticlesShowed, clickedTag, searchLineText, setSearchLineText, setClickedTag}: SearchProps ) {
     // Состояние кнопки-открывателя списка ключевых слов
     const [clicked, setClicked] = useState(false);
 
@@ -73,11 +74,11 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
             {big && 
                 // Отображение в большом окне поисковой строки или выбранных ключевых слов
                 ( clickedKeyWords.length==0 || clickedTag[0] !== "" ? (
-                        clickedTag[0] == "" && clickedTag[1] == -1 ?
+                        clickedTag[0] == "" ?
                         <LineSearch setArticlesShowed={setArticlesShowed} searchLineText={searchLineText} setSearchLineText={setSearchLineText} />
                         :
                         <ClickedDiv>
-                            <Tag word={clickedTag[0]} clicked={true} articleNumber={clickedTag[1]} openAndCloseArticle={openAndCloseArticle} />
+                            <Tag word={clickedTag[0]} clicked={true} articleNumber={clickedTag[1]} openAndCloseArticle={openAndCloseArticle} setClickedTag={setClickedTag} />
                         </ClickedDiv>
                     ) : (
                         <ClickedDiv>

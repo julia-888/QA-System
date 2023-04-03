@@ -25,17 +25,10 @@ type ArticleProps = {
     openAndCloseArticle: (article: number) => void;
     extendScreen: (big: boolean) => void;
     setpositionOfWindow: ({x, y}: {x: number, y: number}) => void;
-
+    setClickedTag: (clickedTag: [string, number]) => void;
 };
 
-export default function Article({i, big, openAndCloseArticle, extendScreen, setpositionOfWindow}: ArticleProps) {
-    const bindpositionOfWindow = useDrag((params) => {
-        setpositionOfWindow({
-        x: params.offset[0],
-        y: params.offset[1],
-        });
-    });
-
+export default function Article({i, big, openAndCloseArticle, extendScreen, setpositionOfWindow, setClickedTag}: ArticleProps) {
     let artHeader = document.getElementById('artHeader')?.offsetHeight;
 
     useEffect(() => {
@@ -46,7 +39,7 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
 
     return (
         <div>
-            <HeaderDiv big={big} isArticle={true} {...bindpositionOfWindow()} id='artHeader'>
+            <HeaderDiv big={big} isArticle={true} id='artHeader'>
                 <Div>
                 <button className='backButton'
                     onClick={() => {
@@ -119,7 +112,7 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
                 <TagsDiv big={big}>
                     {
                         articles[i].keys.map(tag => 
-                            <Tag articleNumber={i} clicked={false} word={tag} openAndCloseArticle={openAndCloseArticle} />
+                            <Tag articleNumber={i} clicked={false} word={tag} openAndCloseArticle={openAndCloseArticle} setClickedTag={setClickedTag} />
                         )
                     }
                 </TagsDiv>

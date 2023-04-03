@@ -24,10 +24,10 @@ export default function QASystem() {
     });
 
     // Нажатые ключевые слова
-    const [clickedKeyWords, setclickedKeyWords] = useState<string[]>([]);
+    const [clickedKeyWords, setClickedKeyWords] = useState<string[]>([]);
 
     // Нажатый тег из статьи. Хранит в себе слово и номер статьи, в которой был нажат
-    const [clickedTag, setclickedTag] = useState<[string, number]>(["", -1]);
+    const [clickedTag, setClickedTag] = useState<[string, number]>(["", -1]);
 
     //Содержимое поисковой строки
     const [searchLineText, setSearchLineText] = useState("");
@@ -47,17 +47,22 @@ export default function QASystem() {
     // Список отображаемых статей
     const [articlesShowed, setArticlesShowed] = useState(articles.slice(0, 4));
 
-    // Функция открытия статьи с определённым i. Изменяет i открытой статьи, articleOpenedID
+    // const changeTagClicked = () => {
+    //     setClickedTag(["", clickedTag[1]]);
+    // }
+
+    // Функция открытия статьи с определённым i. Изменяет i открытой статьи, т.е. articleOpenedID. articleID - это номер статьи в которую нужно перейти.
     const openAndCloseArticle = (articleID: number, word?: string, fromTag?: boolean, fromArticle?: number) => {
         //Если статья закрывается, то размер окна изменяется на тот, который был до открытия статьи.
         //Если статья открывается, то в переменную previousWasBig записывается значение big на момент открытия.
         if (articleID == -1) {
             fromTag ? extendScreen(true) : extendScreen(previosWasBig);
-            fromTag && word != undefined && fromArticle != undefined && setclickedTag([word, fromArticle]);
+            fromTag && word != undefined && fromArticle != undefined && setClickedTag([word, fromArticle]);
         } else {
             !fromTag && setPreviosWasBig(big);
+            !fromTag && setSearchLineText("");
             extendScreen(true);
-            setclickedTag(["", -1]);
+            setClickedTag(["", -1]);
         }
         setArticleOpenedID(articleID);
     }
@@ -77,10 +82,10 @@ export default function QASystem() {
     // Функция, изменяющая список нажатых слов. На вход подаётся слово и что произошло, т.е. "нажали"-"отжали". Затем изменяется список нажатых ключевых слов.
     const modifyclickedKeyWords = (keyWord: string, clicked: boolean) => {
         if (clicked) {
-            setclickedKeyWords([...clickedKeyWords, keyWord]);
+            setClickedKeyWords([...clickedKeyWords, keyWord]);
         }
         else {
-            setclickedKeyWords([
+            setClickedKeyWords([
                 ...clickedKeyWords.slice(0, clickedKeyWords.indexOf(keyWord)),
                 ...clickedKeyWords.slice(clickedKeyWords.indexOf(keyWord) + 1, clickedKeyWords.length)
             ]);
@@ -115,7 +120,7 @@ export default function QASystem() {
                                 onClick={() => {
                                     extendScreen(false);
                                     if (clickedTag[1] != -1) {
-                                        openAndCloseArticle(clickedTag[1], clickedTag[0], true, -1);
+                                        openAndCloseArticle(clickedTag[1], clickedTag[0], false, -1);
                                     }
                                 }} >
                                 <div className='imgBack'><BackIcon/></div>
@@ -146,11 +151,12 @@ export default function QASystem() {
                                 setArticlesShowed={setArticlesShowed}
                                 clickedTag={clickedTag}
                                 searchLineText={searchLineText}
-                                setSearchLineText={setSearchLineText} />
+                                setSearchLineText={setSearchLineText}
+                                setClickedTag={setClickedTag} />
                     </ArticlesDiv>
                     </>
                     ) : (
-                        <Article big={ big } i={ articleOpenedID } openAndCloseArticle={openAndCloseArticle} extendScreen={extendScreen} setpositionOfWindow={setpositionOfWindow} />
+                        <Article big={ big } i={ articleOpenedID } openAndCloseArticle={openAndCloseArticle} extendScreen={extendScreen} setpositionOfWindow={setpositionOfWindow} setClickedTag={setClickedTag} />
                     )
                 }
             </QASystemFrame>        
