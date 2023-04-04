@@ -159,6 +159,7 @@ const Link = styled.div<ContentDivProps>`
         .imgLink{
             height: ${adpt(17)}px;
             width: ${adpt(17)}px;
+            flex-shrink: 0;
             /* задать размеры */
                 svg {
                     width: 100%;
