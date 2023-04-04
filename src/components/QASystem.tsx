@@ -18,11 +18,11 @@ import Article from './Article';
 export default function QASystem() {
     //Координаты окна и функция его перемещения
     const [positionOfWindow, setpositionOfWindow] = useState({x: 0, y: 0});
-    const bindpositionOfWindow = useDrag((params) => {
-        setpositionOfWindow({
+    const bindpositionOfWindow = useDrag((params) => setpositionOfWindow({
         x: params.offset[0],
         y: params.offset[1],
-        });
+        }),
+        { bounds: { left: -800, right: 0, top: -100, bottom: 0 }
     });
 
     // Нажатые ключевые слова
@@ -112,7 +112,7 @@ export default function QASystem() {
     return(
         <Wrap positionOfWindow={positionOfWindow} big={big}>
             <QASystemFrame big={big} >
-                <HeaderDiv big={big} isArticle={articleOpenedID != -1} id="artHeader" {...bindpositionOfWindow()}>
+                <HeaderDiv big={big} isArticle={articleOpenedID != -1} id="artHeader" {...bindpositionOfWindow()} >
                     {
                         articleOpenedID == -1 ? (
                             <>
@@ -172,7 +172,7 @@ export default function QASystem() {
                 // если никакая статья не открыта
                 articleOpenedID == -1 ? (
                     <>
-                    <ArticlesDiv big={big}>
+                    <ArticlesDiv big={big} artHeader={artHeader}>
                         {   
                             !big && 
                                 // Вывод трёх популярных статей (синие кнопки), если экран не расширен
@@ -214,13 +214,13 @@ interface WrapProps {
 interface QASystemFrameDims {
     //Размер окна влияет на стили: размеры, границы, отображение/не отображение элементов
     big: boolean;
+    artHeader?: number;
 }
 
 // Блок-родитель для всего приложения
 const QASystemFrame = styled.div<QASystemFrameDims>`
     width: ${p => p.big? adpt(850) : adpt(420) }px;
     height: ${p => p.big? adpt(730): adpt(672)}px;
-    /* padding: ${adpt(27)}px ${adpt(8)}px 0 ${adpt(15)}px; */
     margin: 0 ${adpt(10)}px ${adpt(10)}px 0;
     box-shadow: ${adpt(0)}px ${adpt(0)}px ${adpt(24)}px lightgrey;
     border-radius: ${adpt(20)}px;
@@ -228,15 +228,16 @@ const QASystemFrame = styled.div<QASystemFrameDims>`
 
 // Основной блок с контентом
 const ArticlesDiv = styled(ScrolledDiv)<QASystemFrameDims>`
-    /* width: ${p => p.big? adpt(830) : adpt(420)}px; */
-    max-height: ${p => p.big? adpt(730-65): adpt(672-65)}px;
-    margin-right: ${p => p.big? adpt(36) : 6}px;
+    max-height: ${p => p.artHeader && (p.big? adpt(720-p.artHeader): adpt(646-p.artHeader))}px;
+    margin-right: ${p => p.big? adpt(36) : adpt(6)}px;
+    max-width: 100%;
+    overflow-x: hidden; 
 `
 
 const Wrap = styled.div<WrapProps>`
     position: relative;
-    top: calc(${p => p.positionOfWindow.y}px + 94vh - ${p => p.big? adpt(730): adpt(672)}px);
-    left: calc(${p => p.positionOfWindow.x}px + 98vw - ${p => p.big? adpt(850) : adpt(420) }px);
-    width: ${p => p.big? adpt(850) : adpt(420) }px;
+    top: calc(${p => p.positionOfWindow.y}px + 96vh - ${p => p.big? adpt(730): adpt(672)}px);
+    left: calc(${p => p.positionOfWindow.x}px + 97vw - ${p => p.big? adpt(850) : adpt(420) }px);
+    width: ${p => p.big? adpt(855) : adpt(425) }px;
     height: ${p => p.big? adpt(730): adpt(672)}px;
 `

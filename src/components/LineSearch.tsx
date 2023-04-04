@@ -95,9 +95,9 @@ const Line = styled(Div)<LineProps>`
             top: 0;
             right: -2px;
             background-color: #707070;
-            width: 2px;
+            width: ${adpt(2)}px;
             height: ${adpt(27)}px;
-            border-radius: 6px;
+            border-radius: ${adpt(6)}px;
 
         }
         

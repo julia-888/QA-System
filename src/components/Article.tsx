@@ -103,7 +103,6 @@ const Note = styled.div<ContentDivProps>`
 `
 
 const ContentDiv = styled(ScrolledDiv)<ContentDivProps>`
-    /* padding: 0 0 ${adpt(30)}px 0; */
     margin: 0 ${p => p.big? adpt(95) : adpt(30)}px 0 ${p => p.big? adpt(75) : adpt(30)}px;
     line-height: 1.75;
     width: ${p => p.big? adpt(743) : adpt(385)}px;
@@ -119,7 +118,7 @@ const Text = styled.div<ContentDivProps>`
 
 const Image = styled.div<ContentDivProps>`
     width: ${p => p.big ? adpt(682) : adpt(365)}px;
-    height: ${p => p.big && 219}px;
+    height: ${p => p.big && adpt(219)}px;
     text-align: center;
     margin: ${adpt(35)}px 0;
     overflow: hidden;
@@ -132,7 +131,7 @@ const Image = styled.div<ContentDivProps>`
 `
 
 const Tezis = styled.div<ContentDivProps>`
-    border-left: 3px solid #5E7398;
+    border-left: ${adpt(3)}px solid #5E7398;
     padding: ${adpt(20)}px 0 ${adpt(20)}px ${adpt(20)}px;
     margin: ${adpt(33)}px auto ${adpt(40)}px auto;
     width: ${p => p.big ? adpt(580) : adpt(345)}px;
@@ -182,7 +181,7 @@ const SimilarQuestionsDiv = styled.div<ContentDivProps>`
         background-color: #707070;
         color: #707070;
         border: none;
-        height: 1px;
+        height: ${adpt(1)}px;
         margin: 0;
     }
 

@@ -149,7 +149,7 @@ const SearchDiv = styled.div<Props>`
         `${adpt(0)}px ${adpt(0)}px ${adpt(15)}px ${adpt(59)}px` :
         `${adpt(30)}px ${adpt(9)}px ${adpt(15)}px ${adpt(15)}px` };
     border-radius: ${adpt(13)}px;
-    ${props => !props.big && `box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16)`};
+    ${props => !props.big && `box-shadow: 0px ${adpt(3)}px ${adpt(6)}px rgba(0, 0, 0, 0.16)`};
     padding: ${p => p.big? adpt(10) : adpt(15)}px 0 0 0;
     ${p => p.big && 
     `max-height: ${adpt(630)}px;`
@@ -183,7 +183,7 @@ const SearchButton = styled.button`
 const KeyWordsDiv = styled(Div)`
     background-color: #E9ECEE;
     width: ${adpt(362)}px;
-    padding-left: 7px; 
+    padding-left: ${adpt(7)}px; 
     border-radius: ${adpt(13)}px;
     flex-direction: column;
     margin-bottom: ${adpt(30)}px;
@@ -206,7 +206,7 @@ const KeyDivButton = styled.button`
     border-radius: ${adpt(13)}px;
     width: ${adpt(362)}px;
     border: 0;
-    padding: ${adpt(14)}px ${adpt(19)}px ${adpt(14)}px 4px;
+    padding: ${adpt(14)}px ${adpt(19)}px ${adpt(14)}px ${adpt(4)}px;
     font: ${adpt(19)}px 'Montserrat-Medium';
     .imgClose{
         cursor: pointer;

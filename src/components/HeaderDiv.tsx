@@ -14,7 +14,7 @@ export const HeaderDiv = styled(Div)<HeaderDivProps>`
     font-size: ${p => p.isArticle ? adpt(20) : adpt(22)}px;
     text-align: left;
     padding: ${adpt(27)}px 0 0 0;
-    margin-bottom: 10px;
+    margin-bottom: ${adpt(10)}px;
 
     .imgBack{
         margin-left: ${p => !p.big && p.isArticle ? adpt(20) : adpt(35)}px;

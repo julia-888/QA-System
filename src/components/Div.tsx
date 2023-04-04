@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 export const Div = styled.div`
     display: flex;
+    flex-shrink: 0;
     align-items: baseline;
     padding: 0;
 
