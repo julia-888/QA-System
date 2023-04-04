@@ -8,6 +8,7 @@ export interface IArticle {
         type: string,
         content: string,
         linkText ?: string,
+        listType ?: string,
     }[]
     keys: string[],
     popular ?:  string,

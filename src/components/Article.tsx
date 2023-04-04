@@ -22,7 +22,7 @@ type ArticleProps = {
     //Поле i здесь означает индекс статьи в массиве!!!
     i: number;
     big: boolean;
-    openAndCloseArticle: (article: number) => void;
+    openAndCloseArticle: (articleID: number, word?: string, fromTag?: boolean, fromArticle?: number, byButton? : boolean) => void;
     extendScreen: (big: boolean) => void;
     setpositionOfWindow: ({x, y}: {x: number, y: number}) => void;
     setClickedTag: (clickedTag: [string, number]) => void;
@@ -51,7 +51,17 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
                                         <div className="imgLink"><LinkIcon /></div>
                                         <div className="textLink">{contentElem.linkText}</div>
                                     </a>
-                                </Link>)
+                                </Link>) :
+                            contentElem.type == 'list' ?
+                                contentElem.listType == 'ol' ? (
+                                    <OrderedList >
+
+                                    </OrderedList>
+                                ) : (
+                                    <UnorderedList >
+
+                                    </UnorderedList>
+                                )
                             : (<></>)  
                         )
                 }
@@ -63,7 +73,7 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
                             ShowSimilarArticles(i).slice(0,3).map(article => (
                                 <ArticleButton big={big} className='question' similar={true}
                                     onClick={() => {
-                                        openAndCloseArticle(articles.indexOf(article));
+                                        openAndCloseArticle(articles.indexOf(article), undefined, undefined, i, true);
                                     }}>
                                     <div className="articleTitle">{article.title}</div>
                                 </ArticleButton>
@@ -138,6 +148,14 @@ const Tezis = styled.div<ContentDivProps>`
     line-height: 1.5;
     font: ${adpt(18)}px 'Montserrat-Regular';
     line-height: 1.5;
+`
+
+const UnorderedList = styled.ul`
+    
+`
+
+const OrderedList = styled.ol`
+    
 `
 
 const TagsDiv = styled(Div)<ContentDivProps>`

@@ -22,7 +22,7 @@ export default function QASystem() {
         x: params.offset[0],
         y: params.offset[1],
         }),
-        { bounds: { left: -800, right: 0, top: -100, bottom: 0 }
+        { bounds: { left: adpt(-1000), right: 0, top: adpt(-180), bottom: 0 }
     });
 
     // Нажатые ключевые слова
@@ -37,6 +37,9 @@ export default function QASystem() {
     // Переменная, хранящая i - индекс в массиве, открытой статьи. Когда значение -1, статья закрыта 
     const [articleOpenedID, setArticleOpenedID] = useState(-1);
 
+    // Переменная, хранящая i - индекс в массиве, открытой статьи. Когда значение -1, статья закрыта 
+    const [previousArticle, setPreviousArticle] = useState(-1);
+
     // Переменная, отвечающая за отображение контента в зависимости от размеров окна. НЕ изменяется вне функции extendScreen!!!
     const [big, setBig] = useState(false);
 
@@ -50,19 +53,21 @@ export default function QASystem() {
     const [articlesShowed, setArticlesShowed] = useState(articles.slice(0, 4));
 
     // Функция открытия статьи с определённым i. Изменяет i открытой статьи, т.е. articleOpenedID. articleID - это номер статьи в которую нужно перейти.
-    const openAndCloseArticle = (articleID: number, word?: string, fromTag?: boolean, fromArticle?: number) => {
+    const openAndCloseArticle = (articleID: number, word?: string, fromTag?: boolean, fromArticle?: number, byButton?: boolean) => {
         //Если статья закрывается, то размер окна изменяется на тот, который был до открытия статьи.
         //Если статья открывается, то в переменную previousWasBig записывается значение big на момент открытия.
         if (articleID == -1) {
             fromTag ? extendScreen(true) : extendScreen(previosWasBig);
             fromTag && word != undefined && fromArticle != undefined && setClickedTag([word, fromArticle]);
         } else {
-            !fromTag && setPreviosWasBig(big);
+            !fromTag && !fromArticle && setPreviosWasBig(big);
             !fromTag && setSearchLineText("");
+            fromArticle != undefined && byButton ? setPreviousArticle(fromArticle) : (fromArticle != undefined && previousArticle == -1 ? setPreviousArticle(fromArticle) : setPreviousArticle(-1));
             extendScreen(true);
             setClickedTag(["", -1]);
         }
         setArticleOpenedID(articleID);
+        console.log(previousArticle);
     }
     
     //Функция, отображающая список статей в зависимости от нажатых ключевых слов
@@ -140,7 +145,7 @@ export default function QASystem() {
                             <Div>
                             <button className='backButton'
                                 onClick={() => {
-                                    openAndCloseArticle(-1);
+                                    previousArticle != -1 ? openAndCloseArticle(previousArticle, undefined, undefined, articleOpenedID) : openAndCloseArticle(-1, undefined, undefined, articleOpenedID);
                                 }} >
                                 <div className='imgBack'><BackIcon/></div>
                             </button>
@@ -172,7 +177,7 @@ export default function QASystem() {
                 // если никакая статья не открыта
                 articleOpenedID == -1 ? (
                     <>
-                    <ArticlesDiv big={big} artHeader={artHeader}>
+                    <ArticlesDiv big={big} >
                         {   
                             !big && 
                                 // Вывод трёх популярных статей (синие кнопки), если экран не расширен
@@ -196,7 +201,13 @@ export default function QASystem() {
                     </ArticlesDiv>
                     </>
                     ) : (
-                        <Article big={ big } i={ articleOpenedID } openAndCloseArticle={openAndCloseArticle} extendScreen={extendScreen} setpositionOfWindow={setpositionOfWindow} setClickedTag={setClickedTag} artHeader={artHeader} />
+                        <Article big={ big }
+                                 i={ articleOpenedID }
+                                 openAndCloseArticle={openAndCloseArticle} 
+                                 extendScreen={extendScreen} 
+                                 setpositionOfWindow={setpositionOfWindow} 
+                                 setClickedTag={setClickedTag}
+                                 artHeader={artHeader} />
                     )
                 }
             </QASystemFrame>        
@@ -214,7 +225,6 @@ interface WrapProps {
 interface QASystemFrameDims {
     //Размер окна влияет на стили: размеры, границы, отображение/не отображение элементов
     big: boolean;
-    artHeader?: number;
 }
 
 // Блок-родитель для всего приложения
@@ -228,10 +238,9 @@ const QASystemFrame = styled.div<QASystemFrameDims>`
 
 // Основной блок с контентом
 const ArticlesDiv = styled(ScrolledDiv)<QASystemFrameDims>`
-    max-height: ${p => p.artHeader && (p.big? adpt(720-p.artHeader): adpt(646-p.artHeader))}px;
+    max-height: ${p => p.big? adpt(720-65): adpt(660-65)}px;
     margin-right: ${p => p.big? adpt(36) : adpt(6)}px;
-    max-width: 100%;
-    overflow-x: hidden; 
+    /* overflow-x: hidden; - на всякий случай */
 `
 
 const Wrap = styled.div<WrapProps>`
