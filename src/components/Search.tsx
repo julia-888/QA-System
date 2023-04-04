@@ -26,9 +26,10 @@ type SearchProps = {
     clickedTag: [string, number];
     searchLineText: string;
     setSearchLineText: (text: string) => void;
+    setClickedTag: (clickedTag: [string, number]) => void;
   };
 
-export default function Search( {extendScreen, openAndCloseArticle, big, modifyclickedKeyWords, clickedKeyWords, articlesShowed, setArticlesShowed, clickedTag, searchLineText, setSearchLineText}: SearchProps ) {
+export default function Search( {extendScreen, openAndCloseArticle, big, modifyclickedKeyWords, clickedKeyWords, articlesShowed, setArticlesShowed, clickedTag, searchLineText, setSearchLineText, setClickedTag}: SearchProps ) {
     // Состояние кнопки-открывателя списка ключевых слов
     const [clicked, setClicked] = useState(false);
 
@@ -73,11 +74,11 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
             {big && 
                 // Отображение в большом окне поисковой строки или выбранных ключевых слов
                 ( clickedKeyWords.length==0 || clickedTag[0] !== "" ? (
-                        clickedTag[0] == "" && clickedTag[1] == -1 ?
+                        clickedTag[0] == "" ?
                         <LineSearch setArticlesShowed={setArticlesShowed} searchLineText={searchLineText} setSearchLineText={setSearchLineText} />
                         :
                         <ClickedDiv>
-                            <Tag word={clickedTag[0]} clicked={true} articleNumber={clickedTag[1]} openAndCloseArticle={openAndCloseArticle} />
+                            <Tag word={clickedTag[0]} clicked={true} articleNumber={clickedTag[1]} openAndCloseArticle={openAndCloseArticle} setClickedTag={setClickedTag} />
                         </ClickedDiv>
                     ) : (
                         <ClickedDiv>
@@ -151,8 +152,7 @@ const SearchDiv = styled.div<Props>`
     ${props => !props.big && `box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16)`};
     padding: ${p => p.big? adpt(10) : adpt(15)}px 0 0 0;
     ${p => p.big && 
-    `
-     max-height: ${adpt(630)}px;`
+    `max-height: ${adpt(630)}px;`
     };
 `
 
@@ -206,7 +206,7 @@ const KeyDivButton = styled.button`
     border-radius: ${adpt(13)}px;
     width: ${adpt(362)}px;
     border: 0;
-    padding: ${adpt(15)}px;
+    padding: ${adpt(14)}px ${adpt(19)}px ${adpt(14)}px 4px;
     font: ${adpt(19)}px 'Montserrat-Medium';
     .imgClose{
         cursor: pointer;
@@ -232,7 +232,7 @@ export const ArticleButton = styled.button<Props>`
     text-align: start;
     border: none;
     margin: 0 ${adpt(28)}px 0 ${p => p.similar ? adpt(0) : p.big ? adpt(15) : adpt(25)}px;
-    padding-bottom: ${adpt(20)}px;
+    padding-bottom: ${adpt(15)}px;
     cursor: pointer;
     .imgOpen{
         height: ${adpt(19)}px;
@@ -246,7 +246,7 @@ export const ArticleButton = styled.button<Props>`
     };
     
     .articleTitle{
-        width: ${props => props.big ? adpt(528) : adpt(278) }px;
+        width: ${props => props.big ? adpt(528) : adpt(276) }px;
     }
 `
 
@@ -254,7 +254,7 @@ export const ArticleButton = styled.button<Props>`
 const ButtonLookAll = styled(ArticleButton)<Props>`
     color: rgba(60, 60, 60, 0.9);
     justify-content: center;
-    padding-bottom: ${adpt(25)}px;
+    padding-bottom: ${adpt(20)}px;
 `
 
 // Блок на котором отображаются статьи
@@ -263,7 +263,7 @@ const SearchDivArticles = styled.div`
 `
 
 const ClickedDiv = styled(Div)`
-    margin-bottom: ${adpt(30)}px;
+    margin-bottom: ${adpt(23)}px;
     margin-left: ${adpt(0)}px;
     flex-wrap: wrap;
     width: ${adpt(730)}px;

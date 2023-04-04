@@ -11,6 +11,8 @@ import { ReactComponent as MoveIcon} from "../icons/move.svg";
 import { useState, useEffect } from 'react';
 import { useDrag } from 'react-use-gesture';
 import { ReactComponent as BackIcon} from "../icons/back.svg";
+import { ReactComponent as CompressIcon} from "../icons/compress.svg";
+import { ReactComponent as ExtendIcon} from "../icons/extend.svg";
 import Article from './Article';
 
 export default function QASystem() {
@@ -24,10 +26,10 @@ export default function QASystem() {
     });
 
     // Нажатые ключевые слова
-    const [clickedKeyWords, setclickedKeyWords] = useState<string[]>([]);
+    const [clickedKeyWords, setClickedKeyWords] = useState<string[]>([]);
 
     // Нажатый тег из статьи. Хранит в себе слово и номер статьи, в которой был нажат
-    const [clickedTag, setclickedTag] = useState<[string, number]>(["", -1]);
+    const [clickedTag, setClickedTag] = useState<[string, number]>(["", -1]);
 
     //Содержимое поисковой строки
     const [searchLineText, setSearchLineText] = useState("");
@@ -47,17 +49,18 @@ export default function QASystem() {
     // Список отображаемых статей
     const [articlesShowed, setArticlesShowed] = useState(articles.slice(0, 4));
 
-    // Функция открытия статьи с определённым i. Изменяет i открытой статьи, articleOpenedID
+    // Функция открытия статьи с определённым i. Изменяет i открытой статьи, т.е. articleOpenedID. articleID - это номер статьи в которую нужно перейти.
     const openAndCloseArticle = (articleID: number, word?: string, fromTag?: boolean, fromArticle?: number) => {
         //Если статья закрывается, то размер окна изменяется на тот, который был до открытия статьи.
         //Если статья открывается, то в переменную previousWasBig записывается значение big на момент открытия.
         if (articleID == -1) {
             fromTag ? extendScreen(true) : extendScreen(previosWasBig);
-            fromTag && word != undefined && fromArticle != undefined && setclickedTag([word, fromArticle]);
+            fromTag && word != undefined && fromArticle != undefined && setClickedTag([word, fromArticle]);
         } else {
             !fromTag && setPreviosWasBig(big);
+            !fromTag && setSearchLineText("");
             extendScreen(true);
-            setclickedTag(["", -1]);
+            setClickedTag(["", -1]);
         }
         setArticleOpenedID(articleID);
     }
@@ -77,10 +80,10 @@ export default function QASystem() {
     // Функция, изменяющая список нажатых слов. На вход подаётся слово и что произошло, т.е. "нажали"-"отжали". Затем изменяется список нажатых ключевых слов.
     const modifyclickedKeyWords = (keyWord: string, clicked: boolean) => {
         if (clicked) {
-            setclickedKeyWords([...clickedKeyWords, keyWord]);
+            setClickedKeyWords([...clickedKeyWords, keyWord]);
         }
         else {
-            setclickedKeyWords([
+            setClickedKeyWords([
                 ...clickedKeyWords.slice(0, clickedKeyWords.indexOf(keyWord)),
                 ...clickedKeyWords.slice(clickedKeyWords.indexOf(keyWord) + 1, clickedKeyWords.length)
             ]);
@@ -100,33 +103,75 @@ export default function QASystem() {
             }
         }
 
+    let artHeader = document.getElementById('artHeader')?.offsetHeight;
+
+    useEffect(() => {
+        artHeader = document.getElementById('artHeader')?.offsetHeight;
+    }, [artHeader])
+    
     return(
         <Wrap positionOfWindow={positionOfWindow} big={big}>
             <QASystemFrame big={big} >
+                <HeaderDiv big={big} isArticle={articleOpenedID != -1} id="artHeader" {...bindpositionOfWindow()}>
+                    {
+                        articleOpenedID == -1 ? (
+                            <>
+                            <Div>
+                            {   /* Если экран расширен, то появляется кнопка-стрелочка назад */
+                                big &&
+                                <button className='backButton'
+                                    onClick={() => {
+                                        extendScreen(false);
+                                        if (clickedTag[1] != -1) {
+                                            openAndCloseArticle(clickedTag[1], clickedTag[0], false, -1);
+                                        }
+                                    }} >
+                                    <div className='imgBack'><BackIcon/></div>
+                                </button>
+                            }
+                                <div className='headerText'>
+                                    {header}
+                                </div>
+                            </Div>
+                            <div className="imgMove"><MoveIcon/></div>
+                            </>
+                        ) : (
+                            <>
+                            <Div>
+                            <button className='backButton'
+                                onClick={() => {
+                                    openAndCloseArticle(-1);
+                                }} >
+                                <div className='imgBack'><BackIcon/></div>
+                            </button>
+                            <div className='headerText' title={articles[articleOpenedID].title}>
+                                {articles[articleOpenedID].title}
+                            </div>
+                            </Div>
+                            {                                
+                                big ? (
+                                    <button className='backButton'
+                                        onClick={() => {
+                                            extendScreen(false);
+                                        }} >
+                                        <div className="imgCompress"><CompressIcon/></div>
+                                    </button>
+                                ) : (
+                                    <button className='backButton'
+                                        onClick={() => {
+                                            extendScreen(true);
+                                        }} >
+                                        <div className="imgExtend"><ExtendIcon/></div>
+                                    </button>
+                            )}
+                            </>
+                        )
+                    }
+                </HeaderDiv>    
             {
                 // если никакая статья не открыта
                 articleOpenedID == -1 ? (
                     <>
-                    <HeaderDiv big={big} isArticle={false} {...bindpositionOfWindow()}>
-                        <Div>
-                        {   /* Если экран расширен, то появляется кнопка-стрелочка назад */
-                            big &&
-                            <button className='backButton'
-                                onClick={() => {
-                                    extendScreen(false);
-                                    if (clickedTag[1] != -1) {
-                                        openAndCloseArticle(clickedTag[1], clickedTag[0], true, -1);
-                                    }
-                                }} >
-                                <div className='imgBack'><BackIcon/></div>
-                            </button>
-                        }
-                            <div className='headerText'>
-                                {header}
-                            </div>
-                        </Div>
-                        <div className="imgMove"><MoveIcon/></div>
-                    </HeaderDiv>
                     <ArticlesDiv big={big}>
                         {   
                             !big && 
@@ -146,11 +191,12 @@ export default function QASystem() {
                                 setArticlesShowed={setArticlesShowed}
                                 clickedTag={clickedTag}
                                 searchLineText={searchLineText}
-                                setSearchLineText={setSearchLineText} />
+                                setSearchLineText={setSearchLineText}
+                                setClickedTag={setClickedTag} />
                     </ArticlesDiv>
                     </>
                     ) : (
-                        <Article big={ big } i={ articleOpenedID } openAndCloseArticle={openAndCloseArticle} extendScreen={extendScreen} setpositionOfWindow={setpositionOfWindow} />
+                        <Article big={ big } i={ articleOpenedID } openAndCloseArticle={openAndCloseArticle} extendScreen={extendScreen} setpositionOfWindow={setpositionOfWindow} setClickedTag={setClickedTag} artHeader={artHeader} />
                     )
                 }
             </QASystemFrame>        

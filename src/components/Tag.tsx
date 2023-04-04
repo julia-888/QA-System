@@ -11,22 +11,18 @@ type TagProps = {
     clicked: boolean;
     articleNumber: number;
     openAndCloseArticle: (article: number, word: string, fromTag: boolean, fromArticle: number) => void;
+    setClickedTag: (clickedTag: [string, number]) => void;
 };
 
 //Тег - ключевое слово внутри статьи, нажав на которое открывается поиск по нему
-export function Tag({articleNumber, clicked, word, openAndCloseArticle}: TagProps) {
-  // Нажат ли тег
-  const [ tagClicked, setTagClicked ] = useState(clicked);
-  
-
+export function Tag({articleNumber, clicked, word, openAndCloseArticle, setClickedTag}: TagProps) {
     return (
-        <TagButton clicked={tagClicked}
+        <TagButton clicked={clicked}
             onClick={(e) => {
-                !tagClicked ? openAndCloseArticle(-1, word, true, articleNumber) : openAndCloseArticle(articleNumber, word, true, -1);
-                setTagClicked(!tagClicked);
+                !clicked ? openAndCloseArticle(-1, word, true, articleNumber) : setClickedTag(["", articleNumber]);
             }}>
             <WordDiv>{word}</WordDiv>
-            <div className='image'>{tagClicked ? (<CloseTagIcon/>) :(<SelectedIcon/>)}</div>
+            <div className='image'>{clicked ? (<CloseTagIcon/>) :(<SelectedIcon/>)}</div>
         </TagButton>
     )
 }

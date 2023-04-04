@@ -25,57 +25,13 @@ type ArticleProps = {
     openAndCloseArticle: (article: number) => void;
     extendScreen: (big: boolean) => void;
     setpositionOfWindow: ({x, y}: {x: number, y: number}) => void;
-
+    setClickedTag: (clickedTag: [string, number]) => void;
+    artHeader?: number;
 };
 
-export default function Article({i, big, openAndCloseArticle, extendScreen, setpositionOfWindow}: ArticleProps) {
-    const bindpositionOfWindow = useDrag((params) => {
-        setpositionOfWindow({
-        x: params.offset[0],
-        y: params.offset[1],
-        });
-    });
-
-    let artHeader = document.getElementById('artHeader')?.offsetHeight;
-
-    useEffect(() => {
-        artHeader = document.getElementById('artHeader')?.offsetHeight;
-        console.log(artHeader);
-    }, [artHeader])
-    
-
+export default function Article({i, big, openAndCloseArticle, extendScreen, setpositionOfWindow, setClickedTag, artHeader}: ArticleProps) {
     return (
         <div>
-            <HeaderDiv big={big} isArticle={true} {...bindpositionOfWindow()} id='artHeader'>
-                <Div>
-                <button className='backButton'
-                    onClick={() => {
-                        openAndCloseArticle(-1);
-                    }} >
-                    <div className='imgBack'><BackIcon/></div>
-                </button>
-                <div className='headerText'>
-                    {articles[i].title}
-                </div>
-                </Div>
-                {
-                    big ? (
-                        <button className='backButton'
-                            onClick={() => {
-                                extendScreen(false);
-                            }} >
-                            <div className="imgCompress"><CompressIcon/></div>
-                        </button>
-                    ) : (
-                        <button className='backButton'
-                            onClick={() => {
-                                extendScreen(true);
-                            }} >
-                            <div className="imgExtend"><ExtendIcon/></div>
-                        </button>
-                )}
-            </HeaderDiv>
-            
             <ContentDiv big={big} artHeader={artHeader}>
                 {articles[i].note != undefined && (<Note big={big}>{articles[i].note}</Note>)}
                 <Subtitle big={big}>{articles[i].subtitle}</Subtitle>
@@ -116,10 +72,10 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
                     
                 </SimilarQuestionsDiv>
 
-                <TagsDiv>
+                <TagsDiv big={big}>
                     {
                         articles[i].keys.map(tag => 
-                            <Tag articleNumber={i} clicked={false} word={tag} openAndCloseArticle={openAndCloseArticle} />
+                            <Tag articleNumber={i} clicked={false} word={tag} openAndCloseArticle={openAndCloseArticle} setClickedTag={setClickedTag} />
                         )
                     }
                 </TagsDiv>
@@ -134,37 +90,38 @@ interface ContentDivProps {
 };
 
 const Subtitle = styled.div<ContentDivProps>`
-    width: ${p => p.big ? adpt(642) : adpt(350)}px;
+    width: ${p => p.big ? adpt(682) : adpt(365)}px;
     font: ${adpt(18)}px 'Montserrat-Medium';
     line-height: 1.75;
-    margin-top: ${adpt(35)}px;
+    margin-top: ${adpt(27)}px;
 `
 
 const Note = styled.div<ContentDivProps>`
-    width: ${p => p.big ? adpt(642) : adpt(350)}px;
+    width: ${p => p.big ? adpt(682) : adpt(365)}px;
     font: ${adpt(17)}px 'Montserrat-Light';
+    line-height: 1.5;
 `
 
 const ContentDiv = styled(ScrolledDiv)<ContentDivProps>`
-    padding: 0 0 ${adpt(30)}px 0;
+    /* padding: 0 0 ${adpt(30)}px 0; */
     margin: 0 ${p => p.big? adpt(95) : adpt(30)}px 0 ${p => p.big? adpt(75) : adpt(30)}px;
     line-height: 1.75;
     width: ${p => p.big? adpt(743) : adpt(385)}px;
-    max-height: ${p => p.artHeader ? (p.big? adpt(680) - p.artHeader : adpt(622) - p.artHeader) : adpt(680)}px;
+    max-height: ${p => p.artHeader ? (p.big? adpt(714) - p.artHeader : adpt(656) - p.artHeader) : adpt(680)}px;
 `
 
 const Text = styled.div<ContentDivProps>`
-    width: ${p => p.big ? adpt(642) : adpt(350)}px;
+    width: ${p => p.big ? adpt(682) : adpt(365)}px;
     font: ${adpt(18)}px 'Montserrat-Regular';
     line-height: 1.75;
-    margin-top: ${adpt(25)}px;
+    margin-top: ${adpt(10)}px;
 `
 
 const Image = styled.div<ContentDivProps>`
-    width: ${p => p.big ? adpt(642) : adpt(365)}px;
+    width: ${p => p.big ? adpt(682) : adpt(365)}px;
     height: ${p => p.big && 219}px;
     text-align: center;
-    margin: ${adpt(40)}px 0;
+    margin: ${adpt(35)}px 0;
     overflow: hidden;
 
     .image {
@@ -177,23 +134,23 @@ const Image = styled.div<ContentDivProps>`
 const Tezis = styled.div<ContentDivProps>`
     border-left: 3px solid #5E7398;
     padding: ${adpt(20)}px 0 ${adpt(20)}px ${adpt(20)}px;
-    margin: ${adpt(40)}px auto ${adpt(25)}px auto;
+    margin: ${adpt(33)}px auto ${adpt(40)}px auto;
     width: ${p => p.big ? adpt(580) : adpt(345)}px;
     line-height: 1.5;
     font: ${adpt(18)}px 'Montserrat-Regular';
     line-height: 1.5;
 `
 
-const TagsDiv = styled(Div)`
+const TagsDiv = styled(Div)<ContentDivProps>`
     flex-wrap: wrap;
+    padding-top: ${p => p.big && adpt(13)}px;
 `
 
 const Link = styled.div<ContentDivProps>`
-    margin-top: ${adpt(20)}px;
+    margin-top: ${p => p.big ? adpt(15) : adpt(10)}px;
     width: ${p => p.big? adpt(656) : adpt(313)}px;
     .link {
         font: ${adpt(17)}px 'Montserrat-Regular';
-        /* line-height: 1.75; */
         line-height: ${adpt(30)}px;
         text-decoration: none;
         color: black;
@@ -218,7 +175,7 @@ const Link = styled.div<ContentDivProps>`
 
 const SimilarQuestionsDiv = styled.div<ContentDivProps>`
     width: ${p => p.big ? adpt(580) : adpt(375)}px;
-    padding-top: ${p => p.big? adpt(60) : adpt(36)}px;
+    padding-top: ${p => p.big? adpt(60) : adpt(34)}px;
     .hr {
         width: ${p => p.big ? adpt(519) : adpt(370)}px;
         background-color: #707070;
@@ -233,7 +190,7 @@ const SimilarQuestionsDiv = styled.div<ContentDivProps>`
     }
 
     .similarTitle {
-        margin: ${p => p.big? adpt(25) : adpt(22)}px 0 ${adpt(20)}px 0;
+        margin: ${p => p.big? adpt(25) : adpt(18)}px 0 ${adpt(15)}px 0;
     }
 
     margin: 0 0 ${p => p.big ? adpt(40) : adpt(20)}px 0;
