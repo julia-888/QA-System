@@ -154,6 +154,7 @@ const SearchDiv = styled.div<Props>`
     ${p => p.big && 
     `max-height: ${adpt(630)}px;`
     };
+    user-select: none;
 `
 
 // Кнопка, открывающая блок с ключевыми словами
@@ -234,6 +235,7 @@ export const ArticleButton = styled.button<Props>`
     margin: 0 ${adpt(28)}px 0 ${p => p.similar ? adpt(0) : p.big ? adpt(15) : adpt(25)}px;
     padding-bottom: ${adpt(15)}px;
     cursor: pointer;
+    user-select: none;
     .imgOpen{
         height: ${adpt(19)}px;
         width: ${adpt(11)}px;

@@ -46,6 +46,7 @@ const TagButton = styled.button<Props>`
     margin: 0 ${adpt(20)}px ${adpt(15)}px 0;
     margin-right: ${p => p.clicked && adpt(20)}px;
     cursor: pointer;
+    user-select: none;
     .image {
         height: ${adpt(13)}px;
         width: ${adpt(13)}px;

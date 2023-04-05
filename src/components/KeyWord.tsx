@@ -58,6 +58,7 @@ const KeyWordButton = styled.button<Props>`
     font: ${adpt(18)}px 'Montserrat-Regular';
     margin: 0 ${p => p.big ? adpt(15) : adpt(10)}px ${p => p.big ? adpt(15) : adpt(10)}px 0;
     cursor: pointer;
+    user-select: none;
     .image {
         height: ${p => p.big? adpt(10) : adpt(13)}px;
         width: ${p => p.big? adpt(10) : adpt(13)}px;

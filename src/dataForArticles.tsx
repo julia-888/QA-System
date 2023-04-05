@@ -7,6 +7,7 @@ export interface IArticle {
     content: {
         type: string,
         content: string,
+        imgLabel?: string,
         linkText ?: string,
         listType ?: string,
     }[]
@@ -50,6 +51,7 @@ export const articles: IArticle[] = [
             {
                 type: 'img',
                 content: '1_1.jpg',
+                imgLabel: '*Прибор измерения пробивного напряжения АИМ-90А',
             },
             {
                 type: 'text',
@@ -63,6 +65,7 @@ export const articles: IArticle[] = [
             {
                 type: 'img',
                 content: '1_2.png',
+                imgLabel: '*Прибор измерения пробивного напряжения АИМ-90А',
             },
             {
                 type: 'text',
@@ -200,6 +203,7 @@ export const articles: IArticle[] = [
             {
                 type: 'img',
                 content: 'kamaz2.png',
+                imgLabel: '*Прибор измерения пробивного напряжения АИМ-90А',
             },
             {
                 type: 'text',
@@ -332,6 +336,7 @@ export const articles: IArticle[] = [
             {
                 type: 'img',
                 content: 'kamaz.png',
+                imgLabel: '*Прибор измерения пробивного напряжения АИМ-90А',
             },
             {
                 type: 'textMedium',
@@ -361,6 +366,7 @@ export const articles: IArticle[] = [
             {
                 type: 'img',
                 content: 'kamaz2.png',
+                imgLabel: '*Прибор измерения пробивного напряжения АИМ-90А',
             },
             {
                 type: 'text',

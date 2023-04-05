@@ -31,6 +31,7 @@ border-radius: ${adpt(15)}px;
 background: linear-gradient(150deg, #5B7095 30%, #8BA1C8 97%, #5B7095);
 color: white;
 cursor: pointer;
+user-select: none;
 `
 
 // Заголовок статьи на синем блоке

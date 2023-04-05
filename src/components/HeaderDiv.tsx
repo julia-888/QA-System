@@ -9,6 +9,8 @@ interface HeaderDivProps {
 
 // Заголовок страницы с элементом для перемещения окна (самый верхний заголовок)
 export const HeaderDiv = styled(Div)<HeaderDivProps>`
+    user-select: none;
+
     justify-content: space-between;
     width: ${p => p.big ? adpt(850) : adpt(420)}px;
     font-size: ${p => p.isArticle ? adpt(20) : adpt(22)}px;

@@ -17,6 +17,7 @@ import { ShowSimilarArticles } from "../functions/ShowSimilarArticles";
 import { Tag } from "./Tag";
 import { useEffect } from 'react';
 import { useDrag } from "react-use-gesture";
+import { SelectableText } from "./SelectableText";
 
 type ArticleProps = {
     //Поле i здесь означает индекс статьи в массиве!!!
@@ -41,7 +42,8 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
                                 (<Text big={big}>{contentElem.content}</Text>) : 
                             contentElem.type == 'img' ?
                                 (<Image big={big}>
-                                    <img className="image" src={require(`../img/${contentElem.content}`)} alt="" />
+                                    <div className='imgDiv'><img className="image" src={require(`../img/${contentElem.content}`)} alt="" /></div>
+                                    {contentElem.imgLabel != undefined && (<div className="imgLabel">{contentElem.imgLabel}</div>)}
                                 </Image>) :
                             contentElem.type =='tezis' ?
                                 (<Tezis big={big}>{contentElem.content}</Tezis>) :
@@ -99,14 +101,14 @@ interface ContentDivProps {
     artHeader?: number;
 };
 
-const Subtitle = styled.div<ContentDivProps>`
+const Subtitle = styled(SelectableText)<ContentDivProps>`
     width: ${p => p.big ? adpt(682) : adpt(365)}px;
     font: ${adpt(18)}px 'Montserrat-Medium';
     line-height: 1.75;
     margin-top: ${adpt(27)}px;
 `
 
-const Note = styled.div<ContentDivProps>`
+const Note = styled(SelectableText)<ContentDivProps>`
     width: ${p => p.big ? adpt(682) : adpt(365)}px;
     font: ${adpt(17)}px 'Montserrat-Light';
     line-height: 1.5;
@@ -119,28 +121,56 @@ const ContentDiv = styled(ScrolledDiv)<ContentDivProps>`
     max-height: ${p => p.artHeader ? (p.big? adpt(714) - p.artHeader : adpt(656) - p.artHeader) : adpt(680)}px;
 `
 
-const Text = styled.div<ContentDivProps>`
+const Text = styled(SelectableText)<ContentDivProps>`
     width: ${p => p.big ? adpt(682) : adpt(365)}px;
     font: ${adpt(18)}px 'Montserrat-Regular';
     line-height: 1.75;
     margin-top: ${adpt(10)}px;
 `
 
-const Image = styled.div<ContentDivProps>`
+const Image = styled(SelectableText)<ContentDivProps>`
     width: ${p => p.big ? adpt(682) : adpt(365)}px;
-    height: ${p => p.big && adpt(219)}px;
-    text-align: center;
-    margin: ${adpt(35)}px 0;
-    overflow: hidden;
+    margin: ${adpt(33)}px 0;
+
+    .imgDiv {
+        height: ${p => p.big && adpt(219)}px;
+        overflow: hidden;
+        text-align: center;
+    }
 
     .image {
         width: 100%;
         height: auto;
+
+        ::-moz-selection{
+            background-color:#e9e8e8;
+            color:#191919
+        }
+        ::selection{
+            background-color:#e9e8e8;
+            color:#191919
+        }
+    }
+
+    .imgLabel {
+        font: ${adpt(15)}px 'Montserrat-Regular';
+        line-height: 1.5;
+        color: #707070;
+        margin-top: ${p => p.big? adpt(8) : adpt(4)}px;
+
+        ::-moz-selection{
+            background-color:#e9e8e8;
+            color:#191919
+        }
+        ::selection{
+            background-color:#e9e8e8;
+            color:#191919
+        }
     }
 
 `
 
-const Tezis = styled.div<ContentDivProps>`
+const Tezis = styled(SelectableText)<ContentDivProps>`
     border-left: ${adpt(3)}px solid #5E7398;
     padding: ${adpt(20)}px 0 ${adpt(20)}px ${adpt(20)}px;
     margin: ${adpt(33)}px auto ${adpt(40)}px auto;
@@ -166,6 +196,7 @@ const TagsDiv = styled(Div)<ContentDivProps>`
 const Link = styled.div<ContentDivProps>`
     margin-top: ${p => p.big ? adpt(15) : adpt(10)}px;
     width: ${p => p.big? adpt(656) : adpt(313)}px;
+    user-select: none;
     .link {
         font: ${adpt(17)}px 'Montserrat-Regular';
         line-height: ${adpt(30)}px;
