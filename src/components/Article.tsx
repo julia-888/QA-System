@@ -55,13 +55,17 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
                                     </a>
                                 </Link>) :
                             contentElem.type == 'list' ?
-                                contentElem.listType == 'ol' ? (
-                                    <OrderedList >
-
+                                contentElem.content == 'ol' ? (
+                                    <OrderedList big={big}>
+                                        {contentElem.listItems?.map(item => (
+                                            <li>{item}</li>
+                                        ))}
                                     </OrderedList>
                                 ) : (
-                                    <UnorderedList >
-
+                                    <UnorderedList big={big}>
+                                        {contentElem.listItems?.map(item => (
+                                            <li>{item}</li>
+                                        ))}
                                     </UnorderedList>
                                 )
                             : (<></>)  
@@ -180,12 +184,32 @@ const Tezis = styled(SelectableText)<ContentDivProps>`
     line-height: 1.5;
 `
 
-const UnorderedList = styled.ul`
+const UnorderedList = styled.ul<ContentDivProps>`
+    width: ${p => p.big ? adpt(682) : adpt(355)}px;
+    font: ${adpt(17)}px 'Montserrat-Regular';
+    line-height: 2;
+    margin: ${adpt(5)}px 0;
+    list-style: none;
+    padding-inline-start: 0;
     
+    li:before{
+        content: "";
+        display: inline-block;
+        height: ${adpt(7)}px;
+        width: ${adpt(7)}px;
+        vertical-align: middle;
+        border-radius:50%;
+        background-color:#000;
+        margin-right:${adpt(10)}px;
+    }
 `
 
-const OrderedList = styled.ol`
-    
+const OrderedList = styled.ol<ContentDivProps>`
+    width: ${p => p.big ? adpt(682) : adpt(350)}px;
+    font: ${adpt(17)}px 'Montserrat-Regular';
+    line-height: 2;
+    margin: ${adpt(5)}px 0;
+    padding-left: ${adpt(20)}px;
 `
 
 const TagsDiv = styled(Div)<ContentDivProps>`
