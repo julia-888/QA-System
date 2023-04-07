@@ -72,6 +72,7 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
                         )
                 }
                 
+                {ShowSimilarArticles(i).length > 0 &&
                 <SimilarQuestionsDiv big={big}>
                         <hr className="hr" />
                         <Subtitle className="similarTitle" big={big}>Похожие вопросы:</Subtitle>
@@ -87,6 +88,7 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
                         }
                     
                 </SimilarQuestionsDiv>
+                }
 
                 <TagsDiv big={big}>
                     {
@@ -107,9 +109,10 @@ interface ContentDivProps {
 
 const Subtitle = styled(SelectableText)<ContentDivProps>`
     width: ${p => p.big ? adpt(682) : adpt(365)}px;
-    font: ${adpt(18)}px 'Montserrat-Medium';
+    font: ${adpt(18)}px 'Montserrat-SemiBold';
     line-height: 1.75;
     margin-top: ${adpt(27)}px;
+    /* text-indent: ${p => p.big ? `${adpt(15)}px` : '0'}; */
 `
 
 const Note = styled(SelectableText)<ContentDivProps>`
@@ -130,6 +133,8 @@ const Text = styled(SelectableText)<ContentDivProps>`
     font: ${adpt(18)}px 'Montserrat-Regular';
     line-height: 1.75;
     margin-top: ${adpt(10)}px;
+    text-align: ${p => p.big ? 'justify' : 'left'};
+    /* text-indent: ${p => p.big ? `${adpt(15)}px` : '0'}; */
 `
 
 const Image = styled(SelectableText)<ContentDivProps>`
@@ -191,6 +196,7 @@ const UnorderedList = styled.ul<ContentDivProps>`
     margin: ${adpt(5)}px 0;
     list-style: none;
     padding-inline-start: 0;
+    padding-left: ${p => p.big ? adpt(30) : adpt(0)}px;
     
     li:before{
         content: "";
