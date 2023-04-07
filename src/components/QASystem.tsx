@@ -60,7 +60,7 @@ export default function QASystem() {
             fromTag ? extendScreen(true) : extendScreen(previosWasBig);
             fromTag && word != undefined && fromArticle != undefined && setClickedTag([word, fromArticle]);
         } else {
-            !fromTag && !fromArticle && setPreviosWasBig(big);
+            !fromTag && fromArticle == undefined && setPreviosWasBig(big);
             !fromTag && setSearchLineText("");
             fromArticle != undefined && byButton ? setPreviousArticle(fromArticle) : (fromArticle != undefined && previousArticle == -1 ? setPreviousArticle(fromArticle) : setPreviousArticle(-1));
             extendScreen(true);
