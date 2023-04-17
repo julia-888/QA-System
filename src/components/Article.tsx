@@ -142,7 +142,7 @@ const Image = styled(SelectableText)<ContentDivProps>`
     margin: ${adpt(33)}px 0;
 
     .imgDiv {
-        height: ${p => p.big && adpt(219)}px;
+        height: ${p => p.big && adpt(310)}px;
         overflow: hidden;
         text-align: center;
     }
@@ -150,6 +150,7 @@ const Image = styled(SelectableText)<ContentDivProps>`
     .image {
         width: 100%;
         height: auto;
+        transform: translateY(-15%);
 
         ::-moz-selection{
             background-color:#e9e8e8;
