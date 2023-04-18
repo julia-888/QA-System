@@ -78,7 +78,7 @@ export default function Article({i, big, openAndCloseArticle, extendScreen, setp
                         <Subtitle className="similarTitle" big={big}>Похожие вопросы:</Subtitle>
                         {
                             ShowSimilarArticles(i).slice(0,3).map(article => (
-                                <ArticleButton big={big} className='question' similar={true}
+                                <ArticleButton big={big} className='question' similar={true} fromArticle={true}
                                     onClick={() => {
                                         openAndCloseArticle(articles.indexOf(article), undefined, undefined, i, true);
                                     }}>
@@ -108,7 +108,7 @@ interface ContentDivProps {
 };
 
 const Subtitle = styled(SelectableText)<ContentDivProps>`
-    width: ${p => p.big ? adpt(682) : adpt(365)}px;
+    width: ${p => p.big ? adpt(682) : adpt(357)}px;
     font: ${adpt(18)}px 'Montserrat-SemiBold';
     line-height: 1.75;
     margin-top: ${adpt(27)}px;
@@ -116,7 +116,7 @@ const Subtitle = styled(SelectableText)<ContentDivProps>`
 `
 
 const Note = styled(SelectableText)<ContentDivProps>`
-    width: ${p => p.big ? adpt(682) : adpt(365)}px;
+    width: ${p => p.big ? adpt(682) : adpt(357)}px;
     font: ${adpt(17)}px 'Montserrat-Light';
     line-height: 1.5;
 `
@@ -129,7 +129,7 @@ const ContentDiv = styled(ScrolledDiv)<ContentDivProps>`
 `
 
 const Text = styled(SelectableText)<ContentDivProps>`
-    width: ${p => p.big ? adpt(682) : adpt(365)}px;
+    width: ${p => p.big ? adpt(682) : adpt(357)}px;
     font: ${adpt(18)}px 'Montserrat-Regular';
     line-height: 1.75;
     margin-top: ${adpt(10)}px;
@@ -138,27 +138,25 @@ const Text = styled(SelectableText)<ContentDivProps>`
 `
 
 const Image = styled(SelectableText)<ContentDivProps>`
-    width: ${p => p.big ? adpt(682) : adpt(365)}px;
+    width: ${p => p.big ? adpt(682) : adpt(357)}px;
     margin: ${adpt(33)}px 0;
 
     .imgDiv {
-        height: ${p => p.big && adpt(310)}px;
         overflow: hidden;
         text-align: center;
-    }
+        height: ${p => p.big && adpt(310)}px;
+        .image {
+            width: 100%;
+            height: auto;
 
-    .image {
-        width: 100%;
-        height: auto;
-        transform: translateY(-15%);
-
-        ::-moz-selection{
-            background-color:#e9e8e8;
-            color:#191919
-        }
-        ::selection{
-            background-color:#e9e8e8;
-            color:#191919
+            ::-moz-selection{
+                background-color:#e9e8e8;
+                color:#191919
+            }
+            ::selection{
+                background-color:#e9e8e8;
+                color:#191919
+            }
         }
     }
 
@@ -177,14 +175,13 @@ const Image = styled(SelectableText)<ContentDivProps>`
             color:#191919
         }
     }
-
 `
 
 const Tezis = styled(SelectableText)<ContentDivProps>`
     border-left: ${adpt(3)}px solid #5E7398;
     padding: ${adpt(20)}px 0 ${adpt(20)}px ${adpt(20)}px;
     margin: ${adpt(33)}px auto ${adpt(40)}px auto;
-    width: ${p => p.big ? adpt(580) : adpt(345)}px;
+    width: ${p => p.big ? adpt(580) : adpt(335)}px;
     line-height: 1.5;
     font: ${adpt(18)}px 'Montserrat-Regular';
     line-height: 1.5;
@@ -194,7 +191,6 @@ const UnorderedList = styled.ul<ContentDivProps>`
     width: ${p => p.big ? adpt(682) : adpt(355)}px;
     font: ${adpt(17)}px 'Montserrat-Regular';
     line-height: 2;
-    margin: ${adpt(5)}px 0;
     list-style: none;
     padding-inline-start: 0;
     padding-left: ${p => p.big ? adpt(30) : adpt(0)}px;
@@ -209,14 +205,31 @@ const UnorderedList = styled.ul<ContentDivProps>`
         background-color:#000;
         margin-right:${adpt(10)}px;
     }
+
+    li::-moz-selection{
+        background-color:#e9e8e8;
+        color:#191919
+    }
+    li::selection{
+        background-color:#e9e8e8;
+        color:#191919
+    }
 `
 
 const OrderedList = styled.ol<ContentDivProps>`
     width: ${p => p.big ? adpt(682) : adpt(350)}px;
     font: ${adpt(17)}px 'Montserrat-Regular';
     line-height: 2;
-    margin: ${adpt(5)}px 0;
     padding-left: ${adpt(20)}px;
+
+    li::-moz-selection{
+        background-color:#e9e8e8;
+        color:#191919
+    }
+    li::selection{
+        background-color:#e9e8e8;
+        color:#191919
+    }
 `
 
 const TagsDiv = styled(Div)<ContentDivProps>`
@@ -255,9 +268,8 @@ const Link = styled.div<ContentDivProps>`
 
 const SimilarQuestionsDiv = styled.div<ContentDivProps>`
     width: ${p => p.big ? adpt(580) : adpt(375)}px;
-    padding-top: ${p => p.big? adpt(60) : adpt(34)}px;
     .hr {
-        width: ${p => p.big ? adpt(519) : adpt(370)}px;
+        width: ${p => p.big ? adpt(519) : adpt(360)}px;
         background-color: #707070;
         color: #707070;
         border: none;
@@ -273,7 +285,7 @@ const SimilarQuestionsDiv = styled.div<ContentDivProps>`
         margin: ${p => p.big? adpt(25) : adpt(18)}px 0 ${adpt(15)}px 0;
     }
 
-    margin: 0 0 ${p => p.big ? adpt(40) : adpt(20)}px 0;
+    margin: ${p => p.big? adpt(54) : adpt(34)}px 0 ${p => p.big ? adpt(40) : adpt(20)}px 0;
 
     
 `

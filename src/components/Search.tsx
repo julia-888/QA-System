@@ -139,6 +139,7 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
 interface Props {
     big: boolean,
     similar?: boolean,
+    fromArticle? : boolean,
 }
 
 
@@ -165,7 +166,7 @@ const SearchButton = styled.button`
     background-color: rgba(118, 142, 183, 0.3);
     border-radius: ${adpt(13)}px;
     border: 0;
-    margin: 0 ${adpt(8)}px ${adpt(34)}px ${adpt(8)}px;
+    margin: 0 ${adpt(8)}px ${adpt(30)}px ${adpt(8)}px;
     padding: ${adpt(15)}px;
     font: ${adpt(19)}px 'Montserrat-Medium';
     cursor: pointer;
@@ -226,7 +227,7 @@ export const ArticleButton = styled.button<Props>`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: ${props => props.big ? (props.similar ? adpt(680) : adpt(639)) : adpt(334)}px;
+    width: ${props => props.big ? (props.similar ? adpt(650) : adpt(639)) : adpt(334)}px;
     font: ${adpt(18)}px 'Montserrat-Regular';
     line-height: 1.5;
     background: none;
@@ -248,7 +249,7 @@ export const ArticleButton = styled.button<Props>`
     };
     
     .articleTitle{
-        width: ${props => props.big ? adpt(528) : adpt(276) }px;
+        width: ${props => props.big ? adpt(528) : (props => props.fromArticle? adpt(357) : adpt(276)) }px;
     }
 `
 

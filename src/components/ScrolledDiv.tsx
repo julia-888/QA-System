@@ -18,4 +18,14 @@ export const ScrolledDiv = styled.div`
         border-radius: ${adpt(10)}px;
         background-color: #5e7398;
     }
+/* 
+    &::-webkit-scrollbar:hover {
+        width: ${adpt(20)}px;
+    } */
+
+    /* 
+    &:hover::-webkit-scrollbar {
+        width: ${adpt(8)}px;
+    } */
+
 `

@@ -240,7 +240,7 @@ const QASystemFrame = styled.div<QASystemFrameDims>`
 const ArticlesDiv = styled(ScrolledDiv)<QASystemFrameDims>`
     max-height: ${p => p.big? adpt(720-65): adpt(660-65)}px;
     margin-right: ${p => p.big? adpt(36) : adpt(6)}px;
-    /* overflow-x: hidden; - на всякий случай */
+    overflow-x: hidden;
 `
 
 const Wrap = styled.div<WrapProps>`
