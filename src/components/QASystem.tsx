@@ -53,7 +53,7 @@ export default function QASystem() {
     const [articlesShowed, setArticlesShowed] = useState(articles.slice(0, 4));
 
     // Функция открытия статьи с определённым i. Изменяет i открытой статьи, т.е. articleOpenedID. articleID - это номер статьи в которую нужно перейти.
-    const openAndCloseArticle = (articleID: number, word?: string, fromTag?: boolean, fromArticle?: number, byButton?: boolean) => {
+    const openAndCloseArticle = (articleID: number, word?: string, fromTag?: boolean, fromArticle?: number, byButton?: boolean, byTag?: boolean) => {
         //Если статья закрывается, то размер окна изменяется на тот, который был до открытия статьи.
         //Если статья открывается, то в переменную previousWasBig записывается значение big на момент открытия.
         if (articleID == -1) {
@@ -64,7 +64,7 @@ export default function QASystem() {
             !fromTag && setSearchLineText("");
             fromArticle != undefined && byButton ? setPreviousArticle(fromArticle) : (fromArticle != undefined && previousArticle == -1 ? setPreviousArticle(fromArticle) : setPreviousArticle(-1));
             extendScreen(true);
-            setClickedTag(["", -1]);
+            !byTag && setClickedTag(["", -1]);
         }
         setArticleOpenedID(articleID);
         console.log(previousArticle);

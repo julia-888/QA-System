@@ -10,7 +10,7 @@ type TagProps = {
     word: string;
     clicked: boolean;
     articleNumber: number;
-    openAndCloseArticle: (article: number, word: string, fromTag: boolean, fromArticle: number) => void;
+    openAndCloseArticle: (article: number, word?: string, fromTag?: boolean, fromArticle?: number) => void;
     setClickedTag: (clickedTag: [string, number]) => void;
 };
 
@@ -19,7 +19,7 @@ export function Tag({articleNumber, clicked, word, openAndCloseArticle, setClick
     return (
         <TagButton clicked={clicked}
             onClick={(e) => {
-                !clicked ? openAndCloseArticle(-1, word, true, articleNumber) : setClickedTag(["", articleNumber]);
+                !clicked ? openAndCloseArticle(-1, word, true, articleNumber) : openAndCloseArticle(articleNumber);
             }}>
             <WordDiv>{word}</WordDiv>
             <div className='image'>{clicked ? (<CloseTagIcon/>) :(<SelectedIcon/>)}</div>

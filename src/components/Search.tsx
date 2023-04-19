@@ -17,7 +17,7 @@ import { Tag } from "./Tag";
 
 type SearchProps = {
     extendScreen: (big: boolean) => void;
-    openAndCloseArticle: (i: number, word?: string, fromTag?: boolean, fromArticle?: number) => void;
+    openAndCloseArticle: (i: number, word?: string, fromTag?: boolean, fromArticle?: number, byButton?: boolean, byTag?: boolean) => void;
     big: boolean;
     clickedKeyWords: string[];
     modifyclickedKeyWords: (keyWord: string, clicked: boolean) => void;
@@ -117,7 +117,7 @@ export default function Search( {extendScreen, openAndCloseArticle, big, modifyc
                     articlesShowed.map(article => (
                         <ArticleButton big={big}
                             onClick={() => {
-                                openAndCloseArticle(articles.indexOf(article));
+                                clickedTag[0] == "" ? openAndCloseArticle(articles.indexOf(article)): openAndCloseArticle(articles.indexOf(article), undefined, undefined, undefined, undefined, true);
                             }}>
                             <div className="articleTitle">{article.title}</div><div className="imgOpen"><OpenIcon/></div>
                         </ArticleButton>
