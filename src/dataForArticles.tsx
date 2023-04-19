@@ -5,7 +5,7 @@ export interface IArticle {
   subtitle?: string,
   note?: string,
   content: {
-    type: string,
+    type: "text" | "img" | "link" | "tezis" | "list",
     content: string,
     imgLabel?: string,
     linkText?: string,

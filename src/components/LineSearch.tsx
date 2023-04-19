@@ -66,7 +66,6 @@ const Line = styled(Div)<LineProps>`
         outline: none;
         font: ${adpt(19)}px 'Montserrat-Medium';
         width: ${adpt(500)}px;
-        margin-bottom: ${adpt(2)}px;
     }
     
     .button {
