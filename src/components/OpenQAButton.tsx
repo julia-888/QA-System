@@ -2,10 +2,8 @@ import styled from 'styled-components';
 import { Div } from './Div';
 import { adpt } from '../adaptive';
 import { useState } from 'react';
-import { ReactComponent as OpenHoverIcon} from "../icons/open_hover.svg";
-import { ReactComponent as OpenNotHoverIcon} from "../icons/open_not-hover.svg";
-import { ReactComponent as CloseHoverIcon} from "../icons/close_hover.svg";
-import { ReactComponent as CloseNotHoverIcon} from "../icons/close_not-hover.svg";
+import { ReactComponent as OpenQA} from "../icons/openQA.svg";
+import { ReactComponent as CloseQA} from "../icons/closeQA.svg";
 
 type Props = {
     openedQA: boolean;
@@ -13,18 +11,21 @@ type Props = {
 };
 
 export const OpenQAButton = ({openedQA, setOpenedQA}: Props) => {
-    const [hovered, setHovered] = useState(false);
+    // const [hovered, setHovered] = useState(false);
     return (
         <OpenCloseWrap>
-            <OpenCloseButton>
-                <div className="img" onClick={() => {setOpenedQA(!openedQA)}} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-                    {
-                        openedQA ? (hovered ? <CloseHoverIcon/> : <CloseNotHoverIcon/>) : (hovered ? <OpenHoverIcon/> : <OpenNotHoverIcon/>)
-                    }
-                </div>
+            <OpenCloseButton opened={openedQA}  onClick={() => {setOpenedQA(!openedQA)}}>
+                {/* onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}> */}
+                {
+                    openedQA ? (<div className="imgClose"><CloseQA/></div>) : (<div className="imgOpen"><OpenQA/></div>)
+                }
             </OpenCloseButton>
         </OpenCloseWrap>
     )
+}
+
+interface ButtonProps {
+    opened: boolean;
 }
 
 const OpenCloseWrap = styled(Div)`
@@ -33,17 +34,45 @@ const OpenCloseWrap = styled(Div)`
     left: 95vw;
 `
 
-const OpenCloseButton = styled.button`
+const OpenCloseButton = styled.button<ButtonProps>`
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: none;
-    background: none;
+    background-color: ${p => p.opened ? 'rgba(135, 157, 196, 55%)' : '#879DC4'};
 
-    .img {
-        height: ${adpt(60)}px;
-        width: ${adpt(60)}px;
+    border-radius: 50%;
+    height: ${adpt(60)}px;
+    width: ${adpt(60)}px;
+
+    transition: all 0.5s;
+
+    .imgOpen {
+        height: ${adpt(17)}px;
+        width: ${adpt(25)}px;
+        color: '#FF5E8A';
         /* задать размеры */
         svg {
             width: 100%;
             height: 100%;
+            color: '#FF5E8A';
         }
+    }
+
+    .imgClose {
+        height: ${adpt(16)}px;
+        width: ${adpt(16)}px;
+        color: '#FF5E8A';
+        /* задать размеры */
+        svg {
+            width: 100%;
+            height: 100%;
+            color: '#FF5E8A';
+        }
+
+    }
+
+    &:hover {
+        background-color: ${p => p.opened ? 'rgba(255, 94, 138, 17%)' : '#879DC4'};
     }
 `
