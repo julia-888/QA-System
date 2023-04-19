@@ -166,7 +166,7 @@ const SearchButton = styled.button`
     background-color: rgba(118, 142, 183, 0.3);
     border-radius: ${adpt(13)}px;
     border: 0;
-    margin: 0 ${adpt(8)}px ${adpt(30)}px ${adpt(8)}px;
+    margin: 0 ${adpt(8)}px ${adpt(28)}px ${adpt(8)}px;
     padding: ${adpt(15)}px;
     font: ${adpt(19)}px 'Montserrat-Medium';
     cursor: pointer;
@@ -189,7 +189,7 @@ const KeyWordsDiv = styled(Div)`
     border-radius: ${adpt(13)}px;
     flex-direction: column;
     margin-bottom: ${adpt(30)}px;
-    margin: 0 ${adpt(8)}px ${adpt(34)}px ${adpt(8)}px;
+    margin: 0 ${adpt(8)}px ${adpt(28)}px ${adpt(8)}px;
 `
 
 // Блок с ключевыми словами

@@ -15,14 +15,14 @@ import { ReactComponent as CompressIcon} from "../icons/compress.svg";
 import { ReactComponent as ExtendIcon} from "../icons/extend.svg";
 import Article from './Article';
 
-export default function QASystem() {
+export default function QASystem({openedQA}: {openedQA: boolean}) {
     //Координаты окна и функция его перемещения
     const [positionOfWindow, setpositionOfWindow] = useState({x: 0, y: 0});
     const bindpositionOfWindow = useDrag((params) => setpositionOfWindow({
         x: params.offset[0],
         y: params.offset[1],
         }),
-        { bounds: { left: adpt(-1000), right: 0, top: adpt(-180), bottom: 0 }
+        { bounds: { left: adpt(-1000), right: 0, top: adpt(-140), bottom: 0 }
     });
 
     // Нажатые ключевые слова
@@ -115,7 +115,7 @@ export default function QASystem() {
     }, [artHeader])
     
     return(
-        <Wrap positionOfWindow={positionOfWindow} big={big}>
+        <Wrap positionOfWindow={positionOfWindow} big={big} openedQA={openedQA}>
             <QASystemFrame big={big} >
                 <HeaderDiv big={big} isArticle={articleOpenedID != -1} id="artHeader" {...bindpositionOfWindow()} >
                     {
@@ -220,6 +220,7 @@ interface WrapProps {
     positionOfWindow: {x: number, y: number};
     //Размер окна влияет на стили: размеры, границы, отображение/не отображение элементов
     big: boolean;
+    openedQA: boolean
 }
 
 interface QASystemFrameDims {
@@ -244,9 +245,11 @@ const ArticlesDiv = styled(ScrolledDiv)<QASystemFrameDims>`
 `
 
 const Wrap = styled.div<WrapProps>`
+    /* display: ${p => p.openedQA ? 'block' : 'none'}; */
+    visibility: ${p => p.openedQA ? 'visible' : 'hidden'};
     position: relative;
-    top: calc(${p => p.positionOfWindow.y}px + 96vh - ${p => p.big? adpt(730): adpt(672)}px);
-    left: calc(${p => p.positionOfWindow.x}px + 97vw - ${p => p.big? adpt(850) : adpt(420) }px);
+    top: calc(${p => p.positionOfWindow.y}px + 91vh - ${p => p.big? adpt(730): adpt(672)}px);
+    left: calc(${p => p.positionOfWindow.x}px + 98vw - ${p => p.big? adpt(850) : adpt(420) }px);
     width: ${p => p.big? adpt(855) : adpt(425) }px;
     height: ${p => p.big? adpt(730): adpt(672)}px;
 `
