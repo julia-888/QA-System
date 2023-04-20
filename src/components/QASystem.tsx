@@ -8,7 +8,7 @@ import { ScrolledDiv } from './ScrolledDiv';
 import { FilterArticlesByKeys } from '../functions/FilterArticlesByKeys';
 import { HeaderDiv } from './HeaderDiv';
 import { ReactComponent as MoveIcon} from "../icons/move.svg";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useDrag } from 'react-use-gesture';
 import { ReactComponent as BackIcon} from "../icons/back.svg";
 import { ReactComponent as CompressIcon} from "../icons/compress.svg";
@@ -16,6 +16,16 @@ import { ReactComponent as ExtendIcon} from "../icons/extend.svg";
 import Article from './Article';
 
 export default function QASystem({openedQA}: {openedQA: boolean}) {
+
+    const wrap = useRef<any>(null)
+
+    useEffect(() => {
+        if(wrap && wrap.current) wrap.current.style.transition = 'all 0.3s'
+        setTimeout(() => {
+            
+        }, 500);
+    }, [openedQA])
+    
     //Координаты окна и функция его перемещения
     const [positionOfWindow, setpositionOfWindow] = useState({x: 0, y: 0});
     const bindpositionOfWindow = useDrag((params) => setpositionOfWindow({
@@ -115,7 +125,7 @@ export default function QASystem({openedQA}: {openedQA: boolean}) {
     }, [artHeader])
     
     return(
-        <Wrap positionOfWindow={positionOfWindow} big={big} openedQA={openedQA}>
+        <Wrap positionOfWindow={positionOfWindow} big={big} openedQA={openedQA} ref={wrap}>
             <QASystemFrame big={big} >
                 <HeaderDiv big={big} isArticle={articleOpenedID != -1} id="artHeader" {...bindpositionOfWindow()} >
                     {

@@ -2,30 +2,30 @@ import styled from 'styled-components';
 import { Div } from './Div';
 import { adpt } from '../adaptive';
 import { useState } from 'react';
-import { ReactComponent as OpenQA} from "../icons/openQA.svg";
-import { ReactComponent as CloseQA} from "../icons/closeQA.svg";
+import { ReactComponent as OpenQA } from "../icons/openQA.svg";
+import { ReactComponent as CloseQA } from "../icons/closeQA.svg";
 
 type Props = {
-    openedQA: boolean;
-    setOpenedQA: (state: boolean) => void;
+  openedQA: boolean;
+  setOpenedQA: (state: boolean) => void;
 };
 
-export const OpenQAButton = ({openedQA, setOpenedQA}: Props) => {
-    // const [hovered, setHovered] = useState(false);
-    return (
-        <OpenCloseWrap>
-            <OpenCloseButton opened={openedQA}  onClick={() => {setOpenedQA(!openedQA)}}>
-                {/* onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}> */}
-                {
-                    openedQA ? (<div className="imgClose"><CloseQA/></div>) : (<div className="imgOpen"><OpenQA/></div>)
-                }
-            </OpenCloseButton>
-        </OpenCloseWrap>
-    )
+export const OpenQAButton = ({ openedQA, setOpenedQA }: Props) => {
+  // const [hovered, setHovered] = useState(false);
+  return (
+    <OpenCloseWrap>
+      <OpenCloseButton opened={openedQA} onClick={() => { setOpenedQA(!openedQA) }}>
+        {/* onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}> */}
+        {
+          openedQA ? (<div className="imgClose"><CloseQA /></div>) : (<div className="imgOpen"><OpenQA /></div>)
+        }
+      </OpenCloseButton>
+    </OpenCloseWrap>
+  )
 }
 
 interface ButtonProps {
-    opened: boolean;
+  opened: boolean;
 }
 
 const OpenCloseWrap = styled(Div)`
@@ -34,7 +34,12 @@ const OpenCloseWrap = styled(Div)`
     left: 95vw;
 `
 
-const OpenCloseButton = styled(Div)<ButtonProps>`
+// const Wrap = styled.div`
+//   color: red;
+// `
+
+const OpenCloseButton = styled.button<ButtonProps>`
+    display: flex;
     align-items: center;
     justify-content: center;
     border: none;
@@ -49,8 +54,7 @@ const OpenCloseButton = styled(Div)<ButtonProps>`
     .imgOpen {
         height: ${adpt(17)}px;
         width: ${adpt(25)}px;
-        color: #FFF;
-        /* задать размеры */
+        color: #FF5E8A;
         svg {
             width: 100%;
             height: 100%;
@@ -62,8 +66,7 @@ const OpenCloseButton = styled(Div)<ButtonProps>`
     .imgClose {
         height: ${adpt(16)}px;
         width: ${adpt(16)}px;
-        color: #FFF;
-        /* задать размеры */
+        color: #FF5E8A;
         svg {
             width: 100%;
             height: 100%;
