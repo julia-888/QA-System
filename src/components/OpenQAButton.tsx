@@ -54,7 +54,7 @@ const OpenCloseButton = styled.button<ButtonProps>`
     .imgOpen {
         height: ${adpt(17)}px;
         width: ${adpt(25)}px;
-        color: #FF5E8A;
+        color: white;
         svg {
             width: 100%;
             height: 100%;
@@ -66,7 +66,7 @@ const OpenCloseButton = styled.button<ButtonProps>`
     .imgClose {
         height: ${adpt(16)}px;
         width: ${adpt(16)}px;
-        color: #FF5E8A;
+        color: white;
         svg {
             width: 100%;
             height: 100%;

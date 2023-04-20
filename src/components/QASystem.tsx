@@ -18,11 +18,12 @@ import Article from './Article';
 export default function QASystem({openedQA}: {openedQA: boolean}) {
 
     const wrap = useRef<any>(null)
-
     useEffect(() => {
-        if(wrap && wrap.current) wrap.current.style.transition = 'all 0.3s'
+        // Тут 
+        // if(coord === 0)
+        if(wrap && wrap.current) wrap.current.style.transition = 'all 0.3s cubic-bezier(0.77, 0, 0.175, 1)'
         setTimeout(() => {
-            
+            if(wrap && wrap.current) wrap.current.style.transition = 'all 0s'
         }, 500);
     }, [openedQA])
     
@@ -255,7 +256,7 @@ const ArticlesDiv = styled(ScrolledDiv)<QASystemFrameDims>`
 `
 
 const Wrap = styled.div<WrapProps>`
-    transition: all .3s linear;
+    /* transition: all .3s linear; */
     /* visibility: ${p => p.openedQA ? 'visible' : 'hidden'}; */
     position: fixed;
     top: calc(${p => p.positionOfWindow.y}px + 90vh - ${p => p.big? adpt(730): adpt(672)}px);
