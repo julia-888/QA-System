@@ -30,12 +30,11 @@ interface ButtonProps {
 
 const OpenCloseWrap = styled(Div)`
     position: fixed;
-    top: 93vh;
+    top: 92vh;
     left: 95vw;
 `
 
-const OpenCloseButton = styled.button<ButtonProps>`
-    display: flex;
+const OpenCloseButton = styled(Div)<ButtonProps>`
     align-items: center;
     justify-content: center;
     border: none;
@@ -50,29 +49,32 @@ const OpenCloseButton = styled.button<ButtonProps>`
     .imgOpen {
         height: ${adpt(17)}px;
         width: ${adpt(25)}px;
-        color: '#FF5E8A';
+        color: #FFF;
         /* задать размеры */
         svg {
             width: 100%;
             height: 100%;
-            color: '#FF5E8A';
         }
+
+        transition: all 0.5s;
     }
 
     .imgClose {
         height: ${adpt(16)}px;
         width: ${adpt(16)}px;
-        color: '#FF5E8A';
+        color: #FFF;
         /* задать размеры */
         svg {
             width: 100%;
             height: 100%;
-            color: '#FF5E8A';
         }
 
+        transition: all 0.5s;
     }
 
     &:hover {
         background-color: ${p => p.opened ? 'rgba(255, 94, 138, 17%)' : '#879DC4'};
+        .imgOpen { color: #E5EEFF; }
+        .imgClose { color: #FF5E8A; }
     }
 `

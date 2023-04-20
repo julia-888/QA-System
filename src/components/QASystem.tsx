@@ -245,11 +245,14 @@ const ArticlesDiv = styled(ScrolledDiv)<QASystemFrameDims>`
 `
 
 const Wrap = styled.div<WrapProps>`
-    /* display: ${p => p.openedQA ? 'block' : 'none'}; */
-    visibility: ${p => p.openedQA ? 'visible' : 'hidden'};
-    position: relative;
-    top: calc(${p => p.positionOfWindow.y}px + 91vh - ${p => p.big? adpt(730): adpt(672)}px);
+    transition: all .3s linear;
+    /* visibility: ${p => p.openedQA ? 'visible' : 'hidden'}; */
+    position: fixed;
+    top: calc(${p => p.positionOfWindow.y}px + 90vh - ${p => p.big? adpt(730): adpt(672)}px);
     left: calc(${p => p.positionOfWindow.x}px + 98vw - ${p => p.big? adpt(850) : adpt(420) }px);
-    width: ${p => p.big? adpt(855) : adpt(425) }px;
+    ${
+        p => !p.openedQA && 'left: 100vw;'
+    }
+    width: ${p => p.big? adpt(855) : adpt(425)}px;
     height: ${p => p.big? adpt(730): adpt(672)}px;
 `
