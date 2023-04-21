@@ -20,7 +20,7 @@ export const OpenQAButton = ({ opened, setOpened, openedQA, setOpenedQA }: Props
       }}>
         {/* onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}> */}
         {
-          openedQA ? (<div className="imgClose"><CloseQA /></div>) : (<div className="imgOpen"><OpenQA /></div>)
+          opened ? (<div className="imgClose"><CloseQA /></div>) : (<div className="imgOpen"><OpenQA /></div>)
         }
       </OpenCloseButton>
     </OpenCloseWrap>
@@ -60,8 +60,6 @@ const OpenCloseButton = styled.button<ButtonProps>`
             width: 100%;
             height: 100%;
         }
-
-        transition: all 0.5s;
     }
 
     .imgClose {
@@ -77,7 +75,7 @@ const OpenCloseButton = styled.button<ButtonProps>`
     }
 
     &:hover {
-        background-color: ${p => p.opened ? 'rgba(255, 94, 138, 17%)' : '#879DC4'};
+        background-color: ${p => p.opened && 'rgba(255, 94, 138, 17%)'};
         .imgOpen { color: #E5EEFF; }
         .imgClose { color: #FF5E8A; }
     }
