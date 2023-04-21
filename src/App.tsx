@@ -13,17 +13,10 @@ function App() {
     opened && setOpenedQA(true);
 }, [opened])
 
-  useEffect(() => {
-    !openedQA && 
-    setTimeout(() => {
-      setOpened(false)
-    }, 500);
-  }, [openedQA])
-
   return (
     <AppWrap>
       {/* QA-System - окно с приложением */}
-        {opened && <QASystem openedQA={openedQA} />}
+        {opened && <QASystem openedQA={openedQA} setOpened={setOpened} opened={opened} />}
         <OpenQAButton opened={opened} setOpened={setOpened} openedQA={openedQA} setOpenedQA={setOpenedQA} />
     </AppWrap>
   );

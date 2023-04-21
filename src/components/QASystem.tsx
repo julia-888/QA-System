@@ -15,18 +15,38 @@ import { ReactComponent as CompressIcon} from "../icons/compress.svg";
 import { ReactComponent as ExtendIcon} from "../icons/extend.svg";
 import Article from './Article';
 
-export default function QASystem({openedQA}: {openedQA: boolean}) {
+type Props = {
+    setOpened: (state: boolean) => void;
+    openedQA: boolean;
+    opened: boolean;
+  };
+
+
+export default function QASystem({openedQA, opened, setOpened}: Props) {
+    const [previousOpenedQA, setPreviousOpenedQA] = useState(false);
 
     const wrap = useRef<any>(null)
     useEffect(() => {
         if(positionOfWindow.x === 0) {
           if(wrap && wrap.current) wrap.current.style.transition = 'all 0.3s cubic-bezier(0.77, 0, 0.175, 1)'
           setTimeout(() => {
-              if(wrap && wrap.current) wrap.current.style.transition = 'all 0s'
+              if(wrap && wrap.current) {wrap.current.style.transition = 'all 0s'}
+              setPreviousOpenedQA(!previousOpenedQA);
           }, 500);
         }
     }, [openedQA])
-    
+
+    useEffect(() => {
+        if (previousOpenedQA && positionOfWindow.x === 0) {
+            setTimeout(() => {
+              setOpened(false);
+            }, 500);
+        }
+        if (previousOpenedQA && positionOfWindow.x !== 0 ) {
+            setOpened(false);
+        }
+      }, [openedQA])
+
     //Координаты окна и функция его перемещения
     const [positionOfWindow, setpositionOfWindow] = useState({x: 0, y: 0});
     const bindpositionOfWindow = useDrag((params) => setpositionOfWindow({
