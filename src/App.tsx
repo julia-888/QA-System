@@ -10,14 +10,21 @@ function App() {
   const [opened, setOpened] = useState(false);
 
   useEffect(() => {
-    opened ? setOpenedQA(true) : setOpenedQA(false);
+    opened && setOpenedQA(true);
 }, [opened])
+
+  useEffect(() => {
+    !openedQA && 
+    setTimeout(() => {
+      setOpened(false)
+    }, 500);
+  }, [openedQA])
 
   return (
     <AppWrap>
       {/* QA-System - окно с приложением */}
         {opened && <QASystem openedQA={openedQA} />}
-        <OpenQAButton opened={opened} setOpened={setOpened}/>
+        <OpenQAButton opened={opened} setOpened={setOpened} openedQA={openedQA} setOpenedQA={setOpenedQA} />
     </AppWrap>
   );
 }

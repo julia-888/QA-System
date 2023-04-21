@@ -33,7 +33,7 @@ export default function QASystem({openedQA}: {openedQA: boolean}) {
         x: params.offset[0],
         y: params.offset[1],
         }),
-        { bounds: { left: adpt(-1000), right: 0, top: adpt(-130), bottom: 0 }
+        { bounds: { left: adpt(-1000), right: 0, top: adpt(-105), bottom: 0 }
     });
 
     // Нажатые ключевые слова
