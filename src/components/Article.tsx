@@ -25,12 +25,11 @@ type ArticleProps = {
     big: boolean;
     openAndCloseArticle: (articleID: number, word?: string, fromTag?: boolean, fromArticle?: number, byButton? : boolean) => void;
     extendScreen: (big: boolean) => void;
-    setpositionOfWindow: ({x, y}: {x: number, y: number}) => void;
     setClickedTag: (clickedTag: [string, number]) => void;
     artHeader?: number;
 };
 
-export default function Article({i, big, openAndCloseArticle, extendScreen, setpositionOfWindow, setClickedTag, artHeader}: ArticleProps) {
+export default function Article({i, big, openAndCloseArticle, extendScreen, setClickedTag, artHeader}: ArticleProps) {
     return (
         <div>
             <ContentDiv big={big} artHeader={artHeader}>

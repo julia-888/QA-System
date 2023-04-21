@@ -20,11 +20,12 @@ export default function QASystem({openedQA}: {openedQA: boolean}) {
     const wrap = useRef<any>(null)
     useEffect(() => {
         // Тут 
-        // if(coord === 0)
-        if(wrap && wrap.current) wrap.current.style.transition = 'all 0.3s cubic-bezier(0.77, 0, 0.175, 1)'
-        setTimeout(() => {
-            if(wrap && wrap.current) wrap.current.style.transition = 'all 0s'
-        }, 500);
+        if(positionOfWindow.x === 0) {
+          if(wrap && wrap.current) wrap.current.style.transition = 'all 0.3s cubic-bezier(0.77, 0, 0.175, 1)'
+          setTimeout(() => {
+              if(wrap && wrap.current) wrap.current.style.transition = 'all 0s'
+          }, 500);
+        }
     }, [openedQA])
     
     //Координаты окна и функция его перемещения
@@ -215,8 +216,7 @@ export default function QASystem({openedQA}: {openedQA: boolean}) {
                         <Article big={ big }
                                  i={ articleOpenedID }
                                  openAndCloseArticle={openAndCloseArticle} 
-                                 extendScreen={extendScreen} 
-                                 setpositionOfWindow={setpositionOfWindow} 
+                                 extendScreen={extendScreen}
                                  setClickedTag={setClickedTag}
                                  artHeader={artHeader} />
                     )

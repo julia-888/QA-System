@@ -34,10 +34,6 @@ const OpenCloseWrap = styled(Div)`
     left: 95vw;
 `
 
-// const Wrap = styled.div`
-//   color: red;
-// `
-
 const OpenCloseButton = styled.button<ButtonProps>`
     display: flex;
     align-items: center;
@@ -50,6 +46,8 @@ const OpenCloseButton = styled.button<ButtonProps>`
     width: ${adpt(60)}px;
 
     transition: all 0.5s;
+
+    cursor: pointer;
 
     .imgOpen {
         height: ${adpt(17)}px;
