@@ -19,7 +19,6 @@ export default function QASystem({openedQA}: {openedQA: boolean}) {
 
     const wrap = useRef<any>(null)
     useEffect(() => {
-        // Тут 
         if(positionOfWindow.x === 0) {
           if(wrap && wrap.current) wrap.current.style.transition = 'all 0.3s cubic-bezier(0.77, 0, 0.175, 1)'
           setTimeout(() => {
@@ -34,7 +33,7 @@ export default function QASystem({openedQA}: {openedQA: boolean}) {
         x: params.offset[0],
         y: params.offset[1],
         }),
-        { bounds: { left: adpt(-1000), right: 0, top: adpt(-140), bottom: 0 }
+        { bounds: { left: adpt(-1000), right: 0, top: adpt(-130), bottom: 0 }
     });
 
     // Нажатые ключевые слова

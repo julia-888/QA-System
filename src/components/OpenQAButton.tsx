@@ -6,18 +6,18 @@ import { ReactComponent as OpenQA } from "../icons/openQA.svg";
 import { ReactComponent as CloseQA } from "../icons/closeQA.svg";
 
 type Props = {
-  openedQA: boolean;
-  setOpenedQA: (state: boolean) => void;
+  opened: boolean;
+  setOpened: (state: boolean) => void;
 };
 
-export const OpenQAButton = ({ openedQA, setOpenedQA }: Props) => {
+export const OpenQAButton = ({ opened, setOpened }: Props) => {
   // const [hovered, setHovered] = useState(false);
   return (
     <OpenCloseWrap>
-      <OpenCloseButton opened={openedQA} onClick={() => { setOpenedQA(!openedQA) }}>
+      <OpenCloseButton opened={opened} onClick={() => { setOpened(!opened) }}>
         {/* onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}> */}
         {
-          openedQA ? (<div className="imgClose"><CloseQA /></div>) : (<div className="imgOpen"><OpenQA /></div>)
+          opened ? (<div className="imgClose"><CloseQA /></div>) : (<div className="imgOpen"><OpenQA /></div>)
         }
       </OpenCloseButton>
     </OpenCloseWrap>
